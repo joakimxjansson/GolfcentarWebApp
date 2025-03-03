@@ -8,3 +8,5 @@ public class Product
     public decimal ProdPrice { get; set; }
     public string ProdImage { get; set; }
 }
+
+public class test { }
