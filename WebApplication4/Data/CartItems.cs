@@ -6,8 +6,3 @@ public class CartItems {
     public int Quantity { get; set; }
     public int TotalPrice { get; set; }
 }
-
-public class test
-{
-
-}
