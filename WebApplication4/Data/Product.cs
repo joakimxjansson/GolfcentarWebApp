@@ -1,6 +1,6 @@
 namespace WebApplication4.Data;
 
-public class Product
+public class Producttt
 {
     public int ProductId { get; set; }
     public string ProdName { get; set; }
