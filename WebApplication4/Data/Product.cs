@@ -9,4 +9,3 @@ public class Product
     public string ProdImage { get; set; }
 }
 
-public class test { }
