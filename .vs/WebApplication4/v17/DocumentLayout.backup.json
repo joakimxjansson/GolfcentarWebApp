@@ -1,0 +1,157 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\patri\\source\\repos\\WebApplication4\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|c:\\users\\patri\\source\\repos\\webapplication4\\webapplication4\\pages\\checkout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|solutionrelative:webapplication4\\pages\\checkout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|c:\\users\\patri\\source\\repos\\webapplication4\\webapplication4\\pages\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|solutionrelative:webapplication4\\pages\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|c:\\users\\patri\\source\\repos\\webapplication4\\webapplication4\\migrations\\20250303124923_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|solutionrelative:webapplication4\\migrations\\20250303124923_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|c:\\users\\patri\\source\\repos\\webapplication4\\webapplication4\\migrations\\20250303124923_initialcreate.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|solutionrelative:webapplication4\\migrations\\20250303124923_initialcreate.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|c:\\users\\patri\\source\\repos\\webapplication4\\webapplication4\\webapplication4.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{AB37C4E5-6092-4DC7-ABBA-AA27CFAE8D07}|WebApplication4\\WebApplication4.csproj|solutionrelative:webapplication4\\webapplication4.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "checkout.cshtml",
+              "DocumentMoniker": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Pages\\checkout.cshtml",
+              "RelativeDocumentMoniker": "WebApplication4\\Pages\\checkout.cshtml",
+              "ToolTip": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Pages\\checkout.cshtml",
+              "RelativeToolTip": "WebApplication4\\Pages\\checkout.cshtml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAACoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-03T12:54:02.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "checkout.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Pages\\checkout.cshtml.cs",
+              "RelativeDocumentMoniker": "WebApplication4\\Pages\\checkout.cshtml.cs",
+              "ToolTip": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Pages\\checkout.cshtml.cs",
+              "RelativeToolTip": "WebApplication4\\Pages\\checkout.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T12:53:10.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:4:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:9:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:10:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:8:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1398918675:0:{bf84ea66-d821-4dba-b1b1-2777d8574775}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:5:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:6:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:7:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "20250303124923_InitialCreate.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Migrations\\20250303124923_InitialCreate.Designer.cs",
+              "RelativeDocumentMoniker": "WebApplication4\\Migrations\\20250303124923_InitialCreate.Designer.cs",
+              "ToolTip": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Migrations\\20250303124923_InitialCreate.Designer.cs",
+              "RelativeToolTip": "WebApplication4\\Migrations\\20250303124923_InitialCreate.Designer.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T12:50:08.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20250303124923_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Migrations\\20250303124923_InitialCreate.cs",
+              "RelativeDocumentMoniker": "WebApplication4\\Migrations\\20250303124923_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\patri\\source\\repos\\WebApplication4\\WebApplication4\\Migrations\\20250303124923_InitialCreate.cs",
+              "RelativeToolTip": "WebApplication4\\Migrations\\20250303124923_InitialCreate.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T12:49:24.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WebApplication4",
+              "DocumentMoniker": "C:\\Users\\patri\\Source\\Repos\\WebApplication4\\WebApplication4\\WebApplication4.csproj",
+              "RelativeDocumentMoniker": "WebApplication4\\WebApplication4.csproj",
+              "ToolTip": "C:\\Users\\patri\\Source\\Repos\\WebApplication4\\WebApplication4\\WebApplication4.csproj",
+              "RelativeToolTip": "WebApplication4\\WebApplication4.csproj",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-03T12:45:34.011Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
