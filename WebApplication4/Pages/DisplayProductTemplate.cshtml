@@ -1,0 +1,17 @@
+﻿@page
+@model WebApplication4.Pages.DisplayProductTemplateModel
+@{
+    ViewData["Title"] = "Product Template";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Centar golfklubb</h1>
+    <p>produktmall.</p>
+</div>
+
+<!-- Produktmall för att visa produkten- Anton -->
+<div class="product-container">
+
+    <!--partial view - Anton -->
+    <partial name="_ProduktMall" model="Model.Product" />
+</div>
