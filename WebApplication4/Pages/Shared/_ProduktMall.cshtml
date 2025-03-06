@@ -1,0 +1,88 @@
+﻿@* partial view för att kunna använda i olika vyer i appen - anton *@
+
+@model Product
+
+
+@*Html för mallen- Anton*@
+
+<div class="template">
+    <img src="@Url.Content("~/images/" + Model.ProdImage)" class="template-img" alt="@Model.ProdName">
+    <div class="template-body">
+        <h5 class="template-title">@Model.ProdName</h5>
+        <p class="template-text">@Model.ProdDescription</p>
+        <p class="template-price">@Model.ProdPrice kr</p>
+        
+        <button class="addToCart">Lägg till i kundvagn</button>
+    </div>
+</div>
+
+@*css för mallen och bilder- Anton*@
+<style>
+    .template {
+        background-color: #bbbb77;
+        color: #55552b;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1em;
+        padding: 1em;
+        border: 2px solid #55552b;
+        border-radius: 10px;
+        width: 17em;
+    }
+
+    .template-img {
+        width: 90%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid #55552b;
+    }
+
+    .template-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .template-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .template-text {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .template-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .addToCart {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        width: 13em;
+        height: 35px;
+        transition: 0.5s;
+        font-weight: 500;
+
+    }
+
+        .addToCart:hover {
+            background-color: #218838;
+            box-shadow: none;
+        }
+</style>
+@*Slut på css för mallen och bilder- Anton*@
