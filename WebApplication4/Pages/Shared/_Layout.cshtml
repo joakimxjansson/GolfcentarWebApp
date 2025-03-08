@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/WebApplication4.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/oldstyles.css" asp-append-version="true"/>
 </head>
 <body>
-<header>
+@* <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-page="/Index">WebApplication4</a>
@@ -30,6 +31,52 @@
             </div>
         </div>
     </nav>
+</header> *@
+<header>
+        <a asp-page="/Index"><img src="images/Centar.gif" alt="logga" class="logo"></a>
+        <nav class="navbar">
+            <a asp-page="Index">Startsida</a>
+            <a asp-page="/OldPages/AboutUs">Om oss</a>           
+            <a asp-page="/OldPages/Booking">Boka</a>
+            <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
+            <a asp-page="UserSection">Medlem</a>
+            <a asp-page="/OldPages/Contact">Kontakta oss</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Restaurang och shop</a>
+                <div class="dropdown-content">
+                    <a asp-page="/OldPages/Restaurant">Restaurang</a>
+                    <a asp-page="/OldPages/Shop">Shop</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Knapp för logga in-->
+        <div>
+            <button class="buttonLogInLS" onclick="location.href='medlemssektion.html'">Logga in</button>
+        </div>
+        <!-- slut-->
+        <!--Hamburgermeny start-->
+        <nav class="hamburgermeny">
+
+            <input type="checkbox" id="menu-toggle" class="checkbox-toggle">
+            <label for="menu-toggle" class="menu-button-container">
+            </label>
+            <i class="fa-solid fa-bars fa-bar-static"></i>
+            <i class="fa-solid fa-bars fa-beat-fade"></i>
+
+            <ul class="menu">
+                <li><a href="index.html" class="aktiv-link"><i class="fa-solid fa-house"></i>Startsida</a></li>
+                <li><a href="om-oss.html"><i class="fa-solid fa-circle-user"></i>Om oss</a></li>
+                <li><a href="boka.html"><i class="fa-solid fa-circle-check"></i>Boka</a></li>
+                <li><a href="events.html"><i class="fa-solid fa-calendar-days"></i>Tävlingar och Evenemang</a></li>
+                <li><a href="medlemssektion.html"><i class="fa-solid fa-user"></i>Medlem</a></li>
+                <li><a href="kontakt.html"><i class="fa-regular fa-address-card"></i>Kontakta oss</a></li>
+                <li><a href="restaurang.html"><i class="fa-solid fa-utensils"></i>Restaurang</a></li>
+                <li><a href="shop.html"><i class="fa-solid fa-shop"></i>Shop</a></li>
+            </ul>
+
+        </nav>
+        <!--Hamburgermeny slut-->
 </header>
 <div class="container">
     <main role="main" class="pb-3">

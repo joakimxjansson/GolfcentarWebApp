@@ -1,0 +1,69 @@
+﻿@page
+@model WebApplication4.Pages.OldPages.ContactModel
+@{
+}
+<h1 class="kon">Kontakt och besökstider</h1>
+
+<div class="kontakt-container">
+<!--Öppettider, kontaktuppgifter, besöksadress-->
+<div class="kontakt-info">
+    <section class="kontakt-vanster">
+        <h2 class="h2-an">Öppettider:</h2>
+        <p>
+        <p class="bold-sh-an">Öppettider shopen:</p>
+        Måndag-Fredag: 10.00-22.00 <br>
+        Lördag-Söndag: 09.00-16.00
+
+        <p class="bold-re-an">Öppettider restaurangen:</p>
+        Söndag - Torsdag: 16.00-20.00<br>
+        Fredag - Lördag: 14.00-22.00
+        <p class="bold-ba-an">Öppettider banan:</p>
+        Alla dagar: 07.00-23.00
+        </p>
+
+        <h2 class="h2-an">Kontaktuppgifter:</h2>
+        <p>
+        <p class="bold-te-an">Telefon:</p> +46 (0)735029869
+        <br>
+        <p class="bold-ep-an">E-post: </p><a href="mailto:info@centargolf.com">info@centargolf.com</a>
+        <p>Eller skicka ett meddelande i formuläret nedan.</p>
+        </p>
+    </section>
+
+    <address class="kontakt-hoger">
+        <h2 class="h2-an">Besöksadress:</h2>
+        <p class="kontakt-besok">
+            Centar Golfklubb <br>
+            Dömle 1 <br>
+            669 91 Deje
+        </p>
+
+        <p class="bold-va-an">Vägbeskrivning:</p>
+        <p>
+            (Följ 62:an 3 mil norr om Karlstad, i höjd med Deje svänger du av mot dömlevägen på vänster
+            sida.)
+        </p>
+
+        <!--Karta-->
+        <iframe class="karta-an"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d188900.2094028477!2d13.353190395412547!3d59.54407505553044!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46433491849889ad%3A0xd07461a53ef0ac0e!2sForshagaDeje%20Golf%20Club!5e0!3m2!1sen!2sse!4v1728379554287!5m2!1sen!2sse"
+                width="310" height="180" style="border:1;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+    </address>
+</div>
+
+<!--Formulär-->
+
+<div class="form-container-an">
+    <h3>Frågor eller feedback? <br> Hör gärna av dig till oss:</h3>
+    <form>
+        <textarea name="Comments" cols="40rem" rows="8"></textarea>
+        <br><br>
+        <label for="email" id="dinepost-an">Din e-postadress:</label>
+        <input type="text" name="email" id="email-an" placeholder="  exempel@hotmail.com"> <br>
+        <input id="submit-an" type="submit" value="Skicka">
+    </form>
+</div>
+</div>
