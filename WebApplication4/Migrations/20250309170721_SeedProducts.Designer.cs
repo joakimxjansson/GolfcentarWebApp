@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication4.Data;
 
@@ -11,9 +12,11 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    partial class GolfContextModelSnapshot : ModelSnapshot
+    [Migration("20250309170721_SeedProducts")]
+    partial class SeedProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,21 +308,13 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>
                 {
-<<<<<<< Updated upstream
                     b.HasOne("WebApplication4.Data.Product", "Product")
-=======
-                    b.HasOne("WebApplication4.Data.Product", "Prod")
->>>>>>> Stashed changes
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-<<<<<<< Updated upstream
                     b.Navigation("Product");
-=======
-                    b.Navigation("Prod");
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Order", b =>
