@@ -1,24 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication4.Pages
 {
+
+    //hämta produkter från databas och visa på sidan- Anton
+
     public class DisplayProductTemplateModel : PageModel
     {
-        public Product Product { get; set; }
-
-        public void OnGet()
+       private readonly GolfContext _context;
+        public DisplayProductTemplateModel(GolfContext context)
         {
-            // hårdkodad produktförslag till mallen
-            Product = new Product
-            {
-                ProductId = 1,
-                ProdName = "Golfklubba Driver",
-                ProdDescription = "Fin driver av högsta kvalité",
-                ProdPrice = 2599,
-                ProdImage = "driver.jpg"
-            };
+            _context = context;
+        }
+        
+        public List<Product> Product { get; set; } = new List<Product>();
+
+        public async Task OnGetAsync()
+        {
+            Product = await _context.Product.ToListAsync();
         }
     }
 }
