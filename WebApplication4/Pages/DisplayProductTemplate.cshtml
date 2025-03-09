@@ -9,9 +9,21 @@
     <p>produktmall.</p>
 </div>
 
-<!-- Produktmall för att visa produkten- Anton -->
+<!-- foreach loop för att visa alla produkterna i mallen- Anton -->
 <div class="product-container">
-
-    <!--partial view - Anton -->
-    <partial name="_ProduktMall" model="Model.Product" />
+    @foreach (var product in Model.Product)
+    {
+        <!--partial view - Anton -->
+        <partial name="_ProduktMall" model="product" />
+    }
 </div>
+
+<!--Styling för hur produkterna ska visas - Anton -->
+<style>
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        justify-content: center;
+    }
+</style>
