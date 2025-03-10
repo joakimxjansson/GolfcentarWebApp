@@ -1,5 +1,6 @@
 using WebApplication4.Data;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("LoginConnectionString");
@@ -9,6 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("LoginConnectio
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<GolfContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+builder.Services.AddScoped<CartService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +28,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapStaticAssets();
 app.MapRazorPages()
