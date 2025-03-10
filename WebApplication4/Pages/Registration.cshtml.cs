@@ -26,14 +26,15 @@ namespace WebApplication4.Pages
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                Message = "Försök igen";
+                return Page(); //felaktig reg
             }
 
             _db.User.Add(User);
             await _db.SaveChangesAsync();
 
             Message = "Du har registrerat dig!";
-            return Page();
+            return RedirectToPage("/Login"); //giltig reg, redirect till login-sida
         }
 
         
