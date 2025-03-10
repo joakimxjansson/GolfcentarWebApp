@@ -205,6 +205,7 @@ namespace WebApplication4.Migrations
                             ProdPrice = 39m
                         });
 
+
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Review", b =>
@@ -308,7 +309,9 @@ namespace WebApplication4.Migrations
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>
                 {
 
+
                     b.HasOne("WebApplication4.Data.Product", "Product")
+
 
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -317,6 +320,7 @@ namespace WebApplication4.Migrations
 
 
                     b.Navigation("Product");
+
 
                 });
 
