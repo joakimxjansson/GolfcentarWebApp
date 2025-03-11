@@ -13,8 +13,8 @@ namespace WebApplication4.Pages
         {
             _db = db;
         }
-
-        public User User { get; set; }
+[BindProperty]
+        public User User { get; set; } = new User();
 
         public string Message { get; set; }
 
@@ -26,11 +26,16 @@ namespace WebApplication4.Pages
         {
             if (!ModelState.IsValid)
             {
-                Message = "Försök igen";
+                Message = "FÃ¶rsÃ¶k igen";
                 return Page(); //felaktig reg
             }
+            if (string.IsNullOrEmpty(User.Email))
+            {
+                Message = "Email Ã¤r obligatoriskt!";
+                return Page();
+            }
 
-            _db.User.Add(User);
+            _db.Users.Add(User);
             await _db.SaveChangesAsync();
 
             Message = "Du har registrerat dig!";
