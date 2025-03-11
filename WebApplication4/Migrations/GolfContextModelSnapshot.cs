@@ -239,13 +239,21 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>
                 {
-                    b.HasOne("WebApplication4.Data.Product", "Product")
+
+                    b.HasOne("WebApplication4.Data.Product", "Product");
+
+                    b.HasOne("WebApplication4.Data.Product", "Prod")
+
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+<<<<<<< Updated upstream
                     b.Navigation("Product");
+=======
+                    b.Navigation("Prod");
+>>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Order", b =>
