@@ -8,12 +8,12 @@ public class GolfContext : DbContext {
     }
 
     public DbSet<Product> Product { get; set; }
-     DbSet<Order> Order { get; set; }
-     DbSet<Post> Post { get; set; }
-     DbSet<CartItems> CartItems { get; set; }
+     public DbSet<Order> Order { get; set; }
+    public DbSet<Post> Post { get; set; }
+     public DbSet<CartItems> CartItems { get; set; }
     public DbSet<User> Users { get; set; }
-    DbSet<Review> Review { get; set; }
-     DbSet<SubPost> SubPost { get; set; }
+    public DbSet<Review> Review { get; set; }
+     public DbSet<SubPost> SubPost { get; set; }
 
     //Produkter - Anton
     protected override void OnModelCreating(ModelBuilder modelBuilder)

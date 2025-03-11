@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    [Migration("20250309170721_SeedProducts")]
-    partial class SeedProducts
+    [Migration("20250311132110_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,7 +145,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 1,
-                            ProdDescription = "Fin driver av högsta kvalité",
+                            ProdDescription = "Fin driver av högsta kvalite",
                             ProdImage = "driver.jpg",
                             ProdName = "Golfklubba Driver",
                             ProdPrice = 2599m
@@ -294,7 +294,6 @@ namespace WebApplication4.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -303,7 +302,7 @@ namespace WebApplication4.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>

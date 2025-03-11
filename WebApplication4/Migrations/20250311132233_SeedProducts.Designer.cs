@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    [Migration("20250311000212_usersupdate")]
-    partial class usersupdate
+    [Migration("20250311132233_SeedProducts")]
+    partial class SeedProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,7 +145,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 1,
-                            ProdDescription = "Fin driver av h�gsta kvalit�",
+                            ProdDescription = "Fin driver av högsta kvalite",
                             ProdImage = "driver.jpg",
                             ProdName = "Golfklubba Driver",
                             ProdPrice = 2599m
@@ -153,9 +153,9 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 2,
-                            ProdDescription = "J�rnklubba i v�rldsklass",
+                            ProdDescription = "Järnklubba i världsklass",
                             ProdImage = "jarnklubba.jpg",
-                            ProdName = "Golfklubba J�rn",
+                            ProdName = "Golfklubba Järn",
                             ProdPrice = 1999m
                         },
                         new
@@ -169,7 +169,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 4,
-                            ProdDescription = "Vattent�lig",
+                            ProdDescription = "Vattentålig",
                             ProdImage = "golfbag.jpg",
                             ProdName = "Golfbag",
                             ProdPrice = 1999m
@@ -185,7 +185,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 6,
-                            ProdDescription = "H�gkvalitativa bollar.",
+                            ProdDescription = "Högkvalitativa bollar.",
                             ProdImage = "golfballs.jpg",
                             ProdName = "Golfbollar (12-pack)",
                             ProdPrice = 349m
@@ -193,7 +193,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 7,
-                            ProdDescription = "Perfekt n�r solen tittar fram",
+                            ProdDescription = "Perfekt när solen tittar fram",
                             ProdImage = "keps.jpg",
                             ProdName = "Golfkeps",
                             ProdPrice = 249m
@@ -201,7 +201,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 8,
-                            ProdDescription = "pegs i tr�",
+                            ProdDescription = "pegs i trä",
                             ProdImage = "peg.jpg",
                             ProdName = "peg (10-pack)",
                             ProdPrice = 39m
