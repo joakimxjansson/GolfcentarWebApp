@@ -137,6 +137,74 @@ namespace WebApplication4.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Product");
+
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            ProdDescription = "Fin driver av h�gsta kvalit�",
+                            ProdImage = "driver.jpg",
+                            ProdName = "Golfklubba Driver",
+                            ProdPrice = 2599m
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            ProdDescription = "J�rnklubba i v�rldsklass",
+                            ProdImage = "jarnklubba.jpg",
+                            ProdName = "Golfklubba J�rn",
+                            ProdPrice = 1999m
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            ProdDescription = "Perfekt balans",
+                            ProdImage = "putter.jpg",
+                            ProdName = "Golfklubba Putter",
+                            ProdPrice = 1699m
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            ProdDescription = "Vattent�lig",
+                            ProdImage = "golfbag.jpg",
+                            ProdName = "Golfbag",
+                            ProdPrice = 1999m
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            ProdDescription = "Bra grepp",
+                            ProdImage = "handske.jpg",
+                            ProdName = "Golfhandske",
+                            ProdPrice = 299m
+                        },
+                        new
+                        {
+                            ProductId = 6,
+                            ProdDescription = "H�gkvalitativa bollar.",
+                            ProdImage = "golfballs.jpg",
+                            ProdName = "Golfbollar (12-pack)",
+                            ProdPrice = 349m
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            ProdDescription = "Perfekt n�r solen tittar fram",
+                            ProdImage = "keps.jpg",
+                            ProdName = "Golfkeps",
+                            ProdPrice = 249m
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            ProdDescription = "pegs i tr�",
+                            ProdImage = "peg.jpg",
+                            ProdName = "peg (10-pack)",
+                            ProdPrice = 39m
+                        });
+>>>
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Review", b =>
@@ -225,7 +293,8 @@ namespace WebApplication4.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserImage")
-                        .IsRequired()
+
+
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -234,15 +303,16 @@ namespace WebApplication4.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+
+
+                    b.ToTable("Users");
+
                 });
 
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>
                 {
 
-                    b.HasOne("WebApplication4.Data.Product", "Product");
-
-                    b.HasOne("WebApplication4.Data.Product", "Prod")
+                    b.HasOne("WebApplication4.Data.Product", "Product")
 
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -251,8 +321,6 @@ namespace WebApplication4.Migrations
 
 
                     b.Navigation("Product");
-
-                    b.Navigation("Prod");
 
                 });
 

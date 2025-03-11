@@ -1,0 +1,29 @@
+﻿@page
+@model WebApplication4.Pages.DisplayProductTemplateModel
+@{
+    ViewData["Title"] = "Product Template";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Centar golfklubb</h1>
+    <p>produktmall.</p>
+</div>
+
+<!-- foreach loop för att visa alla produkterna i mallen- Anton -->
+<div class="product-container">
+    @foreach (var product in Model.Product)
+    {
+        <!--partial view - Anton -->
+        <partial name="_ProduktMall" model="product" />
+    }
+</div>
+
+<!--Styling för hur produkterna ska visas - Anton -->
+<style>
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        justify-content: center;
+    }
+</style>
