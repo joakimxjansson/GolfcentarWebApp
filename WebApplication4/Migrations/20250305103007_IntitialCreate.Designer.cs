@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication4.Data;
 
@@ -11,9 +12,11 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    partial class GolfContextModelSnapshot : ModelSnapshot
+    [Migration("20250305103007_IntitialCreate")]
+    partial class IntitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,74 +140,6 @@ namespace WebApplication4.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Product");
-
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = 1,
-                            ProdDescription = "Fin driver av högsta kvalite",
-                            ProdImage = "driver.jpg",
-                            ProdName = "Golfklubba Driver",
-                            ProdPrice = 2599m
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            ProdDescription = "Järnklubba i världsklass",
-                            ProdImage = "jarnklubba.jpg",
-                            ProdName = "Golfklubba Järn",
-                            ProdPrice = 1999m
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            ProdDescription = "Perfekt balans",
-                            ProdImage = "putter.jpg",
-                            ProdName = "Golfklubba Putter",
-                            ProdPrice = 1699m
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            ProdDescription = "Vattentålig",
-                            ProdImage = "golfbag.jpg",
-                            ProdName = "Golfbag",
-                            ProdPrice = 1999m
-                        },
-                        new
-                        {
-                            ProductId = 5,
-                            ProdDescription = "Bra grepp",
-                            ProdImage = "handske.jpg",
-                            ProdName = "Golfhandske",
-                            ProdPrice = 299m
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            ProdDescription = "Högkvalitativa bollar.",
-                            ProdImage = "golfballs.jpg",
-                            ProdName = "Golfbollar (12-pack)",
-                            ProdPrice = 349m
-                        },
-                        new
-                        {
-                            ProductId = 7,
-                            ProdDescription = "Perfekt när solen tittar fram",
-                            ProdImage = "keps.jpg",
-                            ProdName = "Golfkeps",
-                            ProdPrice = 249m
-                        },
-                        new
-                        {
-                            ProductId = 8,
-                            ProdDescription = "pegs i trä",
-                            ProdImage = "peg.jpg",
-                            ProdName = "peg (10-pack)",
-                            ProdPrice = 39m
-                        });
->>>
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Review", b =>
@@ -293,8 +228,7 @@ namespace WebApplication4.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserImage")
-
-
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -303,25 +237,18 @@ namespace WebApplication4.Migrations
 
                     b.HasKey("UserId");
 
-
-
-                    b.ToTable("Users");
-
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>
                 {
-
                     b.HasOne("WebApplication4.Data.Product", "Product")
-
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-
                     b.Navigation("Product");
-
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Order", b =>
