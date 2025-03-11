@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace WebApplication4.Pages
 {
 
-    //hämta produkter från databas och visa på sidan- Anton
+    //hämta produkter från databas för att visa på sidan- Anton
 
     public class DisplayProductTemplateModel : PageModel
     {
