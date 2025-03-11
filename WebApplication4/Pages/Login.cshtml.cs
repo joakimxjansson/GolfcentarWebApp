@@ -23,7 +23,7 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = _db.User.FirstOrDefault(u => u.Username == UserName && u.Password == PassWord);
+            var user = _db.Users.FirstOrDefault(u => u.Username == UserName && u.Password == PassWord);
 
             if (user != null)
             {
@@ -33,7 +33,7 @@ namespace WebApplication4.Pages
             }
             else
             {
-                Message = "Fel användarnamn eller lösenord! Försök igen";
+                Message = "Fel anvÃ¤ndarnamn eller lÃ¶senord! FÃ¶rsÃ¶k igen";
                 return Page();
             }
         }
