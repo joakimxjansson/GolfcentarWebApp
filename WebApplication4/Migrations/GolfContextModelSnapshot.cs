@@ -204,7 +204,7 @@ namespace WebApplication4.Migrations
                             ProdName = "peg (10-pack)",
                             ProdPrice = 39m
                         });
->>>
+
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Review", b =>
