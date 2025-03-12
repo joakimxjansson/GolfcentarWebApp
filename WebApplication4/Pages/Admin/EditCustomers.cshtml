@@ -1,0 +1,43 @@
+@page
+@using WebApplication4.Data
+@model WebApplication4.Pages.Admin.EditCustomers
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    @{
+        foreach (User users in Model.Users) {
+            <label asp-for="User.Username">Användarnamn:</label>
+            <th>@users.Username</th>
+            <form method="post">
+                
+                <input type="hidden" asp-for="User.UserId" value="@users.UserId"/>
+                
+                <label asp-for="User.FirstName">Förnamn:</label>
+                <input type="text" asp-for="User.FirstName" value="@users.FirstName" placeholder="Förnamn"/>
+                
+                <label asp-for="User.LastName">Efternamn:</label>
+                <input type="text" asp-for="User.LastName" value="@users.LastName" placeholder="Efternamn"/>
+                
+                <label asp-for="User.Email">Email:</label>
+                <input type="email" asp-for="User.Email" value="@users.Email" placeholder="Email"/>
+                
+                <label asp-for="User.Saldo">Saldo:</label>
+                    <input type="number" asp-for="User.Saldo" value="@users.Saldo" placeholder="Saldo"/>
+                
+                <button class="btn btn-primary" type="submit" asp-route-id="@users.UserId">Uppdatera</button>
+            </form>
+        }
+            }
+</div>
+</body>
+</html>
