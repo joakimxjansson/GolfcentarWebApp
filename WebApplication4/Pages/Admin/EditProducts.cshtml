@@ -35,7 +35,7 @@
                     <label asp-for="Product.ProdImage">Bild:</label>
                     <input type="text" asp-for="Product.ProdImage" value="@product.ProdImage" placeholder="Bild" />
 
-                    <button class="btn btn-primary" type="submit" asp-route-id="product.ProductId">Uppdatera</button>
+                    <button class="btn btn-primary" type="submit" asp-route-id="@product.ProductId">Uppdatera</button>
                 </form>
             }
         }
