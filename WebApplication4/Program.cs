@@ -12,6 +12,7 @@ builder.Services.AddDbContext<GolfContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<CartService>();
 
 var app = builder.Build();
