@@ -515,6 +515,7 @@ iframe {
     width: 90%;
     height: 100%;
     display: flex;
+    margin: 50px 0 50px 0;
 }
 
 .kundkorg-kundkorg {
@@ -537,7 +538,7 @@ iframe {
     padding: 50px;
 }
 
-.kundkorg-kostnad {
+.kundkorg-till-kassa {
     color: #44442a;
     font-weight: 600;
     background-color: #b0b07b;
@@ -545,12 +546,15 @@ iframe {
     padding: 20px;
     margin: 5px;
     display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 .kundkorg-knapp {
     color: #55552b;
     font-size: 15px;
     font-weight: 800;
+    height: 60px;
     letter-spacing: 1px;
     padding: 12px 20px;
     margin: 20px auto 35px;
