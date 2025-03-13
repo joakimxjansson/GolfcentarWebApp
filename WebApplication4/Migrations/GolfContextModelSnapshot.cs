@@ -138,11 +138,12 @@ namespace WebApplication4.Migrations
 
                     b.ToTable("Product");
 
+
                     b.HasData(
                         new
                         {
                             ProductId = 1,
-                            ProdDescription = "Fin driver av h�gsta kvalit�",
+                            ProdDescription = "Fin driver av högsta kvalite",
                             ProdImage = "driver.jpg",
                             ProdName = "Golfklubba Driver",
                             ProdPrice = 2599m
@@ -150,9 +151,9 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 2,
-                            ProdDescription = "J�rnklubba i v�rldsklass",
+                            ProdDescription = "Järnklubba i världsklass",
                             ProdImage = "jarnklubba.jpg",
-                            ProdName = "Golfklubba J�rn",
+                            ProdName = "Golfklubba Järn",
                             ProdPrice = 1999m
                         },
                         new
@@ -166,7 +167,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 4,
-                            ProdDescription = "Vattent�lig",
+                            ProdDescription = "Vattentålig",
                             ProdImage = "golfbag.jpg",
                             ProdName = "Golfbag",
                             ProdPrice = 1999m
@@ -182,7 +183,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 6,
-                            ProdDescription = "H�gkvalitativa bollar.",
+                            ProdDescription = "Högkvalitativa bollar.",
                             ProdImage = "golfballs.jpg",
                             ProdName = "Golfbollar (12-pack)",
                             ProdPrice = 349m
@@ -190,7 +191,7 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 7,
-                            ProdDescription = "Perfekt n�r solen tittar fram",
+                            ProdDescription = "Perfekt när solen tittar fram",
                             ProdImage = "keps.jpg",
                             ProdName = "Golfkeps",
                             ProdPrice = 249m
@@ -198,11 +199,12 @@ namespace WebApplication4.Migrations
                         new
                         {
                             ProductId = 8,
-                            ProdDescription = "pegs i tr�",
+                            ProdDescription = "pegs i trä",
                             ProdImage = "peg.jpg",
                             ProdName = "peg (10-pack)",
                             ProdPrice = 39m
                         });
+
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Review", b =>
@@ -291,6 +293,8 @@ namespace WebApplication4.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserImage")
+
+
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
@@ -299,18 +303,25 @@ namespace WebApplication4.Migrations
 
                     b.HasKey("UserId");
 
+
+
                     b.ToTable("Users");
+
                 });
 
             modelBuilder.Entity("WebApplication4.Data.CartItems", b =>
                 {
+
                     b.HasOne("WebApplication4.Data.Product", "Product")
+
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+
                     b.Navigation("Product");
+
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Order", b =>
