@@ -22,7 +22,7 @@ namespace WebApplication4.Pages
         public void OnGet()
         {
             CartItems = _context.CartItems
-                .Include(x => x.Product)
+                .Include(c => c.Product)
                 .ToList();
         }
         /*
