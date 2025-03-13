@@ -22,6 +22,19 @@ public class EditProducts : PageModel
 
     }
 
+    //Lägg till produkt
+    public IActionResult OnPostCreate()
+    {
+        if (Product != null)
+        {
+            _context.Product.Add(Product);
+            _context.SaveChanges();
+            return RedirectToPage("/Admin/EditProducts");
+        }
+        return Page();
+    }
+
+    //redigera/updatera produkt
     public IActionResult OnPost(int id)
     {
         var product = _context.Product.Find(id);
@@ -40,5 +53,18 @@ public class EditProducts : PageModel
             return RedirectToPage("/Admin/EditProducts");
         }
         return Page();
+    }
+
+    //Ta bort produkt
+    public IActionResult OnPostDelete(int id)
+    {
+        var product = _context.Product.Find(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        _context.Product.Remove(product);
+        _context.SaveChanges();
+        return RedirectToPage("/Admin/EditProducts");
     }
 }
