@@ -1,0 +1,55 @@
+﻿@page
+@using WebApplication4.Data
+@model WebApplication4.Pages.Admin.EditProducts
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Redigera Produkter</title>
+</head>
+<body>
+    <div>
+        @{
+            foreach (Product product in Model.Products)
+            {
+                <label asp-for="Product.ProdName">Produkt:</label>
+                <th>@product.ProdName</th>
+                <form method="post">
+
+                    <input type="hidden" asp-for="Product.ProductId" value="@product.ProductId" />
+
+                    <label asp-for="Product.ProdName">Namn:</label>
+                    <input type="text" asp-for="Product.ProdName" value="@product.ProdName" placeholder="Namn" />
+
+                    <label asp-for="Product.ProdDescription">Beskrivning:</label>
+                    <input type="text" asp-for="Product.ProdDescription" value="@product.ProdDescription" placeholder="Beskrivning" />
+
+                    <label asp-for="Product.ProdPrice">Pris:</label>
+                    <input type="text" asp-for="Product.ProdPrice" value="@product.ProdPrice" placeholder="Pris" />
+
+                    <label asp-for="Product.ProdImage">Bild:</label>
+                    <input type="text" asp-for="Product.ProdImage" value="@product.ProdImage" placeholder="Bild" />
+
+                    <button class="btn btn-primary" type="submit" asp-route-id="@product.ProductId">Uppdatera</button>
+                </form>
+            }
+        }
+    </div>
+
+    <style>
+        form{
+            padding-bottom: 1.5em;
+        }
+
+        label{
+            padding-top: 0.5em;
+        }
+    </style>
+
+</body>
+</html>

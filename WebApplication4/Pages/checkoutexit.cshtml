@@ -1,0 +1,81 @@
+﻿
+@page
+@model WebApplication4.Pages.checkoutexitModel
+
+@{
+    ViewData["Title"] = "Cart exit";
+}
+
+<div class="order-header">
+    <h2>Order Details</h2>
+    <h1>Tack för att du handlade hos oss!</h1>
+</div>
+
+
+<img src="/images/Moonwalk.gif" alt="celebrate" />
+
+
+<div class="order-details">
+    <h5> Ditt ordernummer är: </h5>
+    
+    <h5>Orderdatum: @Model.OrderDate</h5>
+
+    <h5>Leveranstid: 15 min en kvar.</h5>
+</div>
+    
+    
+   
+    <style>
+
+    body {
+        background-color: #e5e5cc;
+        
+    }
+    .order-header {
+        
+        text-align: center; /* Centrerar texten */
+       
+    }
+    
+
+        .order-header h2 {
+            color: #555; 
+            font-size: 1.5em; 
+            margin: 5px 0; /* Skapar utrymme ovanför och under */
+        }
+
+        .order-details h4, 
+        .order-details h5 {
+            text-align: center;
+        }
+        .order-details {
+            margin-top: 50px;
+        }
+
+        .order-table {
+            margin-top: 30px;
+        }
+
+            .order-table table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+                .order-table table thead th {
+                    border: 1px solid #000;
+                    padding: 10px;
+                    text-align: center;
+                }
+
+                .order-table table tbody td {
+                    border: 1px solid #000;
+                    padding: 10px;
+                    text-align: center;
+                }
+
+                img {
+                    display: block;
+                    margin:0 auto;
+                }
+
+    </style>

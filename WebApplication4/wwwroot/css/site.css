@@ -32,8 +32,16 @@ body {
 
 
 
-/*CSS Registration form - Sandra*/
+/*CSS Registration + Login form - Sandra*/
 .regcontainer {
+    background-color: #bbbb77;
+    max-width: 100%;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.logincontainer {
     background-color: #bbbb77;
     max-width: 100%;
     border-radius: 1rem;
@@ -66,7 +74,8 @@ body {
     text-align: center;
 }
 
-.regtext {
+.loginrubrik {
+    text-align: center;
 }
 
 .col-1 {
@@ -90,3 +99,4 @@ body {
         background-color: yellowgreen;
         border-color: yellowgreen;
     }
+/*CSS Registration form SLUT - Sandra*/

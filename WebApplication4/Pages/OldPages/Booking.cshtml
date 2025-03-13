@@ -1,0 +1,162 @@
+﻿@page
+@model WebApplication4.Pages.OldPages.BookingModel
+@{
+}
+
+<h1 class="kon">Boka</h1>
+
+<!--Greenfee och bokning - Sandra-->
+<section class="bokning-content-st">
+    <h3 class="h3greenfee-st">Greenfee - Kom och spela på vår mästerskapsbana</h3>
+    <p>
+        Välkommen att spela på Centar Golfklubbs natursköna banor. Nedan finner du våra aktuella greenfee-priser
+        samt
+        information om bokningsregler
+    </p>
+    <section class="bokning1-st">
+        <h4>Vardagar (måndag-fredag)</h4>
+        <ul>
+            <li>Senior: 500kr</li>
+            <li>Standard: 600kr</li>
+            <li>Junior (upp till 18år): 250kr</li>
+        </ul>
+        <p>Medlemmar i sammarbetsklubbar erhåller 20% rabatt på ordinarie Greenfee-priser.</p>
+    </section>
+
+    <h3>Bokningsregler och riktlinjer</h3>
+    <p>
+        Vi vill att alla våra gäster ska få en smidig och trevlig upplevelse på vår klubb. Läs igenom
+        bokningsregler
+        noggrant innan du bokar din starttid hej hopp.
+    </p>
+    <section class="bokning2-st">
+        <h4>Bokning av starttider</h4>
+        <ul>
+            <li>Tidsbokning krävs och kan göras upp till 14 dagar i förväg.</li>
+            <li>Onlinebokning sker i kalendariet nedan.</li>
+            <li>
+                Gäster som spelar utan medlemskap ska alltid anmäla sig i receptionen innan rundan för att
+                bekräfta
+                sin starttid och betala Greenfee.
+            </li>
+        </ul>
+
+        <h4>Avbokningsregler</h4>
+        <ul>
+            <li>Avbokning ska ske senast 24h före starttiden.</li>
+            <li>Vid sen avbokning debiteras hela beloppet.</li>
+            <li>Dyker du inte upp utan avbokning debiteras hela beloppet.</li>
+        </ul>
+    </section>
+</section>
+<!--Greenfee och bokning slut-->
+<!-- Bokningsformulär - Ra -->
+<!-- Bokningsformulär - Ra -->
+
+<section class="Ra-page-style">
+    <div class="Ra-container-style">
+        <h2 class="Ra-header-style">Boka Starttid</h2>
+        <div class="Ra-form-group-style">
+            <label class="Ra-label-style" for="golfbana">Bana:</label>
+            <select class="Ra-input-style" id="golfbana">
+                <option>Jönköping Golfklubb</option>
+            </select>
+        </div>
+        <div class="Ra-form-group-style">
+            <label class="Ra-label-style" for="date">Datum:</label>
+            <input class="Ra-input-style" type="date" id="date">
+        </div>
+        <div class="Ra-form-group-style">
+            <label class="Ra-label-style" for="spelare">Spelare:</label>
+            <input class="Ra-input-style" type="number" id="spelare" value="1" min="1" max="4">
+        </div>
+        <table class="Ra-table-style">
+            <thead>
+                <tr>
+                    <th class="Ra-th-style">Tid</th>
+                    <th class="Ra-th-style">10:00</th>
+                    <th class="Ra-th-style">11:00</th>
+                    <th class="Ra-th-style">12:00</th>
+                    <th class="Ra-th-style">13:00</th>
+                    <th class="Ra-th-style">14:00</th>
+                    <th class="Ra-th-style">15:00</th>
+                    <th class="Ra-th-style">16:00</th>
+                    <th class="Ra-th-style">17:00</th>
+                    <th class="Ra-th-style">18:00</th>
+                    <th class="Ra-th-style">19:00</th>
+                    <th class="Ra-th-style">20:00</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tidsschemarader -->
+                <tr>
+                    <td class="Ra-td-style">:00</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                </tr>
+                <!-- :10 Intervall -->
+                <tr>
+                    <td class="Ra-td-style">:10</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="ras-td-style Ra-available">Ledig</td>
+                    <td class="ras-td-style Ra-available">Ledig</td>
+                </tr>
+                <!-- :20 Intervall -->
+                <tr>
+                    <td class="Ra-td-style">:20</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                </tr>
+                <!-- :30 Intervall -->
+                <tr>
+                    <td class="Ra-td-style">:30</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-booked">Bokad</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                    <td class="Ra-td-style Ra-available">Ledig</td>
+                </tr>
+                <!-- Fler rader -->
+            </tbody>
+        </table>
+        <button class="Ra-button-style" onclick="confirmBooking()">Boka nu</button>
+    </div>
+</section>
+<!-- Bokningsformulär slut -->
+<script>
+    function confirmBooking() {
+        alert("Din bokning har registrerats!");
+    }
+</script>
