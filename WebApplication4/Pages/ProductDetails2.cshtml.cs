@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace WebApplication4.Pages
 {
-    public class ProductDetailsModel : PageModel
+    public class ProductDetails2Model : PageModel
     {
         private readonly GolfContext _db;
 
-        public ProductDetailsModel(GolfContext db)
+        public ProductDetails2Model(GolfContext db)
         {
             _db = db;
         }
@@ -18,9 +18,9 @@ namespace WebApplication4.Pages
         public Product Product { get; set; }
         public IActionResult OnGet(int id)
         {
-            Product = _db.Products.FirstOrDefault(p => p.Id == id); //hämta produkt med id fr. databas
-            
-            if(Product == null)
+            Product = _db.Product.FirstOrDefault(p => p.ProductId == id); //hämta produkt med id fr. databas
+
+            if (Product == null)
             {
                 return NotFound();
             }

@@ -1,0 +1,92 @@
+﻿@page "{id:int}"
+@model WebApplication4.Pages.ProductDetails2Model
+
+@{
+    ViewData["Title"] = Model.Product.ProdName;
+}
+
+<div class="proddetail_container">
+    <div class="prod-img_container">
+        <div class="template-img">
+            <img src="@Url.Content("~/images/" + Model.Product.ProdImage)" class="template-img" alt="@Model.Product.ProdName">
+        </div>
+    </div>
+
+    <div class="prod-content_container">
+        <h2 class="proddetail_name">@Model.Product.ProdName</h2>
+        <p class="proddetail_description">@Model.Product.ProdDescription</p>
+        <p class="proddetail_price">Pris: @Model.Product.ProdPrice kr</p>
+        <button class="addToCart">Lägg till i kundvagn</button>
+        <hr/>
+
+        <div class="return_container">
+            <a asp-page="DisplayProductTemplate" class="return-to-prods">Tillbaka till produkter</a>
+        </div>
+        
+    </div>
+</div>
+
+
+@*CSS ProductDetails-sida - Sandra*@
+<style>
+
+    .template-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .proddetail_container{
+        display: flex;
+        background-color: #bbbb77;
+        border: 2px solid #55552b;
+        border-radius: 1rem;
+        margin: 1rem auto;
+        max-width: 60%;
+        height: auto;
+        
+    }
+
+    .prod-img_container{
+       max-width: 50%;
+    }
+
+    .template-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        padding: 0.5rem;
+    }
+
+    .prod-content_container {
+        flex-direction: column;
+        color: #55552b;
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .proddetail_name {
+        text-decoration: underline;
+    }
+
+    .proddetail_price {
+        font-weight: bold;
+    }
+
+    .addToCart {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        width: 13em;
+        height: 35px;
+        transition: 0.5s;
+        font-weight: 500;
+    }
+
+    .return-to-prods {
+        color: white;
+    }
+</style>
