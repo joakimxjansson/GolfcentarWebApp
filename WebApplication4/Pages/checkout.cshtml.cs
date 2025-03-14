@@ -2,68 +2,55 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
     public class checkoutModel : PageModel
     {
+        // Kontext för databasen 
+
         public readonly GolfContext _context;
-        private readonly UserService _userService;
-        private readonly CartService _cartService;
 
-        public List<CartItems> CartItems { get; set; } = new List<CartItems>();
-        public string Username { get; set; }
-        public int UserId { get; set; }
-        public string OrderNumber { get; set; }
-        public DateTime OrderDate { get; set; }
-        public int UserSaldo { get; set; }
-
-        public checkoutModel(GolfContext db, UserService userService, CartService cartService)
+        public int UserTest { get; set; } //hämta användarens id
+        //konstruktör för att skapa en instans av databasen
+        public checkoutModel(GolfContext db)
         {
             _context = db;
-            _userService = userService;
-            _cartService = cartService;
         }
 
+
+        //Lista för varor i varukorgen
+        public List<CartItems> CartItems { get; set; } = new List<CartItems>();
+        public int UserId { get; set; }
+
+        // Hämtar alla varukorgens artiklar från databasen och produktdata
         public void OnGet()
         {
-            // Hï¿½mta anvï¿½ndarens ID frï¿½n session
-            var id = HttpContext.Session.GetInt32("Id");
-            if (id != null)
-            {
-                UserId = id.Value;
-                Username = _userService.GetUsername(UserId);
-                UserSaldo = _userService.GetSaldo(UserId);
-            }
-
-            // Ladda varukorgens innehï¿½ll
-            CartItems = _cartService.GetCart();
-
-            foreach (var item in CartItems)
-            {
-                item.TotalPrice = (int)(item.Quantity * (item.Product.ProdPrice));
-            }
+            CartItems = _context.CartItems
+                .Include(c => c.Product)
+                .ToList();         
         }
-
-        //sparar varorna i ordertabell och tï¿½mmer varukorgen
-        public async Task<IActionResult> OnPostCheckoutAsync()
-        { Console.WriteLine("HÃ¤r");
-            var userId = HttpContext.Session.GetInt32("Id");
-            if (userId == null)
+        //För att hämta användarens saldo
+        public int GetSaldo(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
             {
-                return Unauthorized();
+                throw new Exception($"Kunde inte hitta anvädnare med id: {id}");
             }
-            Console.WriteLine("HÃ¤r" + userId.Value);
-            var orderNumber = _cartService.GenerateOrderNumber();
-            _cartService.SaveCartToOrder(userId.Value, orderNumber);
-            Console.WriteLine("HÃ¤r" + userId.Value);
-            
-
-            return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
+            return user.Saldo;
         }
 
 
+
+        /*
+             CartItems = new List<CartItems>
+             {
+                 new CartItems { Product = new Product { ProdName = "Product1", ProdPrice = 1000m }, Quantity = 1, TotalPrice = 1000 },
+                 new CartItems { Product = new Product { ProdName = "Vantar ProductID #100", ProdPrice = 200m }, Quantity = 2, TotalPrice = 400 },
+                 new CartItems { Product = new Product { ProdName = "Mössa ProductID #101", ProdPrice = 100m }, Quantity = 1, TotalPrice = 100 },
+                 new CartItems { Product = new Product { ProdName = "Driver ProductID #103", ProdPrice = 1345m }, Quantity = 3, TotalPrice = 4035 }
+             };
+             */
     }
 }
