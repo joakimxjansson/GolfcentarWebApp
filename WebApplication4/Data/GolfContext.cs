@@ -30,10 +30,7 @@ public class GolfContext : DbContext {
 
         );
 
-        //Test användare linnea
-        modelBuilder.Entity<User>().HasData(
-            new User { FirstName = "Test", LastName = "Test", Email= "test@test.com", Password = "123", Username = "TestUser", Saldo = 1000, UserId = 1 }
-        );
+       
 
     }
     
