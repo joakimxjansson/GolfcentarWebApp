@@ -29,6 +29,15 @@ public class GolfContext : DbContext {
             new Product { ProductId = 8, ProdName = "peg (10-pack)", ProdDescription = "pegs i trä", ProdPrice = 39, ProdImage = "peg.jpg" }
 
         );
-        
+
+        //Test användare linnea
+        modelBuilder.Entity<User>().HasData(
+            new User { FirstName = "Test", LastName = "Test", Email= "test@test.com", Password = "123", Username = "TestUser", Saldo = 1000, UserId = 1 }
+        );
+
     }
+    
+        
+    
+
 }
