@@ -1,0 +1,47 @@
+﻿@page
+@model WebApplication4.Pages.BloggModel
+
+@{
+    ViewData["Title"] = "Golf Centar Blogg";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Golf Centar Blogg</h1>
+    <p class="text-center">Dela dina golfupplevelser med oss!</p>
+
+    <div class="card shadow-sm bg-light">
+        <form method="post">
+            <div class="mb-3">
+                <label for="Title" class="form-label">Titel:</label>
+                <input type="text" id="Title" name="Title" asp-for="NewPost.Comment" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="Content" class="form-label">Innehåll:</label>
+                <textarea id="Content" name="Content" asp-for="NewPost.Comment" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Publicera</button>
+        </form>
+    </div>
+
+    <hr />
+
+    <h2 class="mt-4">Senaste inläggen</h2>
+    @foreach (var post in Model.Posts)
+    {
+        <div class="card my-3 p-3 shadow-sm">
+            <h3>@post.Comment</h3>
+            <small class="text-muted">Publicerat: @post.Date.ToString("yyyy-MM-dd HH:mm")</small>
+
+            <div class="mt-2">
+                <a asp-page="/EditBlogg" asp-route-id="@post.SubPostId" class="btn btn-warning btn-sm">Redigera</a>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@post.SubPostId" class="d-inline" onsubmit="return confirm('Är du säker?');">
+                    <button type="submit" class="btn btn-danger btn-sm">Radera</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+
