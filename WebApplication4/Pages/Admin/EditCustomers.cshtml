@@ -23,7 +23,7 @@
                 <h5 class="mb-0">Användarnamn: @users.Username</h5>
             </div>
             <div class="card-body ">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post">
                     <input type="hidden" name="User.UserId" value="@users.UserId"/>
 
                     <div class="row g-3">
@@ -31,30 +31,18 @@
                             <label class="form-label" for="firstname">Förnamn:</label>
                             <input type="text" class="form-control" id="firstname" name="User.FirstName" value="@users.FirstName" placeholder="Förnamn"/>
                         </div>
-                        
                         <div class="col-md-3">
                             <label class="form-label" for="lastname">Efternamn:</label>
                             <input type="text" class="form-control" id="lastname" name="User.LastName" value="@users.LastName" placeholder="Efternamn"/>
                         </div>
-                        
                         <div class="col-md-3">
                             <label class="form-label" for="email">Email:</label>
                             <input type="email" class="form-control" id="email" name="User.Email" value="@users.Email" placeholder="Email"/>
                         </div>
-                        
                         <div class="col-md-3">
                             <label class="form-label" for="saldo">Saldo:</label>
                             <input type="number" class="form-control" id="saldo" name="User.Saldo" value="@users.Saldo" placeholder="Saldo"/>
                         </div>
-                        
-                        <div class="col-md-3">
-                            <label class="form-label" for="image">Profilbild</label>
-                            <input type="file" class="form-control" id="image" name="ImageFile"/>
-                        </div>
-                        <div class="col-md-3">
-                            <img src="@Url.Content("~" + @users.UserImage)" class="img-thumbnail">
-                        </div>
-
                         <div class="col-12 d-flex justify-content-end gap-2 ">
                             <button class="btn btn-danger w-25" type="submit" asp-page-handler="Delete" asp-route-id="@users.UserId">Ta bort Användare</button>
                             <button class="btn btn-centar w-25" type="submit" asp-page-handler="Update" asp-route-id="@users.UserId">Uppdatera</button>
