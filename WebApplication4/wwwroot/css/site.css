@@ -32,8 +32,17 @@ body {
 
 
 
-/*CSS Registration form - Sandra*/
+/*CSS Registration + Login form - Sandra*/
 .regcontainer {
+    background-color: #bbbb77;
+    max-width: 100%;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5em;
+}
+
+.logincontainer {
     background-color: #bbbb77;
     max-width: 100%;
     border-radius: 1rem;
@@ -66,7 +75,8 @@ body {
     text-align: center;
 }
 
-.regtext {
+.loginrubrik {
+    text-align: center;
 }
 
 .col-1 {
@@ -81,78 +91,14 @@ body {
     padding-top: 1.5rem;
 }
 
-.btn {
+.btn-centar {
     background-color: #55552b;
     border-color: #55552b;
+    color: white;
 }
 
-    .btn:hover {
-        background-color: yellowgreen;
-        border-color: yellowgreen;
-    }
-
-
-    /*CSS profile Rama*/
-
-
-.profile-container {
-    background-color: #bbbb77;
-    padding: 30px;
-    border-radius: 25px;
-    width: 400px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
+.btn-centar:hover {
+    background-color: yellowgreen;
+    border-color: yellowgreen;
 }
-
-
-.profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #55552b;
-    margin-bottom: 15px;
-}
-
-    .profile-image:hover {
-        opacity: 0.7;
-    }
-
-
-
-input[type="text"], input[type="email"], input[type="tel"], input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 25px;
-    border: 1px solid #ddd;
-    background: white;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-
-
-button {
-    background-color: #55552b;
-    color: #ffffff;
-    padding: 12px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: bold;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
- 
-
-    button:hover {
-        background-color: #1a1917;
-    }
-
-
-@media (min-width: 768px) {
-
-    .profile-container {
-        width: 500px;
-    }
-} 
+/*CSS Registration form SLUT - Sandra*/

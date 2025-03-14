@@ -3,8 +3,105 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<!--Boxelement för "main content" -->
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main class="index-content-of">
+    <!--Boxelement för "main content" -->
+
+    <section class="landingp-container">
+        <div class="btn-img">
+            <img class="landingp-img" src="images/golfbild1.jpg" alt="Golfbild">
+            <a href="boka.html" class="landingp-btn">Boka nu</a>
+        </div>
+
+        <div class="landingp-box">
+            <h1 class="landingp-h1">Välkommen till Centar Golfklubb!</h1>
+
+            <p class="landing-p">
+                Upptäck en oas för golfentusiaster mitt i hjärtat av naturen. På Centar Golfklubb
+                erbjuder vi en perfekt balans mellan utmanande banor, avslappnad atmosfär och gemenskap. Oavsett om
+                du är nybörjare eller proffs, hos oss finns det något för alla. Eller kanske önskar du ta en trevlig
+                lunch med ditt sällskap i vår fina resturang. Hos oss handlar golf om så mycket mer än att sänka
+                bollen i koppen. Vi är en klubb där gemenskapen står i centrum, med sociala evenemang, tävlingar och
+                träningsmöjligheter för alla nivåer. Välkommen till vår golfgemenskap!
+            </p>
+
+            <p class="landing-p">
+                Vill du förbättra ditt spel? Våra erfarna tränare erbjuder privatlektioner och
+                gruppträning för spelare på alla nivåer. Våra toppmoderna träningsfaciliteter hjälper dig att
+                finslipa din teknik och få ut mer av varje runda. Boka din starttid idag och upplev Centar Golfklubb
+                själv. Vi erbjuder skräddarsydda medlemskap och en rad golfpaket för alla typer av spelare. *länka*
+            </p>
+        </div>
+    </section>
+
+    <!-- Boxelement för updateringnar och nyheter -->
+    <aside class="index-side-of centerd-display">
+        <article class="centerd-display">
+            <img class="news-image" src="images/pexels-mikhail-nilov-9207747.jpg" alt="Klubban">
+            <h3 class="news-text">Nyhet från Golfklubben: Ovanligt fynd på banan</h3>
+            <p class="news-text">
+                Vi på Centar Golfklubb har nyligen gjort ett skrämmande fynd på vår bana. En
+                modifierad golfklubba, som enligt experter har potential att orsaka allvarlig skada, upptäcktes
+                under en rutinmässig inspektion. Klubban, som är designad för att ge extrem kraft, har väckt oro
+                bland våra medlemmar.
+                <br>
+                Vi vill påminna alla spelare om vikten av säkerhet och att vara uppmärksamma på sin omgivning. Vi
+                har kontaktat lokala myndigheter för att utreda hur klubban hamnat på vår bana. Under tiden uppmanar
+                vi alla att rapportera eventuella misstänkta föremål och att alltid prioritera säkerhet på
+                golfbanan.
+                <br>
+                Vi tackar för ert stöd och ser fram emot en trygg och trevlig golfsäsong!
+            </p>
+        </article>
+        <article class="centerd-display">
+            <img class="news-image" src="images/pexels-martin-magnemyr-2914907-5204954.jpg" alt="Klubban">
+            <h3 class="news-text">Nyhet från Golfklubben: Ovanligt fynd på banan</h3>
+            <p class="news-text">
+                Vi är glada att meddela att vi på Centar Golfklubb har genomfört en omfattande uppgradering av vår
+                golfbana! Efter flera månaders planering och arbete har vi nu rustat upp både fairways och greener
+                för att förbättra spelupplevelsen för alla våra medlemmar och gäster.
+                De nya förbättringarna inkluderar:
+            </p>
+            <ul class="news-list">
+                <li>
+                    Renovering av greener: Vi har förbättrat gräsytorna för att säkerställa en jämn och snabb
+                    puttingupplevelse.
+                </li>
+                <li>
+                    Förbättrad dränering: För att motverka vattenansamlingar och förlänga spelsäsongen har vi
+                    installerat nya dräneringssystem.
+                </li>
+                <li>
+                    Nya tees: Vi har lagt till nya teeområden för att ge spelarna fler alternativ och utmana även de
+                    mest erfarna golfarna.
+                </li>
+                <li>
+                    Omgivningar: Vi har även förbättrat landskapsdesignen runt banan för en mer estetiskt
+                    tilltalande upplevelse.
+                </li>
+            </ul>
+            <p class="news-text">
+                Vi ser fram emot att ni kommer och provar de uppgraderade banorna! Tack för ert
+                tålamod under renoveringen, och vi hoppas ni får många fantastiska ronder framöver!
+            </p>
+
+            <!--Formulär för nyhetsbrev-->
+            <section class="newsform-aj">
+                <h3>
+                    Anmäl dig till <mark>Centar Golfklubb's</mark> nyhetsbrev för att få de senaste nyheterna,
+                    information och erbjudanden på mail!
+                </h3>
+
+                <form class="nyhetsbrev-aj">
+                    <label>Fullständigt namn:</label>
+                    <input type="text" name="fname" id="fname-aj" placeholder="  Exempel: Tiger Woods">
+                    <label>E-mail adress:</label>
+                    <input type="text" name="email" id="email-aj" placeholder="  exempel@hotmail.com">
+                    <input type="submit" id="submit-aj" value="SKICKA">
+                </form>
+            </section>
+            <!--Slut på Formulär för nyhetsbrev-->
+        </article>
+    </aside>
+</main>

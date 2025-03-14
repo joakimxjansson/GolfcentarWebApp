@@ -1,0 +1,23 @@
+@page
+@model WebApplication4.Pages.Admin.Adminpage
+
+@{
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <p> @Model.Message</p>
+    <form method="post">
+    <button type="submit" class="btn-dark pb-md-2" asp-page-handler="EditProducts">Redigera produkter </button>
+    <button type="submit" class="btn-dark pb-md-2" asp-page-handler="EditUsers" >Redigera användare </button>
+    </form>
+</div>
+</body>
+</html>
