@@ -29,6 +29,12 @@ public class GolfContext : DbContext {
             new Product { ProductId = 8, ProdName = "peg (10-pack)", ProdDescription = "pegs i trä", ProdPrice = 39, ProdImage = "peg.jpg" }
 
         );
-        
+
+       
+
     }
+    
+        
+    
+
 }

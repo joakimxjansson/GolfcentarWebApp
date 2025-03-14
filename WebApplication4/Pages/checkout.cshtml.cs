@@ -8,7 +8,10 @@ namespace WebApplication4.Pages
     public class checkoutModel : PageModel
     {
         // Kontext för databasen 
+
         public readonly GolfContext _context;
+
+        public int UserTest { get; set; } //hämta användarens id
         //konstruktör för att skapa en instans av databasen
         public checkoutModel(GolfContext db)
         {
@@ -18,13 +21,28 @@ namespace WebApplication4.Pages
 
         //Lista för varor i varukorgen
         public List<CartItems> CartItems { get; set; } = new List<CartItems>();
-        // Hämtar alla varukorgens artiklar från databasen och inkluderar relevant produktdata
+        public int UserId { get; set; }
+
+        // Hämtar alla varukorgens artiklar från databasen och produktdata
         public void OnGet()
         {
             CartItems = _context.CartItems
                 .Include(c => c.Product)
-                .ToList();
+                .ToList();         
         }
+        //För att hämta användarens saldo
+        public int GetSaldo(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                throw new Exception($"Kunde inte hitta anvädnare med id: {id}");
+            }
+            return user.Saldo;
+        }
+
+
+
         /*
              CartItems = new List<CartItems>
              {
