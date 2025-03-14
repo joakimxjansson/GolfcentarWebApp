@@ -90,13 +90,14 @@ body {
     padding-top: 1.5rem;
 }
 
-.btn {
+.btn-centar {
     background-color: #55552b;
     border-color: #55552b;
+    color: white;
 }
 
-    .btn:hover {
-        background-color: yellowgreen;
-        border-color: yellowgreen;
-    }
+.btn-centar:hover {
+    background-color: yellowgreen;
+    border-color: yellowgreen;
+}
 /*CSS Registration form SLUT - Sandra*/
