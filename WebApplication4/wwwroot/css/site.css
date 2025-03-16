@@ -29,3 +29,17 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.cart-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.cart-counter {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: red;
+    text-align: center;
+    color: white;
+}
