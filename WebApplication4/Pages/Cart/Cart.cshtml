@@ -1,0 +1,48 @@
+﻿@page
+@model WebApplication4.Pages.Cart.CartModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<main class="kundkorg-main">
+    <div class="kundkorg-container">
+        <div class="kundkorg-kundkorg">
+            <h1 class="kundkorg-rubrik">
+                @if (Model.CartItems.Count == 1)
+                {
+                    @($"Du har {Model.CartItems.Count} produkt i varukorgen.")
+                }
+                else
+                {
+                    @($"Du har {Model.CartItems.Count} produkter i varukorgen.")
+                }
+            </h1>
+
+            <div class="kundkorg-varor">
+                @if (Model.CartItems.Count == 0)
+                {
+                    <span>Din varukorg är tom.</span>
+                }
+                else
+                {
+                    <ul>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <li>
+                                @item.Product.ProdName - @item.Product.ProdPrice kr
+                                <a asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+        <div class="kundkorg-kostnad">
+            <p>Pris: @Model.TotalPrice kr</p>
+            <p>Frakt: Gratis</p>
+            <p>Totalkostnad: @Model.TotalPrice kr</p>
+            <button class="kundkorg-knapp">Till kassan</button>
+        </div>
+    </div>
+</main>

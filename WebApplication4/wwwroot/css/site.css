@@ -30,6 +30,78 @@ body {
   text-align: start;
 }
 
+
+
+/*CSS Registration + Login form - Sandra*/
+.regcontainer {
+    background-color: #bbbb77;
+    max-width: 100%;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.logincontainer {
+    background-color: #bbbb77;
+    max-width: 100%;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    background-color: #e5e5cc;
+    border: 2px solid #55552b;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.form-group {
+    width: 60%;
+}
+
+.textbox {
+    width: 100%;
+}
+
+.regrubrik {
+    text-align: center;
+}
+
+.loginrubrik {
+    text-align: center;
+}
+
+.col-1 {
+    font-family: 'Century Schoolbook';
+}
+
+.col-2 {
+    width: 100%;
+}
+
+.col-3 {
+    padding-top: 1.5rem;
+}
+
+.btn {
+    background-color: #55552b;
+    border-color: #55552b;
+}
+
+    .btn:hover {
+        background-color: yellowgreen;
+        border-color: yellowgreen;
+    }
+/*CSS Registration form SLUT - Sandra*/
+}
+
 .cart-icon {
     width: 100px;
     height: 100px;
