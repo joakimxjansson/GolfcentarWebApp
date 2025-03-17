@@ -17,31 +17,17 @@ public class Adminpage : PageModel {
         _db = db;
         _userService = userService;
     }
-    public IActionResult OnGet() {
-       
+    public void OnGet() {
         var id = HttpContext.Session.GetInt32("Id");
-        if (id == null) {
-            return RedirectToPage("/Login");
-        }
-
-        var role = _userService.GetRole(id.Value);
-        if (role == 0) {
-           return RedirectToPage("/MyProfile");
-           
-        }
         Username = _userService.GetUsername(id.Value);
         Message = "Välkommen " + Username + "!";
-return Page();
+
     }
 
     public IActionResult OnPostEditProducts() {
-        return RedirectToPage("/Admin/EditProducts");
+        return RedirectToPage("Admin/EditProducts");
     }
     public IActionResult OnPostEditUsers() {
         return RedirectToPage("/Admin/EditCustomers");
-    }
-    
-    public IActionResult OnPostEditOrders() {
-        return RedirectToPage("/Admin/EditOrders");
     }
 }
