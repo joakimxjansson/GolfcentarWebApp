@@ -3,14 +3,18 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
 using WebApplication4.Data;
+using System;
 
 namespace WebApplication4.Services
 {
     public class CartService
     {
+        // Hanterar HTTP-sessionen
         private readonly IHttpContextAccessor _httpContextAccessor;
+        // Nyckel som används för att spara och hämta varukorgsdata från sessionen
         private const string SessionKey = "Cart";
 
+        // Konstruktor som tar in IHttpContextAccessor för att få åtkomst till sessionen
         public CartService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -59,11 +63,7 @@ namespace WebApplication4.Services
             }
         }
 
-        public decimal GetTotalPrice()
-        {
-            return GetCart().Sum(item => item.TotalPrice * item.Quantity);
-        }
-
+        //Sparar varukorgen i sessionen
         private void SaveCart(List<CartItems> cart)
         {
             var session = _httpContextAccessor.HttpContext.Session;
