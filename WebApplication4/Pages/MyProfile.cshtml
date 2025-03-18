@@ -1,0 +1,24 @@
+﻿@page
+@using WebApplication4.Data
+@model WebApplication4.Pages.MyProfileModel
+
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MyProfile</title>
+</head>
+<body>
+    <div>
+        <p> @Model.Message</p>
+
+        <form method="post">
+            <button type="submit" class="btn-dark pb-md-2" asp-page-handler="kvitto">Mina ordrar/kvitton </button>
+            <button type="submit" class="btn-dark pb-md-2" asp-page-handler="Redigera-profil">Redigera Min Profil </button>
+        </form>
+    </div>
+</body>
+</html>
