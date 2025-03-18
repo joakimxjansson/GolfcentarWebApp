@@ -25,7 +25,7 @@ public class Adminpage : PageModel {
     }
 
     public IActionResult OnPostEditProducts() {
-        return RedirectToPage("/Admin/EditProducts");
+        return RedirectToPage("Admin/EditProducts");
     }
     public IActionResult OnPostEditUsers() {
         return RedirectToPage("/Admin/EditCustomers");
