@@ -41,14 +41,14 @@ public class EditCustomers : PageModel {
             user.Saldo = User.Saldo;
             if (ImageFile != null) {
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profile", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await ImageFile.CopyToAsync(stream);
             }
 
            
-            user.UserImage = "/images/profile/" + fileName;
+            user.UserImage = "/images/" + fileName;
         
             }
             await _context.SaveChangesAsync();
