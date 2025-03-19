@@ -39,6 +39,7 @@ public class EditCustomers : PageModel {
             user.LastName = User.LastName;
             user.Email = User.Email;
             user.Saldo = User.Saldo;
+            if (ImageFile != null) {
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profile", fileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -47,11 +48,9 @@ public class EditCustomers : PageModel {
             }
 
            
-            user.UserImage = "/images/profile" + fileName;
+            user.UserImage = "/images/profile/" + fileName;
         
-            
-           
-            
+            }
             await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditCustomers");
         }
