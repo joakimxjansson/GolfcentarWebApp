@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
@@ -17,12 +18,16 @@ namespace WebApplication4.Pages
         // Lagrar ordernummer/orderdatum
         public string OrderNumber { get; set; }
         public string OrderDate { get; set; }
+        public int OrderId { get; set; }
+        public User user { get; set; }
+
+        
 
         public void OnGet()
         {
-            // Hämta den inloggade användarens information
-            var userName = User.Identity.Name;
-            var user = _context.Users.FirstOrDefault(u => u.Username == userName);
+            var id = HttpContext.Session.GetInt32("Id");
+            OrderNumber = "Ingen order skapad";
+
 
             if (user != null)
             {
