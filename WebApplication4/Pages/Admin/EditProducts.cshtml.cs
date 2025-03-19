@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
@@ -16,13 +17,18 @@ public class EditProducts : PageModel
     [BindProperty]
     public Product? Product { get; set; }
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
+        if (HttpContext.Session.GetInt32("Id") == null) {
+            return RedirectToPage("/Login");
+        }
         Products = _context.Product;
+        return Page();
+        
 
     }
 
-    //Lägg till produkt
+    //Lï¿½gg till produkt
     public IActionResult OnPostCreate()
     {
         if (Product != null)

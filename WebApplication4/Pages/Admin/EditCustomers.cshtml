@@ -51,7 +51,10 @@
                             <label class="form-label" for="image">Profilbild</label>
                             <input type="file" class="form-control" id="image" name="ImageFile"/>
                         </div>
-                        
+                        <div class="col-md-3">
+                            <img src="@Url.Content("~" + @users.UserImage)" class="img-thumbnail">
+                        </div>
+
                         <div class="col-12 d-flex justify-content-end gap-2 ">
                             <button class="btn btn-danger w-25" type="submit" asp-page-handler="Delete" asp-route-id="@users.UserId">Ta bort Användare</button>
                             <button class="btn btn-centar w-25" type="submit" asp-page-handler="Update" asp-route-id="@users.UserId">Uppdatera</button>
