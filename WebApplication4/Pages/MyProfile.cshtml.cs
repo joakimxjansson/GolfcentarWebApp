@@ -18,13 +18,13 @@ namespace WebApplication4.Pages
             _userService = userService;
         }
         
-        public void OnGet()
-        {
-            var id = HttpContext.Session.GetInt32("Id");
-            Username = _userService.GetUsername(id.Value);
-            Message = "Välkommen " + Username + "!";
+        //public void OnGet()
+        //{
+        //    var id = HttpContext.Session.GetInt32("Id");
+        //    Username = _userService.GetUsername(id.Value);
+        //    Message = "Välkommen " + Username + "!";
 
-        }
+        //}
 
         
     }
