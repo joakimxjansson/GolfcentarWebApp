@@ -21,8 +21,10 @@
 
 
 	<ItemGroup>
+
 		<Folder Include="Migrations\" />
-		<Folder Include="wwwroot\images\" />
+		<Folder Include="wwwroot\images\profile\" />
+
 	</ItemGroup>
 
 

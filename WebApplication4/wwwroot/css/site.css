@@ -39,6 +39,7 @@ body {
     border-radius: 1rem;
     display: flex;
     justify-content: center;
+    margin-top: 0.5em;
 }
 
 .logincontainer {
@@ -90,21 +91,137 @@ body {
     padding-top: 1.5rem;
 }
 
-.btn {
+.btn-centar {
     background-color: #55552b;
     border-color: #55552b;
+    color: white;
 }
 
-    .btn:hover {
-        background-color: yellowgreen;
-        border-color: yellowgreen;
-    }
+
+.btn-centar:hover {
+    background-color: yellowgreen;
+    border-color: yellowgreen;
+}
 /*CSS Registration form SLUT - Sandra*/
 
 
-/*CSS Blogginl‰gg START  - Batool*/
 
-body.blogginl‰gg {
+/*CSS till MyProfile*/
+.myprofile{
+    background-color: #fff;
+    width: 50%;
+    border-radius: 33px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    border-radius: 10px;
+    border: 2px solid #55552b;
+    width: 12em;
+}
+
+.MyProfile-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #272727;
+    position: relative;
+    top: 8px;
+    margin-left: 1em;
+}
+
+.MyProfile-mail {
+    font-size: 14px;
+    color: grey;
+    position: relative;
+    top: 2px;
+    margin-left: 1em;
+}
+
+.balance-container {
+    background-color: #eee;
+    border-radius: 12px;
+}
+
+.dollar-div {
+    
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.current-balance {
+    font-size: 15px;
+    color: #272727;
+    font-weight: bold;
+}
+
+.amount {
+    color: #55552b;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.kr {
+    font-size: 16px;
+    color: #272727;
+    font-weight: bold;
+}
+
+.recent-orders {
+    font-size: 16px;
+    font-weight: 700;
+    color: #5957f9;
+    margin-left: 2px;
+}
+
+.links {
+    font-size: 16px;
+    font-weight: 700;
+    color: #272727;
+    text-decoration: none;
+}
+
+.links-border:hover {
+    border-bottom: 1px solid #55552b;
+    cursor: pointer;
+}
+
+@media (max-width: 991px) {
+
+    .myprofile {
+        width: 70%;
+    }
+}
+
+@media (max-width: 528px) {
+
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+
+
+    .myprofile {
+        width: 90%;
+    }
+}
+
+/*slut p√Ø¬ø¬Ω CSS till MyProfile*/
+
+
+
+
+
+/*CSS Blogginl√§gg START  - Batool*/
+
+body.blogginl√§gg {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -113,10 +230,10 @@ body.blogginl‰gg {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #e5e5cc; /* Beige f‰rg */
+    background-color: #e5e5cc; /* Beige f√§rg */
 }
 
-header.blogginl‰gg {
+header.blogginl√§gg {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -124,63 +241,63 @@ header.blogginl‰gg {
     background-color: #55552b;
     padding: 1rem;
     width: 100%;
-    position: fixed; /* Gˆr headern fixerad */
+    position: fixed; /* G√∂r headern fixerad */
     top: 0;
     left: 0;
-    z-index: 1000; /* Se till att den ‰r ˆverst */
+    z-index: 1000; /* Se till att den √§r √∂verst */
 }
 
-header h1.blogginl‰gg {
+header h1.blogginl√§gg {
     color: #ffffff;
     margin: 0;
 }
 
-nav.blogginl‰gg {
-    background-color: #55552b; /* Meny bakgrundsf‰rg */
+nav.blogginl√§gg {
+    background-color: #55552b; /* Meny bakgrundsf√§rg */
     width: 100%; /* Menybredd */
     display: flex;
     justify-content: center;
     padding: 1rem;
 }
 
-nav a.blogginl‰gg {
-    color: #ffffff; /* Textf‰rg */
+nav a.blogginl√§gg {
+    color: #ffffff; /* Textf√§rg */
     text-decoration: none;
     padding: 0.5rem 1rem;
     font-weight: bold;
-    font-size: 1rem; /* Gˆr l‰nkarna samma storlek */
-    margin: 0 1rem; /* Mellanrum mellan l‰nkarna */
+    font-size: 1rem; /* G√∂r l√§nkarna samma storlek */
+    margin: 0 1rem; /* Mellanrum mellan l√§nkarna */
 }
 
-    nav a.blogginl‰gg:hover {
+    nav a.blogginl√§gg:hover {
         background-color: #bbbb77;
     }
 
-main.blogginl‰gg {
-    padding: 6rem 2rem; /* ÷ka toppmarginalen fˆr att r‰kna med den fixerade headern */
+main.blogginl√§gg {
+    padding: 6rem 2rem; /* √ñka toppmarginalen f√∂r att r√§kna med den fixerade headern */
     flex-grow: 1;
     width: 100%;
 }
 
-footer.blogginl‰gg {
+footer.blogginl√§gg {
     background-color: #55552b;
     color: #ffffff;
     text-align: center;
     padding: 1rem;
     width: 100%;
-    position: fixed; /* Gˆr footern fixerad */
+    position: fixed; /* G√∂r footern fixerad */
     bottom: 0;
     left: 0;
-    z-index: 1000; /* Se till att den ‰r ˆverst */
+    z-index: 1000; /* Se till att den √§r √∂verst */
 }
 
-.comment-section.blogginl‰gg {
+.comment-section.blogginl√§gg {
     margin-top: 2rem;
     border-top: 1px solid #bbbb77;
     padding-top: 1rem;
 }
 
-.comment.blogginl‰gg {
+.comment.blogginl√§gg {
     border: 1px solid #bbbb77;
     border-radius: 5px;
     padding: 1rem;
@@ -188,36 +305,36 @@ footer.blogginl‰gg {
     background-color: #ffffff;
 }
 
-.comment-header.blogginl‰gg {
+.comment-header.blogginl√§gg {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0.5rem;
 }
 
-.comment-author.blogginl‰gg {
+.comment-author.blogginl√§gg {
     font-weight: bold;
     color: #55552b;
 }
 
-.comment-timestamp.blogginl‰gg {
+.comment-timestamp.blogginl√§gg {
     font-size: 0.8rem;
     color: #bbbb77;
 }
 
-.comment-body.blogginl‰gg {
+.comment-body.blogginl√§gg {
     margin-bottom: 1rem;
     color: #55552b;
 }
 
-.comment-form.blogginl‰gg {
+.comment-form.blogginl√§gg {
     border: 1px solid #bbbb77;
     border-radius: 5px;
     padding: 1rem;
     background-color: #ffffff;
 }
 
-.comment-form textarea.blogginl‰gg {
+.comment-form textarea.blogginl√§gg {
     width: 100%;
     height: 100px;
     padding: 0.5rem;
@@ -226,7 +343,7 @@ footer.blogginl‰gg {
     resize: vertical;
 }
 
-.comment-form button.blogginl‰gg {
+.comment-form button.blogginl√§gg {
     background-color: #55552b;
     color: #ffffff;
     border: none;
@@ -235,8 +352,9 @@ footer.blogginl‰gg {
     border-radius: 5px;
 }
 
-    .comment-form button.blogginl‰gg:hover {
+    .comment-form button.blogginl√§gg:hover {
         background-color: #bbbb77;
     }
 
-/*CSS Blogginl‰gg SLUT  - Batool*/
+/*CSS Blogginl√§gg SLUT  - Batool*/
+

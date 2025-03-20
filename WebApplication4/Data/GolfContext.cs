@@ -25,10 +25,16 @@ public class GolfContext : DbContext {
             new Product { ProductId = 4, ProdName = "Golfbag", ProdDescription = "Vattentålig", ProdPrice = 1999, ProdImage = "golfbag.jpg" },
             new Product { ProductId = 5, ProdName = "Golfhandske", ProdDescription = "Bra grepp", ProdPrice = 299, ProdImage = "handske.jpg" },
             new Product { ProductId = 6, ProdName = "Golfbollar (12-pack)", ProdDescription = "Högkvalitativa bollar.", ProdPrice = 349, ProdImage = "golfballs.jpg" },
-            new Product { ProductId = 7, ProdName = "Golfkeps", ProdDescription = "Perfekt när solen tittar fram", ProdPrice = 249, ProdImage = "keps.jpg" },
+            new Product { ProductId = 7, ProdName = "Golfkeps", ProdDescription = "Perfekt när solen tittar fram", ProdPrice = 249, ProdImage = "centarkeps.jpg" },
             new Product { ProductId = 8, ProdName = "peg (10-pack)", ProdDescription = "pegs i trä", ProdPrice = 39, ProdImage = "peg.jpg" }
 
         );
-        
+
+       
+
     }
+    
+        
+    
+
 }

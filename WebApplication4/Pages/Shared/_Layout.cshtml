@@ -16,10 +16,10 @@
         <a asp-page="/Index"><img src="~/images/Centar.gif" alt="logga" class="logo"></a>
         <nav class="navbar">
             <a asp-page="/Index">Startsida</a>
-            <a asp-page="/OldPages/AboutUs">Om oss</a>           
+            <a asp-page="/OldPages/AboutUs">Om oss</a> 
             <a asp-page="/OldPages/Booking">Boka</a>
             <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
-            <a asp-page="UserSection">Medlem</a>
+            <a asp-page="login">Medlem</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
             <div class="dropdown">
                 <a href="#" class="dropbtn">Restaurang och shop</a>
@@ -31,9 +31,14 @@
         </nav>
 
         <!-- Knapp för logga in-->
-        <div>
-            <button class="buttonLogInLS" onclick="location.href='medlemssektion.html'">Logga in</button>
-        </div>
+        
+            @if (Context.Session.GetInt32("Id") !=null) {
+        <a class="buttonLogInLS" asp-page="/Logout">Logga Ut</a>
+
+        
+            } else {
+                <a class="buttonLogInLS" asp-page="/Login">Logga in</a>
+            }
         <!-- slut-->
         <!--Hamburgermeny start-->
         <nav class="hamburgermeny">

@@ -15,8 +15,11 @@
 <div>
     <p> @Model.Message</p>
     <form method="post">
-    <button type="submit" class="btn-dark pb-md-2" asp-page-handler="EditProducts">Redigera produkter </button>
-    <button type="submit" class="btn-dark pb-md-2" asp-page-handler="EditUsers" >Redigera användare </button>
+        <button type="submit" class="btn btn-primary px-4 py-2 rounded shadow" asp-page-handler="EditProducts">Redigera produkter</button>
+
+        <button type="submit" class="btn btn-success px-4 py-2 rounded shadow" asp-page-handler="EditUsers">Redigera användare</button>
+
+        <button type="submit" class="btn btn-danger px-4 py-2 rounded shadow" asp-page-handler="EditOrders">Hantera beställningar</button>
     </form>
 </div>
 </body>
