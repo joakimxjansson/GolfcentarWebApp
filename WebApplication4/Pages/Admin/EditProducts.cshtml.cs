@@ -16,6 +16,8 @@ public class EditProducts : PageModel
     public IEnumerable<Product>? Products { get; set; } = new List<Product>();
     [BindProperty]
     public Product? Product { get; set; }
+    [BindProperty]
+    public IFormFile ImageFile { get; set; }
 
     public IActionResult OnGet()
     {
@@ -33,6 +35,19 @@ public class EditProducts : PageModel
     {
         if (Product != null)
         {
+            if (ImageFile != null)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    ImageFile.CopyToAsync(stream);
+                }
+
+
+                Product.ProdImage = fileName;
+
+            }
             _context.Product.Add(Product);
             _context.SaveChanges();
             return RedirectToPage("/Admin/EditProducts");
@@ -55,6 +70,19 @@ public class EditProducts : PageModel
             product.ProdDescription = Product.ProdDescription;
             product.ProdPrice = Product.ProdPrice;
             product.ProdImage = Product.ProdImage;
+            if (ImageFile != null)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                     ImageFile.CopyToAsync(stream);
+                }
+
+
+                product.ProdImage = "/images/" + fileName;
+
+            }
             _context.SaveChanges();
             return RedirectToPage("/Admin/EditProducts");
         }
