@@ -13,10 +13,10 @@
 </head>
 <body>
     <div>
-        <p> @Model.Message</p>
+        <h1 class="d-flex justify-content-center mt-2"> @Model.Message</h1>
 
 
-		<div class="container d-flex justify-content-center mt-5">
+		<div class="container d-flex justify-content-center mt-3 mb-3">
 
 			<div class="card myprofile">
 
@@ -25,8 +25,8 @@
 					<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image" width="100">
 
 					<div class="ml-3">
-						<h5 class="MyProfile-name">Tiger Woods</h5>
-						<p class="MyProfile-mail">Tiger@gmail.com</p>
+						<h5 class="MyProfile-name">@Model.Name</h5>
+						<p class="MyProfile-mail">@Model.Email</p>
 					</div>
 				</div>
 
@@ -39,16 +39,16 @@
 					</div>
 					<div class="d-flex flex-column text-right mr-2">
 						<span class="current-balance">Nuvarande Saldo</span>
-						<span class="amount"><span class="kr">Kr: </span>1476</span>
+						<span class="amount"><span class="kr">Kr: @Model.Saldo</span>
 					</div>
 
 				</div>
 
 				<div class="links-border mt-4">
-					<span class="links">Mina ordrar / kvitton</span>
+					<a class="links" asp-page="">Mina ordrar / kvitton</a>
 				</div>
 				<div class="links-border pt-2">
-					<span class="links">Redigera användaruppgifter</span>
+					<a class="links" asp-page="/Admin/EditCustomers">Redigera användaruppgifter</a>
 				</div>
 			
 			</div>

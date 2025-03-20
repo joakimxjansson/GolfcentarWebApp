@@ -14,6 +14,7 @@ namespace WebApplication4.Pages
         public string UserImage { get; set; }
         public int Saldo { get; set; }
         public string Email { get; set; }
+        public string Name { get; set; }
 
         public MyProfileModel(GolfContext db, UserService userService)
         {
@@ -28,13 +29,17 @@ namespace WebApplication4.Pages
             UserImage = _userService.GetImage(id.Value);
             Saldo = _userService.GetSaldo(id.Value);
             Email = _userService.GetEmail(id.Value);
+            Name = _userService.GetName(id.Value);
 
             Message = "Välkommen " + Username + "!";
 
         }
 
+        public IActionResult OnPostEditUsers()
+        {
+            return RedirectToPage("/Admin/EditCustomers");
+        }
 
 
-        
     }
 }
