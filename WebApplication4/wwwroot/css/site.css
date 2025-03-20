@@ -97,8 +97,16 @@ body {
     color: white;
 }
 
+
 .btn-centar:hover {
     background-color: yellowgreen;
     border-color: yellowgreen;
 }
 /*CSS Registration form SLUT - Sandra*/
+=========
+    .btn:hover {
+        background-color: yellowgreen;
+        border-color: yellowgreen;
+    }
+/*CSS Registration form SLUT - Sandra*/
+>>>>>>>>> Temporary merge branch 2
