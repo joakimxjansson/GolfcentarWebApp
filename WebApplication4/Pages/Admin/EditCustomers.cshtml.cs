@@ -1,3 +1,5 @@
+using System.Net;
+using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
@@ -12,14 +14,22 @@ public class EditCustomers : PageModel {
     public IEnumerable<User>? Users { get; set; } = new List<User>();
     [BindProperty]
     public User? User { get; set; } 
+    [BindProperty]
+    public IFormFile ImageFile { get; set; } 
+    
+   
     
     public void OnGet() {
         Users = _context.Users;
 
     }
 
-    public IActionResult OnPost(int id) {
-        var user = _context.Users.Find(id);
+    public async Task <IActionResult> OnPostUpdateAsync(int id) {
+        
+        
+        var user = await _context.Users.FindAsync(id);
+    
+
         if (user == null) {
             return NotFound();
         }
@@ -29,9 +39,37 @@ public class EditCustomers : PageModel {
             user.LastName = User.LastName;
             user.Email = User.Email;
             user.Saldo = User.Saldo;
-            _context.SaveChanges();
+            if (ImageFile != null) {
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profile", fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await ImageFile.CopyToAsync(stream);
+            }
+
+           
+            user.UserImage = "/images/profile/" + fileName;
+        
+            }
+            await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditCustomers");
         }
         return Page();
+    }
+
+    public async Task<IActionResult> OnPostDeleteAsync(int id) {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null) {
+            return NotFound();
+        }
+        
+
+        if (user.Admin != 0) {
+            return RedirectToPage("/Admin/EditCustomers");
+        }
+        
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+        return RedirectToPage("/Admin/EditCustomers");
     }
 }

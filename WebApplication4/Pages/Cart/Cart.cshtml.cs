@@ -9,20 +9,20 @@ namespace WebApplication4.Pages.Cart
 {
     public class CartModel : PageModel
     {
+        //Lagrar en instans av CartService
         private readonly CartService _cartService;
 
+        // Konstruktor som injicerar CartService
         public CartModel(CartService cartService)
         {
             _cartService = cartService;
         }
 
         public List<CartItems> CartItems { get; set; } = new();
-        public decimal TotalPrice { get; set; }
 
         public void OnGet()
         {
             CartItems = _cartService.GetCart();
-            TotalPrice = _cartService.GetTotalPrice();
         }
 
         public IActionResult OnGetRemove(int id)

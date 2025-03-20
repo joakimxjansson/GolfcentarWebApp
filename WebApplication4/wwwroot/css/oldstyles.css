@@ -503,6 +503,87 @@ iframe {
     }
 }
 
+/*Kundkorg Adam*/
+
+.kundkorg-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kundkorg-container {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    margin: 50px 0 50px 0;
+}
+
+.kundkorg-kundkorg {
+    background-color: #b0b07b;
+    width: 70%;
+    padding: 20px;
+    margin: 5px;
+}
+
+.kundkorg-rubrik {
+    color: #44442a;
+    width: 100%;
+    padding: 20px;
+}
+
+.kundkorg-varor {
+    color: #44442a;
+    background-color: #e5e5cc;
+    width: 100%;
+    padding: 50px;
+}
+
+.kundkorg-till-kassa {
+    color: #44442a;
+    font-weight: 600;
+    background-color: #b0b07b;
+    width: 30%;
+    padding: 20px;
+    margin: 5px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.kundkorg-knapp {
+    color: #55552b;
+    font-size: 15px;
+    font-weight: 800;
+    height: 60px;
+    letter-spacing: 1px;
+    padding: 12px 20px;
+    margin: 20px auto 35px;
+    background-color: #e5e5cc;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    transition: 0.2s;
+    box-shadow: 2px 3px 5px #000000d4, -2px -3px 5px #e5e5cc;
+    justify-self: flex-end;
+}
+
+    .kundkorg-knapp:hover {
+        color: green;
+        box-shadow: none;
+    }
+
+@media screen and (max-width: 760px) {
+    .kundkorg-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .kundkorg-kostnad, .kundkorg-kundkorg {
+        width: 90%;
+        margin: 10px auto;
+    }
+}
+
 
 /*Kontakt Adam*/
 

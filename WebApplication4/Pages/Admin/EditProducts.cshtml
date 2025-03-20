@@ -15,6 +15,40 @@
 <body>
     <div>
         @{
+            //form för att lägga till en produkt
+            <div class="regcontainer" style="padding:20px">
+                <form method="post" asp-page-handler="Create" class="form">
+                    <h3 class="regrubrik">Lägg till en produkt</h3>
+                    <p class="regtext">Se till att filnamn på bild finns i wwwroot/images</p>
+
+                    <div class="form-group">
+                        <label asp-for="Product.ProdName">Produktnamn:</label>
+                        <input type="text" class="textbox" asp-for="Product.ProdName" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Product.ProdDescription">Beskrivning:</label>
+                        <input type="text" class="textbox" asp-for="Product.ProdDescription" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Product.ProdPrice">Pris:</label>
+                        <input type="text" class="textbox" asp-for="Product.ProdPrice" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Product.ProdImage">Bild(Filnamn):</label>
+                        <input type="text" class="textbox" asp-for="Product.ProdImage" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-centar mt-2" value="Lägg till produkt" />
+                    </div>
+                </form>
+            </div>
+
+
+            //Visar all produkter samt knapp för att uppdatera och ta bort
             foreach (Product product in Model.Products)
             {
                 <label asp-for="Product.ProdName">Produkt:</label>
@@ -35,7 +69,8 @@
                     <label asp-for="Product.ProdImage">Bild:</label>
                     <input type="text" asp-for="Product.ProdImage" value="@product.ProdImage" placeholder="Bild" />
 
-                    <button class="btn btn-primary" type="submit" asp-route-id="@product.ProductId">Uppdatera</button>
+                    <button class="btn btn-centar" type="submit" asp-route-id="@product.ProductId">Uppdatera</button>
+                    <button class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-id="@product.ProductId">Ta bort</button>
                 </form>
             }
         }
