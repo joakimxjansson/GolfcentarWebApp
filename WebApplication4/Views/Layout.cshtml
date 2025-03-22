@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body class="forum-body">
+    <header role="banner">
+        <h1>Välkommen till forumet</h1>
+        <nav aria-label="Huvudmeny">
+            <a href="/Blog" class="active">Blogginlägg</a>
+            <a href="/Home">Home</a>
+            <a href="/Privacy">Privacy</a>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <p>&copy; 2025 ForumApp</p>
+    </footer>
+</body>
+</html>
+

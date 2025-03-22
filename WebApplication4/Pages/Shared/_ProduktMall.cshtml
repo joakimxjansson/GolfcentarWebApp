@@ -7,6 +7,7 @@
 @*Html för mallen- Anton*@
 
 <div class="template">
+    @*Göra mallen till länkar -- <a asp-page="ProductDetails" asp-route-id="@Model.Id" class="template-link">*@
     <img src="@Url.Content("~/images/" + Model.ProdImage)" class="template-img" alt="@Model.ProdName">
     <div class="template-body">
         <h5 class="template-title">@Model.ProdName</h5>

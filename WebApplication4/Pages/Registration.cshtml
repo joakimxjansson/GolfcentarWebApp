@@ -8,6 +8,7 @@
     <form method="post" class="form">
         <h3 class="regrubrik">Skapa ett konto</h3>
         <p class="regtext">Registrera dig här! Fyll i dina uppgifter nedan.</p>
+        <p>@Model.Message</p>
         <div class="form-group">
 
             <div class="col-1">
@@ -51,7 +52,7 @@
             </div>
 
             <div class="col-2">
-                <input type="text" class="textbox" asp-for="User.Email" />
+                <input type="email" class="textbox" asp-for="User.Email" />
             </div>
 
         </div>
@@ -70,7 +71,7 @@
 
         <div class="form-group">
             <div class="col-3">
-                <input type="submit" class="btn btn-primary" value="Registrera" />
+                <input type="submit" class="btn btn-centar" value="Registrera" />
             </div>
         </div>
     </form>

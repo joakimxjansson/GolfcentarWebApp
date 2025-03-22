@@ -23,17 +23,17 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = _db.User.FirstOrDefault(u => u.Username == UserName && u.Password == PassWord);
+            var user = _db.Users.FirstOrDefault(u => u.Username == UserName && u.Password == PassWord);
 
             if (user != null)
             {
-                HttpContext.Session.SetString("UserName", user.Username); //skapar session
+                HttpContext.Session.SetInt32("Id", user.UserId); //skapar session
 
-                return RedirectToPage("/..."); //redirect till ny sida
+                return RedirectToPage("/Admin/Adminpage"); //redirect till ny sida
             }
             else
             {
-                Message = "Fel användarnamn eller lösenord! Försök igen";
+                Message = "Fel anvÃ¤ndarnamn eller lÃ¶senord! FÃ¶rsÃ¶k igen";
                 return Page();
             }
         }

@@ -39,6 +39,7 @@ body {
     border-radius: 1rem;
     display: flex;
     justify-content: center;
+    margin-top: 0.5em;
 }
 
 .logincontainer {
@@ -90,9 +91,10 @@ body {
     padding-top: 1.5rem;
 }
 
-.btn {
+.btn-centar {
     background-color: #55552b;
     border-color: #55552b;
+    color: white;
 }
 
     .btn:hover {
@@ -100,18 +102,3 @@ body {
         border-color: yellowgreen;
     }
 /*CSS Registration form SLUT - Sandra*/
-
-
-.cart-icon {
-    width: 100px;
-    height: 100px;
-}
-
-.cart-counter {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background-color: red;
-    text-align: center;
-    color: white;
-}
