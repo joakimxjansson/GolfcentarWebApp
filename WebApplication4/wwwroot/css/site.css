@@ -102,3 +102,54 @@ body {
     border-color: yellowgreen;
 }
 /*CSS Registration form SLUT - Sandra*/
+
+/* Profilredigering - Rama */
+.profile-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #bbbb77;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.profile-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #000;
+}
+
+.profile-text {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #444;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 25px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+}
+
+.save-button {
+    width: 100%;
+    background-color: #55552b;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .save-button:hover {
+        background-color: #555;
+    }
+
+/* Profilredigering Slut - Rama */

@@ -4,6 +4,8 @@ using WebApplication4.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("LoginConnectionString");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Add services to the container.

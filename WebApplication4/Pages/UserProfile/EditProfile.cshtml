@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model WebApplication4.Pages.UserProfile.EditProfileModel
+@{
+    ViewData["Title"] = "Redigera Profil";
+}
+
+<div class="profile-container">
+    <form method="post" enctype="multipart/form-data">
+        <label for="ProfileImage">
+            <img src="@(!string.IsNullOrEmpty(Model.MyUser.UserImage) ? "/images/" + Model.MyUser.UserImage : "/images/default-profile.jpg")"
+                 alt="Profilbild" class="profile-icon" />
+            <div class="profile-text">Klicka för att byta bild</div>
+        </label>
+        <input type="file" id="ProfileImage" name="ProfileImage" style="display: none;" />
+
+        <h2>Redigera Profil</h2>
+
+        <input class="profile-input" type="text" name="MyUser.FirstName" placeholder="Förnamn" />
+        <input class="profile-input" type="text" name="MyUser.LastName" placeholder="Efternamn" />
+        <input class="profile-input" type="email" name="MyUser.Email" placeholder="E-post" />
+        <input class="profile-input" type="text" name="MyUser.PhoneNumber" placeholder="Telefonnummer" />
+
+        <button class="save-button" type="submit">Spara profil</button>
+    </form>
+</div>

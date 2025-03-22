@@ -14,8 +14,11 @@ public class User {
     public string FirstName { get; set; }
     [Required]
     public string LastName { get; set; }
-
-    public int Admin { get; set; } = 0;
-    public int Saldo { get; set; } = 1000;
+    public int Admin {  get; set; } 
+    public int Saldo {  get; set; }
+    public string? PhoneNumber { get; set; }
     public string? UserImage { get; set; }
+
+
+    
 }
