@@ -11,83 +11,95 @@ namespace WebApplication4.Pages
 {
     public class checkoutModel : PageModel
     {
-        private readonly GolfContext _context;
+        public readonly GolfContext _context;
         private readonly UserService _userService;
 
-        // Lista för varor i CartItems
         public List<CartItems> CartItems { get; set; } = new List<CartItems>();
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
         public int UserId { get; set; }
+        public string OrderNumber { get; set; } = string.Empty;
+        public DateTime OrderDate { get; set; }
         public int UserSaldo { get; set; }
 
-        public checkoutModel(GolfContext context, UserService userService)
+        public checkoutModel(GolfContext db, UserService userService)
         {
-            _context = context;
+            _context = db;
             _userService = userService;
         }
 
         public void OnGet()
         {
-            var id = HttpContext.Session.GetInt32("Id");
-            Username = _userService.GetUsername(id.Value);
-            UserSaldo = _userService.GetSaldo(id.Value);
-            // Hämta inloggad användares ID
-            //var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
 
-            // Ladda varukorgens artiklar
+            var id = HttpContext.Session.GetInt32("Id");
+            UserSaldo = _userService.GetSaldo(id.Value);
+            if (id != null)
+            {
+                UserId = id.Value;
+                Username = _userService.GetUsername(UserId);
+            }
+
             CartItems = _context.CartItems
                 .Include(c => c.Product)
                 .AsNoTracking()
                 .ToList();
 
-            // Beräkna TotalPrice för varje artikel
             foreach (var item in CartItems)
             {
-                item.TotalPrice = (int)(item.Product.ProdPrice * item.Quantity);
+                item.TotalPrice = (int)(item.Quantity * (item.Product.ProdPrice));
             }
         }
-
-        public async Task<IActionResult> OnPostCheckoutAsync()
+       
+        async Task<IActionResult> OnPostCheckoutAsync()
         {
-            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim, out var userId))
+            if (User?.Identity?.IsAuthenticated != true)
             {
                 return Unauthorized();
             }
 
-            // Hämta användare
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null)
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
             {
-                
-                return NotFound("debug");
+                return Unauthorized();
             }
 
-            // Skapa order för varje produkt
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var orderNumber = GenerateOrderNumber();
+            var orderDate = DateTime.Now;
+
             foreach (var item in CartItems)
             {
-                if (item.Product == null)
-                {
-                    continue; // Skip if product is null
-                }
-
                 var order = new Order
                 {
                     User = user,
                     Product = item.Product,
                     Quantity = item.Quantity,
                     TotalPrice = item.Quantity * item.Product.ProdPrice,
-                    OrderDate = DateTime.Now,
-                    OrderNumber = Guid.NewGuid().ToString()
+                    OrderDate = orderDate,
+                    OrderNumber = orderNumber
                 };
-
                 _context.Order.Add(order);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("checkoutexit");
+
+            return RedirectToPage("checkoutexit", new { orderNumber = orderNumber, orderDate = orderDate });
         }
 
+        private string GenerateOrderNumber()
+        {
+            var random = new Random();
+            int length = random.Next(5, 8);
+            var orderNumber = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                orderNumber[i] = (char)('0' + random.Next(0, 10));
+            }
+            return new string(orderNumber);
+        }
     }
 }

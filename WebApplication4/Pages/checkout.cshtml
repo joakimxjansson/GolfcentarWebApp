@@ -15,13 +15,13 @@
 <body>
 
         <!-- container för produkter i varukorgen -->
-    <div id="cart-container">                    
-        <div id="header-container">
+    <div id="cart-container-ls">                    
+        <div id="header-container-ls">
             <h1>Golfcentar</h1>
             <h5>Din varukorg</h5>
         </div>
 
-        <div id="cart-items-container">                                               
+        <div id="cart-items-container-ls">                                               
             <table>
                 <thead>
                     <tr>
@@ -48,7 +48,7 @@
     <!-- slut på container -->
 
     <!--Container för cart details-->
-        <div id="cart-details">
+        <div id="cart-details-ls">
             <!--Hämtar in artiklar i varukorgen för att beräkna summa-->
             <p>Totalt pris: @(Model.CartItems?.Sum(item => item.TotalPrice)):-</p>
             <p>Frakavigt: <b>Fri Frakt</b></p>
@@ -72,11 +72,7 @@
             <!-- css-->
 
     <style>
-        body {
-            background-color: #e5e5cc;
-            font-family: Arial, Helvetica, sans-serif;
-            margin-bottom: 60px;
-        }
+        
 
     .buttonLS {
         display: block;
@@ -98,17 +94,17 @@
         }
 
 
-         #header-container {
+         #header-container-ls {
          text-align:center;
          }
 
     
 
-        .order-details {
+        .order-details-ls {
             text-align: center;
         }
 
-        #cart-container {
+        #cart-container-ls {
             text-align: center;
             border: 1px solid #ccc;
             padding: 20px;
@@ -119,7 +115,7 @@
             margin: 0 auto;
         }
 
-        #cart-details {
+        #cart-details-ls {
             margin-bottom: 20px;
         }
 
