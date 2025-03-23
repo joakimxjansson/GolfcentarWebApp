@@ -7,8 +7,7 @@
 <div class="profile-container">
     <form method="post" enctype="multipart/form-data">
         <label for="ProfileImage">
-            <img src="@(!string.IsNullOrEmpty(Model.MyUser.UserImage) ? "/images/" + Model.MyUser.UserImage : "/images/default-profile.jpg")"
-                 alt="Profilbild" class="profile-icon" />
+            <img src="/images/test.jpg" alt="Profilbild" class="profile-icon" />
             <div class="profile-text">Klicka för att byta bild</div>
         </label>
         <input type="file" id="ProfileImage" name="ProfileImage" style="display: none;" />
