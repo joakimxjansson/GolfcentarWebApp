@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
 using WebApplication4.Data;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApplication4.Services
 {
@@ -33,7 +34,7 @@ namespace WebApplication4.Services
         public void AddToCart(CartItems item)
         {
             var cart = GetCart();
-            var existingItem = cart.FirstOrDefault(p => p.CartItemsId == item.CartItemsId);
+            var existingItem = cart.FirstOrDefault(p => p.Product.ProductId == item.Product.ProductId);
 
             if (existingItem != null)
             {
@@ -43,7 +44,6 @@ namespace WebApplication4.Services
             {
                 cart.Add(item);
             }
-
             SaveCart(cart);
         }
 
@@ -54,16 +54,24 @@ namespace WebApplication4.Services
 
             if (item != null)
             {
-                cart.Remove(item);
+                if(item.Quantity > 1)
+                {
+                    item.Quantity--;
+                }
+                else
+                {
+                    cart.Remove(item);
+                }
+
                 SaveCart(cart);
             }
         }
-
+       
         public decimal GetTotalPrice()
         {
             return GetCart().Sum(item => item.TotalPrice * item.Quantity);
         }
-
+        
         private void SaveCart(List<CartItems> cart)
         {
             var session = _httpContextAccessor.HttpContext.Session;
