@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
@@ -26,14 +27,20 @@ namespace WebApplication4.Pages
         {
             if (!ModelState.IsValid)
             {
-                Message = "Försök igen";
+                string newMessage = "";
+                foreach (var error in ModelState.Values.SelectMany(modelState => modelState.Errors))
+                {
+                    newMessage += "*" + error.ErrorMessage + "\n";
+                }
+                Message = newMessage;
                 return Page(); //felaktig reg
             }
-            if (string.IsNullOrEmpty(User.Email))
-            {
-                Message = "Email är obligatoriskt!";
-                return Page();
-            }
+            //Check if the username already is taken.
+            //if (string.IsNullOrEmpty(User.Email))
+            //{
+            //    Message = "Email är obligatoriskt!";
+            //    return Page();
+            //}
 
             _db.Users.Add(User);
             await _db.SaveChangesAsync();
@@ -41,7 +48,5 @@ namespace WebApplication4.Pages
             Message = "Du har registrerat dig!";
             return RedirectToPage("/Login"); //giltig reg, redirect till login-sida
         }
-
-        
     }
 }
