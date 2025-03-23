@@ -102,3 +102,26 @@ body {
         border-color: yellowgreen;
     }
 /*CSS Registration form SLUT - Sandra*/
+
+#cart-container {
+    position:relative;
+    width: 100px;
+    height: 100px;
+}
+
+#cart-icon {
+    width: 100px;
+    height: 100px;   
+    position:absolute;
+}
+
+#cart-counter {
+    position: absolute;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    margin: 3px;
+}

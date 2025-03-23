@@ -27,20 +27,13 @@ namespace WebApplication4.Pages
         {
             if (!ModelState.IsValid)
             {
-                string newMessage = "";
-                foreach (var error in ModelState.Values.SelectMany(modelState => modelState.Errors))
-                {
-                    newMessage += "*" + error.ErrorMessage + "\n";
-                }
-                Message = newMessage;
                 return Page(); //felaktig reg
             }
-            //Check if the username already is taken.
-            //if (string.IsNullOrEmpty(User.Email))
-            //{
-            //    Message = "Email är obligatoriskt!";
-            //    return Page();
-            //}
+            if(_db.Users.Any(u => u.Username == User.Username))
+            {
+                Message = "Användernamn är redan i användning";
+                return Page(); //Användare finns redan
+            }
 
             _db.Users.Add(User);
             await _db.SaveChangesAsync();
