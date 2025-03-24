@@ -30,6 +30,14 @@
             </div>
         </nav>
 
+        <div id="cart-container">
+            <a href="/Cart/Cart">
+                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">             
+                    <p id="cart-counter">#</p>
+                <img />
+            </a>
+        </div>
+
         <!-- Knapp för logga in-->
         
             @if (Context.Session.GetInt32("Id") !=null) {
@@ -72,7 +80,7 @@
 <footer>
         <nav class="footercontent">
             <ul>
-                <li><a asp-page="Index">Hem</a></li>
+                <li><a asp-page="/Index">Hem</a></li>
                 <li><a asp-page ="/OldPages/AboutUs">Om oss</a></li>
                 <li><a asp-page="/OldPages/UserAgreement">Användarvillkor</a></li>
             </ul>

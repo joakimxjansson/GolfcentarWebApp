@@ -1,0 +1,60 @@
+﻿@page
+@using WebApplication4.Data
+@model WebApplication4.Pages.MyProfileModel
+
+@{
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MyProfile</title>
+</head>
+<body>
+    <div>
+        <h1 class="d-flex justify-content-center mt-2"> @Model.Message</h1>
+
+
+		<div class="container d-flex justify-content-center mt-3 mb-3">
+
+			<div class="card myprofile">
+
+				<div class="profile-container">
+
+					<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image" width="100">
+
+					<div class="ml-3">
+						<h5 class="MyProfile-name">@Model.Name</h5>
+						<p class="MyProfile-mail">@Model.Email</p>
+					</div>
+				</div>
+
+
+				<div class="balance-container d-flex justify-content-between align-items-center mt-3 p-2">
+					<div class="dollar-div">
+
+						<img src="~/images/money.webp"  width="70">
+
+					</div>
+					<div class="d-flex flex-column text-right mr-2">
+						<span class="current-balance">Nuvarande Saldo</span>
+						<span class="amount"/>  <span class="kr">Kr: @Model.Saldo</span>
+					</div>
+
+				</div>
+
+				<div class="links-border mt-4">
+					<a class="links" asp-page="">Mina ordrar / kvitton</a>
+				</div>
+				<div class="links-border pt-2">
+					<a class="links" asp-page="/Admin/EditCustomers">Redigera användaruppgifter</a>
+				</div>
+			
+			</div>
+
+		</div>
+
+    </div>
+</body>
+</html>
