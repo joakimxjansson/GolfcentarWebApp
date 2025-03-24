@@ -7,10 +7,10 @@ namespace WebApplication4.Pages.UserProfile
 {
     public class EditProfileModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly GolfContext _context;
         private readonly IWebHostEnvironment _env;
 
-        public EditProfileModel(ApplicationDbContext context, IWebHostEnvironment env)
+        public EditProfileModel(GolfContext context, IWebHostEnvironment env)
         {
             _context = context;
             _env = env;
