@@ -1,71 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
     public class checkoutexitModel : PageModel
     {
-        private readonly GolfContext _context;
+        public readonly GolfContext _context;
+        private readonly UserService _userService;
 
-        public checkoutexitModel(GolfContext context)
+        public string Username { get; set; } = string.Empty;
+        public int UserId { get; set; }
+        public int OrderNumber { get; set; }
+        public DateTime OrderDate { get; set; }
+
+        public checkoutexitModel(GolfContext db, UserService userService)
         {
-            _context = context;
+            _context = db;
+            _userService = userService;
         }
 
-        // Lagrar ordernummer/orderdatum
-        public string OrderNumber { get; set; }
-        public string OrderDate { get; set; }
-        public int OrderId { get; set; }
-        public User user { get; set; }
-
-        
-
-        public void OnGet()
+        public void OnGet(int orderNumber, bool v)
         {
-            var id = HttpContext.Session.GetInt32("Id");
-            OrderNumber = "Ingen order skapad";
+            
 
-
-            if (user != null)
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
             {
-                var newOrder = new Order
-                {
-                    OrderNumber = GenerateOrderNumber(), // Generera ett unikt ordernummer
-                    OrderDate = DateTime.Now,
-                    User = user // Tilldela den inloggade användaren till ordern
-                };
-
-                _context.Order.Add(newOrder);
-               // _context.SaveChanges(); // spara ändringarna i databasen
-
-                // Tilldela ordernumret till newOrder
-                OrderNumber = newOrder.OrderNumber;
-                OrderDate = newOrder.OrderDate.ToString("yyyy-MM-dd HH:mm:ss");
+                UserId = int.Parse(userIdClaim);
+                Username = _userService.GetUsername(UserId);
             }
-            else
+
+            var order = _context.Order
+                .AsNoTracking()
+                .FirstOrDefault(o => v && o.User.UserId == UserId);
+                 OrderDate = DateTime.Now;
+                
+
+            if (order != null)
             {
-                // Om användaren inte hittas skrivs följande ut:
-                OrderNumber = " Användaren hittades inte";
-                OrderDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                OrderNumber = int.Parse(order.OrderNumber);
+                
             }
         }
-
-        //Metod för att generera ett ordernummer
-        private string GenerateOrderNumber()
-        {
-            var random = new Random();
-            int length = random.Next(5, 8); // Generera ett nummer mellan 5 och 7
-            var orderNumber = new char[length];
-            for (int i = 0; i < length; i++)
-            {
-                orderNumber[i] = (char)('0' + random.Next(0, 10));
-            }
-            return new string(orderNumber);
-        }
-
     }
 }
-
