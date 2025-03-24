@@ -2,37 +2,104 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Reflection.Metadata.Ecma335;
+using WebApplication4.Services;
+using System.Text.Json;
 
 namespace WebApplication4.Pages
 {
     public class checkoutModel : PageModel
     {
-        // Kontext för databasen 
         public readonly GolfContext _context;
-        //konstruktör för att skapa en instans av databasen
-        public checkoutModel(GolfContext db)
+        private readonly UserService _userService;
+
+        public List<CartItems> CartItems { get; set; } = new List<CartItems>();
+        public string Username { get; set; } = string.Empty;
+        public int UserId { get; set; }
+        public string OrderNumber { get; set; } = string.Empty;
+        public DateTime OrderDate { get; set; }
+        public int UserSaldo { get; set; }
+
+        public checkoutModel(GolfContext db, UserService userService)
         {
             _context = db;
+            _userService = userService;
         }
 
-
-        //Lista för varor i varukorgen
-        public List<CartItems> CartItems { get; set; } = new List<CartItems>();
-        // Hämtar alla varukorgens artiklar från databasen och inkluderar relevant produktdata
         public void OnGet()
         {
+
+            var id = HttpContext.Session.GetInt32("Id");
+            UserSaldo = _userService.GetSaldo(id.Value);
+            if (id != null)
+            {
+                UserId = id.Value;
+                Username = _userService.GetUsername(UserId);
+            }
+
             CartItems = _context.CartItems
                 .Include(c => c.Product)
+                .AsNoTracking()
                 .ToList();
+
+            foreach (var item in CartItems)
+            {
+                item.TotalPrice = (int)(item.Quantity * (item.Product.ProdPrice));
+            }
         }
-        /*
-             CartItems = new List<CartItems>
-             {
-                 new CartItems { Product = new Product { ProdName = "Product1", ProdPrice = 1000m }, Quantity = 1, TotalPrice = 1000 },
-                 new CartItems { Product = new Product { ProdName = "Vantar ProductID #100", ProdPrice = 200m }, Quantity = 2, TotalPrice = 400 },
-                 new CartItems { Product = new Product { ProdName = "Mössa ProductID #101", ProdPrice = 100m }, Quantity = 1, TotalPrice = 100 },
-                 new CartItems { Product = new Product { ProdName = "Driver ProductID #103", ProdPrice = 1345m }, Quantity = 3, TotalPrice = 4035 }
-             };
-             */
+       
+        async Task<IActionResult> OnPostCheckoutAsync()
+        {
+            if (User?.Identity?.IsAuthenticated != true)
+            {
+                return Unauthorized();
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var orderNumber = GenerateOrderNumber();
+            var orderDate = DateTime.Now;
+
+            foreach (var item in CartItems)
+            {
+                var order = new Order
+                {
+                    User = user,
+                    Product = item.Product,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.Quantity * item.Product.ProdPrice,
+                    OrderDate = orderDate,
+                    OrderNumber = orderNumber
+                };
+                _context.Order.Add(order);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("checkoutexit", new { orderNumber = orderNumber, orderDate = orderDate });
+        }
+
+        private string GenerateOrderNumber()
+        {
+            var random = new Random();
+            int length = random.Next(5, 8);
+            var orderNumber = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                orderNumber[i] = (char)('0' + random.Next(0, 10));
+            }
+            return new string(orderNumber);
+        }
     }
 }

@@ -10,64 +10,71 @@
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
-
 </head>
 
 <body>
 
-
-    <div id="cart-container">
-        <h1>Golfcentar</h1>
-        <div style="text-align: center;">
+        <!-- container för produkter i varukorgen -->
+    <div id="cart-container-ls">                    
+        <div id="header-container-ls">
+            <h1>Golfcentar</h1>
             <h5>Din varukorg</h5>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Produkt</th>
-                    <th>Antal</th>
-                    <th>Pris</th>
-                    <th>Summa</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.CartItems)
-                {
-                    <tr>
-                        <td>@item.Product.</td>
-                        <td>@item.Quantity</td> 
-                        <td>@item.TotalPrice:-</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
-        <div id="cart-details">
-            <p>Totalt pris: @Model.CartItems.Sum(item => item.TotalPrice):-</p>
+        <div id="cart-items-container-ls">                                               
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Antal</th>
+                        <th>Pris</th>
+                        <th>Summa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--  Laddar in lista med product/antal och pris-->
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@(item.Product?.ProdName ?? "Unknown Product")</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Product?.ProdPrice ?? 0:-</td>
+                            <td>@item.TotalPrice:-</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    <!-- slut på container -->
+
+    <!--Container för cart details-->
+        <div id="cart-details-ls">
+            <!--Hämtar in artiklar i varukorgen för att beräkna summa-->
+            <p>Totalt pris: @(Model.CartItems?.Sum(item => item.TotalPrice)):-</p>
             <p>Frakavigt: <b>Fri Frakt</b></p>
 
             <div style="text-align: center;">
-                <h5>Förvalt betalsätt: Crediter laddat på konto för id: (Lägg in id på användare)</h5>
+                
+                <h5>Förvalt betalsätt: Crediter laddat på konto för användare: @Model.Username</h5>
+                <p>Ditt saldo: @Model.UserSaldo</p>
 
-                <div style="text-align: left" ;>
-                    <button class="buttonLogInLS" onclick="location.href='checkoutexit'">Slutför köp</button>
+                <div style="text-align: left;">
+                    <button class="buttonLS" onclick="location.href='checkoutexit'">Slutför köp</button>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+    <!--Slut-->
+
 </body>
 </html>
 
             <!-- css-->
 
     <style>
-        body {
-            background-color: #e5e5cc;
-            font-family: Arial, Helvetica, sans-serif;
-            margin-bottom: 60px;
-        }
+        
 
-    .buttonLogInLS {
+    .buttonLS {
         display: block;
         margin: 20px auto;
         padding: 12px 24px;
@@ -81,34 +88,34 @@
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-        .buttonLogInLS:hover {
+        .buttonLS:hover {
             background-color: #55552b;
-            transform: scale(1.05); /* förstoring vid hovring */
-        }
-
-        .buttonLogInLS:focus {
-            outline: none;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.6); /* Blått ljus runt knappen */
+            transform: scale(1.05); 
         }
 
 
+         #header-container-ls {
+         text-align:center;
+         }
 
-        .order-details {
+    
+
+        .order-details-ls {
             text-align: center;
         }
 
-        #cart-container {
+        #cart-container-ls {
             text-align: center;
             border: 1px solid #ccc;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 3em;
             background-color: #f9f9f9;
             border-radius: 5px;
             width: 80%;
             margin: 0 auto;
         }
 
-        #cart-details {
+        #cart-details-ls {
             margin-bottom: 20px;
         }
 

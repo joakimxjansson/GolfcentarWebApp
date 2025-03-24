@@ -9,22 +9,22 @@ namespace WebApplication4.Pages.Cart
 {
     public class CartModel : PageModel
     {
+
         private readonly GolfContext _context; 
         private readonly CartService _cartService;
 
         public CartModel(CartService cartService, GolfContext context)
+
         {
             _cartService = cartService;
             _context = context; 
         }
 
         public List<CartItems> CartItems { get; set; } = new();
-        public decimal TotalPrice { get; set; }
 
         public void OnGet()
         {
             CartItems = _cartService.GetCart();
-            TotalPrice = _cartService.GetTotalPrice();
         }
 
         public IActionResult OnGetRemove(int id)
@@ -35,7 +35,7 @@ namespace WebApplication4.Pages.Cart
 
         public IActionResult OnPostAddToCart(int id)
         {
-            //Hämtar produkten från varukorgen
+            //Hï¿½mtar produkten frï¿½n varukorgen
             var product = _context.Product.FirstOrDefault(p => p.ProductId == id);
 
             var cartItem = new CartItems
@@ -47,7 +47,7 @@ namespace WebApplication4.Pages.Cart
 
             _cartService.AddToCart(cartItem);
 
-            //Redirect till DisplayProductTemplate för att stanna kvar på sidan istället för att hamna i cart
+            //Redirect till DisplayProductTemplate fï¿½r att stanna kvar pï¿½ sidan istï¿½llet fï¿½r att hamna i cart
             return RedirectToPage("/DisplayProductTemplate");
         }
     }

@@ -18,9 +18,11 @@ namespace WebApplication4.Pages
         public Product Product { get; set; }
         public IActionResult OnGet(int id)
         {
-            Product = _db.Product.FirstOrDefault(p => p.ProductId == id); //h‰mta produkt med id fr. databas
+            Product = _db.Product.FirstOrDefault(p => p.ProductId == id); //h√§mta produkt med id fr. databas
+
 
             if (Product == null)
+
             {
                 return NotFound();
             }

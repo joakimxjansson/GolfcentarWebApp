@@ -29,7 +29,7 @@ namespace WebApplication4.Pages
             {
                 HttpContext.Session.SetInt32("Id", user.UserId); //skapar session
 
-                return RedirectToPage("/Admin/Adminpage"); //redirect till ny sida
+                return RedirectToPage("/MyProfile"); //redirect till ny sida
             }
             else
             {
