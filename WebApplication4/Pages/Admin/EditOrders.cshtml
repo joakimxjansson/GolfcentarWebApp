@@ -1,9 +1,6 @@
 @page
 @model WebApplication4.Pages.Admin.EditOrders
 
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 
@@ -12,8 +9,28 @@
     <title></title>
 </head>
 <body>
-<div>
+
+<div class="col-md-3 d-flex ">
+    <ul class="list-unstyled d-flex gap-5 ">
+        <li><strong>Beställare: </strong></li>
+        <li><strong>Ordernummer: </strong></li>
+        <li><strong>Produkter: </strong></li>
+        <li><strong>Antal: </strong></li>
+        <li><strong>Totalpris: </strong></li>
+    </ul>
+
     
-</div>
+    <ul class="list-unstyled">
+        @foreach (var orders in Model.Orders) {
+            <li><strong>@orders.User.Username</strong></li>
+            <li><strong>@orders.OrderNumber</strong></li>
+            <li><strong>@orders.Product.ProdName</strong></li>
+            <li><strong>@orders.Quantity</strong></li>
+            <li><strong>@orders.TotalPrice</strong></li>
+        
+        }
+    
+    </ul>
+</div>  
 </body>
 </html>

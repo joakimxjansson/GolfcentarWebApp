@@ -97,14 +97,11 @@ body {
     color: white;
 }
 
-
-.btn-centar:hover {
-    background-color: yellowgreen;
-    border-color: yellowgreen;
-}
+    .btn:hover {
+        background-color: yellowgreen;
+        border-color: yellowgreen;
+    }
 /*CSS Registration form SLUT - Sandra*/
-
-
 
 /*CSS till MyProfile*/
 .myprofile{
@@ -149,7 +146,7 @@ body {
 }
 
 .dollar-div {
-    
+
     padding: 12px;
     border-radius: 10px;
 }
@@ -215,146 +212,25 @@ body {
 
 /*slut på CSS till MyProfile*/
 
-
-
-
-
-/*CSS Blogginlägg START  - Batool*/
-
-body.blogginlägg {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #e5e5cc; /* Beige färg */
-}
-
-header.blogginlägg {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #55552b;
-    padding: 1rem;
-    width: 100%;
-    position: fixed; /* Gör headern fixerad */
-    top: 0;
-    left: 0;
-    z-index: 1000; /* Se till att den är överst */
-}
-
-header h1.blogginlägg {
-    color: #ffffff;
-    margin: 0;
-}
-
-nav.blogginlägg {
-    background-color: #55552b; /* Meny bakgrundsfärg */
-    width: 100%; /* Menybredd */
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-}
-
-nav a.blogginlägg {
-    color: #ffffff; /* Textfärg */
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    font-size: 1rem; /* Gör länkarna samma storlek */
-    margin: 0 1rem; /* Mellanrum mellan länkarna */
-}
-
-    nav a.blogginlägg:hover {
-        background-color: #bbbb77;
-    }
-
-main.blogginlägg {
-    padding: 6rem 2rem; /* Öka toppmarginalen för att räkna med den fixerade headern */
-    flex-grow: 1;
-    width: 100%;
-}
-
-footer.blogginlägg {
-    background-color: #55552b;
-    color: #ffffff;
-    text-align: center;
-    padding: 1rem;
-    width: 100%;
-    position: fixed; /* Gör footern fixerad */
-    bottom: 0;
-    left: 0;
-    z-index: 1000; /* Se till att den är överst */
-}
-
-.comment-section.blogginlägg {
-    margin-top: 2rem;
-    border-top: 1px solid #bbbb77;
-    padding-top: 1rem;
-}
-
-.comment.blogginlägg {
-    border: 1px solid #bbbb77;
-    border-radius: 5px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: #ffffff;
-}
-
-.comment-header.blogginlägg {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-}
-
-.comment-author.blogginlägg {
-    font-weight: bold;
-    color: #55552b;
-}
-
-.comment-timestamp.blogginlägg {
-    font-size: 0.8rem;
-    color: #bbbb77;
-}
-
-.comment-body.blogginlägg {
-    margin-bottom: 1rem;
-    color: #55552b;
-}
-
-.comment-form.blogginlägg {
-    border: 1px solid #bbbb77;
-    border-radius: 5px;
-    padding: 1rem;
-    background-color: #ffffff;
-}
-
-.comment-form textarea.blogginlägg {
-    width: 100%;
+#cart-container {
+    position:relative;
+    width: 100px;
     height: 100px;
-    padding: 0.5rem;
-    border: 1px solid #bbbb77;
-    border-radius: 5px;
-    resize: vertical;
 }
 
-.comment-form button.blogginlägg {
-    background-color: #55552b;
-    color: #ffffff;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 5px;
+#cart-icon {
+    width: 100px;
+    height: 100px;   
+    position:absolute;
 }
 
-    .comment-form button.blogginlägg:hover {
-        background-color: #bbbb77;
-    }
-
-/*CSS Blogginlägg SLUT  - Batool*/
-
+#cart-counter {
+    position: absolute;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    margin: 3px;
+}
