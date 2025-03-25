@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
     public class LoginModel : PageModel
     {
         private readonly GolfContext _db;
+        private readonly UserService _userService;
         
-        public LoginModel(GolfContext db)
+        public LoginModel(GolfContext db , UserService userService )
         {
             _db = db;
+            _userService = userService;
         }
 
         [BindProperty]
@@ -20,6 +23,20 @@ namespace WebApplication4.Pages
         public string PassWord { get; set; }
 
         public string Message { get; set; }
+
+        public IActionResult OnGet() {
+            var id = HttpContext.Session.GetInt32("Id");
+            if (id != null) {
+                var role = _userService.GetRole(id.Value);
+                if (role == 1) {
+                    return RedirectToPage("/Admin/AdminPage");
+                }
+                return RedirectToPage("/MyProfile");
+            }
+            
+            
+            return Page();
+        }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -32,7 +49,7 @@ namespace WebApplication4.Pages
                     return RedirectToPage("/MyProfile");
                 }
 
-                return RedirectToPage("/MyProfile"); //redirect till ny sida
+                return RedirectToPage("/Admin/AdminPage"); //redirect till ny sida
             }
             else
             {
