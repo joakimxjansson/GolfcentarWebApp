@@ -19,7 +19,7 @@
             <a asp-page="/OldPages/AboutUs">Om oss</a> 
             <a asp-page="/OldPages/Booking">Boka</a>
             <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
-            <a asp-page="login">Medlem</a>
+            <a href="/Login">Medlem</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
             <div class="dropdown">
                 <a href="#" class="dropbtn">Restaurang och shop</a>
@@ -91,6 +91,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/acf33f1b0e.js" crossorigin="anonymous"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

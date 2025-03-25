@@ -28,6 +28,9 @@ namespace WebApplication4.Pages
             if (user != null)
             {
                 HttpContext.Session.SetInt32("Id", user.UserId); //skapar session
+                if (user.Admin == 0) {
+                    return RedirectToPage("/MyProfile");
+                }
 
                 return RedirectToPage("/MyProfile"); //redirect till ny sida
             }
