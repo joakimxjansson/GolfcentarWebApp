@@ -24,6 +24,9 @@ namespace WebApplication4.Pages
 
         public IActionResult OnGet() {
             var id = HttpContext.Session.GetInt32("Id");
+            if (id != null)
+            {
+            
             var role = _userService.GetRole(id.Value);
             if (role == 0) {
                 return RedirectToPage("/MyProfile");
@@ -32,6 +35,7 @@ namespace WebApplication4.Pages
 
             if (role == 1) {
                 return RedirectToPage("/Admin/Adminpage");
+            }
             }
             return Page();
         }
