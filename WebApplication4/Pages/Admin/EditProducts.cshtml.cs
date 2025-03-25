@@ -2,16 +2,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages.Admin;
 
 public class EditProducts : PageModel
 {
     private readonly GolfContext _context;
+    private readonly UserService _userService;
 
-    public EditProducts(GolfContext context)
+    public EditProducts(GolfContext context ,UserService userService)
     {
         _context = context;
+        _userService = userService;
     }
     public IEnumerable<Product>? Products { get; set; } = new List<Product>();
     [BindProperty]
@@ -21,13 +24,19 @@ public class EditProducts : PageModel
 
     public IActionResult OnGet()
     {
-        if (HttpContext.Session.GetInt32("Id") == null) {
+        var id = HttpContext.Session.GetInt32("Id");
+        if (id == null) {
             return RedirectToPage("/Login");
+        }
+        
+        var role = _userService.GetRole(id.Value);
+        if (role == 0) {
+            return RedirectToPage("/MyProfile");
         }
         Products = _context.Product;
         return Page();
         
-
+        
     }
 
     //L�gg till produkt
