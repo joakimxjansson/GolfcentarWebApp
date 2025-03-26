@@ -23,27 +23,29 @@ namespace WebApplication4.Pages
             _userService = userService;
         }
 
-        public void OnGet(int orderNumber, bool v)
+        public void OnGet(int orderNumber, bool i)
         {
-            
-
+            // Hämtar användarens ID från deras claims (autentiseringsinformation)
             var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userIdClaim != null)
             {
+                // Om användarens ID finns, konverterar det till en int och hämtar användarnamnet
                 UserId = int.Parse(userIdClaim);
                 Username = _userService.GetUsername(UserId);
             }
 
+            // Hämtar en order från databasen som matchar användarens ID och det boolska värdet 'i'
             var order = _context.Order
                 .AsNoTracking()
-                .FirstOrDefault(o => v && o.User.UserId == UserId);
-                 OrderDate = DateTime.Now;
-                
+                .FirstOrDefault(o => i && o.User.UserId == UserId);
 
+            // Sätter orderdatumet till nuvarande tid
+            OrderDate = DateTime.Now;
+
+            // Om en order hittas, sätter OrderNumber till orderns nummer
             if (order != null)
             {
                 OrderNumber = int.Parse(order.OrderNumber);
-                
             }
         }
     }
