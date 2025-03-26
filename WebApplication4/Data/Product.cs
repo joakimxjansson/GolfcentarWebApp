@@ -7,6 +7,8 @@ public class Product
     public string ProdDescription { get; set; }
     public decimal ProdPrice { get; set; }
     public string ProdImage { get; set; }
-    
+
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+
 }
 
