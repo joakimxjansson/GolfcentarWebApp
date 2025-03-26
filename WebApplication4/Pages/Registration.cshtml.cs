@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
@@ -9,18 +10,34 @@ namespace WebApplication4.Pages
     {
 
         private readonly GolfContext _db;
+        private readonly UserService _userService;
 
-        public RegistrationModel(GolfContext db)
+        public RegistrationModel(GolfContext db , UserService userService)
         {
             _db = db;
+            _userService = userService;
         }
 [BindProperty]
         public User User { get; set; } = new User();
 
         public string Message { get; set; }
 
-        public void OnGet()
-        {
+        public IActionResult OnGet() {
+            var id = HttpContext.Session.GetInt32("Id");
+            if (id != null)
+            {
+            
+            var role = _userService.GetRole(id.Value);
+            if (role == 0) {
+                return RedirectToPage("/MyProfile");
+
+            }
+
+            if (role == 1) {
+                return RedirectToPage("/Admin/Adminpage");
+            }
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
