@@ -27,8 +27,8 @@ namespace WebApplication4.Pages
 
             if (user != null)
             {
-                HttpContext.Session.SetInt32("UserId", user.UserId); //skapar session, sparar UserId
-                HttpContext.Session.SetString("Username", user.Username); //sparar även användarnamn
+                HttpContext.Session.SetInt32("Id", user.UserId); //skapar session, sparar Id
+                
 
                 return RedirectToPage("/Admin/Adminpage"); //redirect till ny sida
             }

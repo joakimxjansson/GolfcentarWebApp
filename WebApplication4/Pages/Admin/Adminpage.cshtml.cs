@@ -18,7 +18,7 @@ public class Adminpage : PageModel {
         _userService = userService;
     }
     public void OnGet() {
-        var id = HttpContext.Session.GetInt32("UserId");
+        var id = HttpContext.Session.GetInt32("Id");
         Username = _userService.GetUsername(id.Value);
         Message = "Välkommen " + Username + "!";
 

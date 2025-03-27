@@ -36,7 +36,7 @@ namespace WebApplication4.Pages
 
             Reviews = Product.Reviews.OrderByDescending(r => r.Date).ToList(); //sorterar reviews efter datum
 
-            int? userId = HttpContext.Session.GetInt32("UserId");
+            int? userId = HttpContext.Session.GetInt32("Id");
             CurrentUserId = userId; // Spara det i Model
 
             return Page();
@@ -44,7 +44,7 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            int? userId = HttpContext.Session.GetInt32("UserId");
+            int? userId = HttpContext.Session.GetInt32("Id");
 
             if (userId == null)
             {
@@ -70,10 +70,10 @@ namespace WebApplication4.Pages
 
         }
 
-        //metod för att kunna radera recensioner 
+        //metod för att kunna radera egna recensioner 
         public async Task<IActionResult> OnPostDeleteReviewAsync(int reviewId, int productId)
         {
-            int? userId = HttpContext.Session.GetInt32("UserId");
+            int? userId = HttpContext.Session.GetInt32("Id");
 
             if (userId == null)
             {   //kräver inlogg
