@@ -5,9 +5,8 @@
 
 
 @*Html för mallen- Anton*@
-
+<a asp-page="ProductDetails2" asp-route-id="@Model.ProductId" class="template-link"> @*Gör produkterna klickbara för att komma till detaljsida - Sandra*@
 <div class="template">
-    <a asp-page="ProductDetails2" asp-route-id="@Model.ProductId" class="template-link"/> @*Gör produkterna klickbara för att komma till detaljsida - Sandra*@
     <img src="@Url.Content("~/images/" + Model.ProdImage)" class="template-img" alt="@Model.ProdName">
     <div class="template-body">
         <h5 class="template-title">@Model.ProdName</h5>
@@ -21,7 +20,7 @@
         </form>
     </div>
 </div>
-
+</a>
 @*css för mallen och bilder- Anton*@
 <style>
     .template {
