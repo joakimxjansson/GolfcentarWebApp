@@ -16,24 +16,32 @@
         <a asp-page="/Index"><img src="~/images/Centar.gif" alt="logga" class="logo"></a>
         <nav class="navbar">
             <a asp-page="/Index">Startsida</a>
-            <a asp-page="/OldPages/AboutUs">Om oss</a>           
+            <a asp-page="/OldPages/AboutUs">Om oss</a> 
             <a asp-page="/OldPages/Booking">Boka</a>
             <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
-            <a asp-page="UserSection">Medlem</a>
+            <a href="/Login">Medlem</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
-            <div class="dropdown">
-                <a href="#" class="dropbtn">Restaurang och shop</a>
-                <div class="dropdown-content">
-                    <a asp-page="/OldPages/Restaurant">Restaurang</a>
-                    <a asp-page="/OldPages/Shop">Shop</a>
-                </div>
-            </div>
+            <a asp-page="/DisplayProductTemplate">Webshop</a>
+            
         </nav>
 
-        <!-- Knapp för logga in-->
-        <div>
-            <button class="buttonLogInLS" onclick="location.href='medlemssektion.html'">Logga in</button>
+        <div id="cart-container">
+            <a href="/Cart/Cart">
+                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">             
+                    <p id="cart-counter">#</p>
+                <img />
+            </a>
         </div>
+
+        <!-- Knapp för logga in-->
+        
+            @if (Context.Session.GetInt32("Id") !=null) {
+        <a class="buttonLogInLS" asp-page="/Logout">Logga Ut</a>
+
+        
+            } else {
+                <a class="buttonLogInLS" asp-page="/Login">Logga in</a>
+            }
         <!-- slut-->
         <!--Hamburgermeny start-->
         <nav class="hamburgermeny">
@@ -67,7 +75,7 @@
 <footer>
         <nav class="footercontent">
             <ul>
-                <li><a asp-page="Index">Hem</a></li>
+                <li><a asp-page="/Index">Hem</a></li>
                 <li><a asp-page ="/OldPages/AboutUs">Om oss</a></li>
                 <li><a asp-page="/OldPages/UserAgreement">Användarvillkor</a></li>
             </ul>
@@ -78,6 +86,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/acf33f1b0e.js" crossorigin="anonymous"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

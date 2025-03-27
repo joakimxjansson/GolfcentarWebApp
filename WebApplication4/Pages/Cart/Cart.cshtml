@@ -26,22 +26,21 @@
                 }
                 else
                 {
-                    <ul>
+                    <ul class="ul-cart">
+                        <p class="cartitemsRubrik">| Produkt | Pris | Antal |</p>
                         @foreach (var item in Model.CartItems)
                         {
-                            <li>
-                                @item.Product.ProdName - @item.Product.ProdPrice kr
-                                <a asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
+                            <li class="cart-item">
+                                <img src="~/images/@item.Product.ProdImage" alt="item.Product.ProdName" class="cart-image"/>
+                                @item.Product.ProdName - @item.Product.ProdPrice kr - @item.Quantity
+                                <a class="ta-bort-knapp" asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
                             </li>
                         }
                     </ul>
                 }
             </div>
         </div>
-        <div class="kundkorg-kostnad">
-            <p>Pris: @Model.TotalPrice kr</p>
-            <p>Frakt: Gratis</p>
-            <p>Totalkostnad: @Model.TotalPrice kr</p>
+        <div class="kundkorg-till-kassa">
             <button class="kundkorg-knapp">Till kassan</button>
         </div>
     </div>

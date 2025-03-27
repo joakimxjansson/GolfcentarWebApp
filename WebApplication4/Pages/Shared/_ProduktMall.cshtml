@@ -14,7 +14,11 @@
         
         <p class="template-price">@Model.ProdPrice kr</p>
         
-        <button class="addToCart">Lägg till i kundvagn</button>
+        @*Submit-knapp till Cart - Adam*@
+        <form method="post" asp-page="/Cart/Cart" asp-page-handler="AddToCart">
+            <input type="hidden" name="id" value="@Model.ProductId" />
+            <button type="submit" class="addToCart">Lägg till i kundvagn</button>
+        </form>
     </div>
 </div>
 
