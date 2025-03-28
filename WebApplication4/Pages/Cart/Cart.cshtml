@@ -3,22 +3,31 @@
 
 @{
     ViewData["Title"] = "Cart";
+
+    int totalProducts = Model.CartItems.Sum(item => item.Quantity);
 }
 
 <main class="kundkorg-main">
     <div class="kundkorg-container">
         <div class="kundkorg-kundkorg">
-            <h1 class="kundkorg-rubrik">
-                @if (Model.CartItems.Count == 1)
-                {
-                    @($"Du har {Model.CartItems.Count} produkt i varukorgen.")
-                }
-                else
-                {
-                    @($"Du har {Model.CartItems.Count} produkter i varukorgen.")
-                }
-            </h1>
-
+            <div class="kundkorg-rubrik-container">
+                <h1 class="kundkorg-rubrik">
+                    @if (Model.CartItems.Count == 1)
+                    {
+                        @($"Du har {totalProducts} produkt i varukorgen.")
+                    }
+                    else
+                    {
+                        @($"Du har {totalProducts} produkter i varukorgen.")
+                    }
+                </h1>
+                <div class="kundkorg-till-kassa">
+                    <form method="get" asp-page="/checkout">
+                        <input type="hidden" name="userId" value="@Model.UserId" />
+                        <button type="submit" class="tillKassan-Knapp">Till Kassan</button>
+                    </form>
+                </div>
+            </div>
             <div class="kundkorg-varor">
                 @if (Model.CartItems.Count == 0)
                 {
@@ -26,22 +35,35 @@
                 }
                 else
                 {
-                    <ul class="ul-cart">
-                        <p class="cartitemsRubrik">| Produkt | Pris | Antal |</p>
-                        @foreach (var item in Model.CartItems)
-                        {
-                            <li class="cart-item">
-                                <img src="~/images/@item.Product.ProdImage" alt="item.Product.ProdName" class="cart-image"/>
-                                @item.Product.ProdName - @item.Product.ProdPrice kr - @item.Quantity
-                                <a class="ta-bort-knapp" asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
-                            </li>
-                        }
-                    </ul>
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Produkt</th>
+                                <th>Pris</th>
+                                <th>Antal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="~/images/@item.Product.ProdImage" alt="@item.Product.ProdName" class="cart-image" />
+                                    </td>
+                                    <td>@item.Product.ProdName</td>
+                                    <td>@item.Product.ProdPrice kr</td>
+                                    <td>@item.Quantity</td>
+                                    <td>
+                                        <a class="ta-bort-knapp" asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.Product.ProductId">Ta bort</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 }
             </div>
-        </div>
-        <div class="kundkorg-till-kassa">
-            <button class="kundkorg-knapp">Till kassan</button>
         </div>
     </div>
 </main>

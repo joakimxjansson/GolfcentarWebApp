@@ -20,32 +20,29 @@ namespace WebApplication4.Pages.Cart
 
         public List<CartItems> CartItems { get; set; } = new();
         public decimal TotalPrice { get; set; }
+        
+        public int UserId => 1;
 
         public void OnGet()
         {
-            CartItems = _cartService.GetCart();
-            TotalPrice = _cartService.GetTotalPrice();
+            CartItems = _cartService.GetCart(UserId);
+            TotalPrice = _cartService.GetTotalPrice(UserId);
         }
 
-        public IActionResult OnGetRemove(int id)
+        public IActionResult OnGetRemove(int? id)
         {
-            _cartService.RemoveFromCart(id);
+            if (id == null) return Page();
+
+            _cartService.RemoveFromCart(UserId, id.Value);
             return RedirectToPage();
         }
 
         public IActionResult OnPostAddToCart(int id)
         {
-            //Hämtar produkten från varukorgen
+            //Hämtar produkt från varukorgen
             var product = _context.Product.FirstOrDefault(p => p.ProductId == id);
 
-            var cartItem = new CartItems
-            {
-                Product = product, 
-                Quantity = 1, 
-                TotalPrice = (int)product.ProdPrice 
-            };
-
-            _cartService.AddToCart(cartItem);
+            _cartService.AddToCart(UserId, id);
 
             //Redirect till DisplayProductTemplate för att stanna kvar på sidan istället för att hamna i cart
             return RedirectToPage("/DisplayProductTemplate");

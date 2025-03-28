@@ -15,14 +15,17 @@ namespace WebApplication4.Pages
             _context = db;
         }
 
+        [BindProperty(SupportsGet = true)] // Gör att UserId kan tas emot via URL
+        public int UserId { get; set; }
 
         //Lista för varor i varukorgen
         public List<CartItems> CartItems { get; set; } = new List<CartItems>();
         // Hämtar alla varukorgens artiklar från databasen och inkluderar relevant produktdata
-        public void OnGet()
+        public void OnGet(int userId)
         {
             CartItems = _context.CartItems
                 .Include(c => c.Product)
+                .Where(c => c.UserId == userId)
                 .ToList();
         }
         /*

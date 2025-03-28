@@ -4,78 +4,79 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApplication4.Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication4.Services
 {
     public class CartService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private const string SessionKey = "Cart";
+        private readonly GolfContext _context;
 
-        public CartService(IHttpContextAccessor httpContextAccessor)
+        public CartService(GolfContext context)
         {
-            _httpContextAccessor = httpContextAccessor;
+            _context = context;
         }
 
-        private static readonly JsonSerializerOptions jsonOptions = new()
+        public List<CartItems> GetCart(int userId) // Metod för att hämta varukorgen för en användare
         {
-            PropertyNameCaseInsensitive = true,
-            WriteIndented = true
-        };
-
-        public List<CartItems> GetCart()
-        {
-            var session = _httpContextAccessor.HttpContext.Session;
-            var cartData = session.GetString(SessionKey);
-
-            return cartData == null ? new List<CartItems>() : JsonSerializer.Deserialize<List<CartItems>>(cartData, jsonOptions) ?? new List<CartItems>();
+            return _context.CartItems
+                .Include(ci => ci.Product)
+                .Where(ci => ci.UserId == userId)
+                .ToList();
         }
 
-        public void AddToCart(CartItems item)
+        public void AddToCart(int userId, int productId)
         {
-            var cart = GetCart();
-            var existingItem = cart.FirstOrDefault(p => p.Product.ProductId == item.Product.ProductId);
+            var product = _context.Product.FirstOrDefault(p => p.ProductId == productId); // Hämtar produkten från databasen
+            if (product == null) return;
 
-            if (existingItem != null)
+            var cartItem = _context.CartItems // Kollar om produkten redan finns i varukorgen
+                .FirstOrDefault(ci => ci.UserId == userId && ci.Product.ProductId == productId);
+
+            if (cartItem != null)
             {
-                existingItem.Quantity += item.Quantity;
+                cartItem.Quantity++;
+                cartItem.TotalPrice += product.ProdPrice;
             }
             else
             {
-                cart.Add(item);
+                _context.CartItems.Add(new CartItems
+                {
+                    UserId = userId,
+                    Product = product,
+                    Quantity = 1,
+                    TotalPrice = product.ProdPrice
+                });
             }
-            SaveCart(cart);
+
+            _context.SaveChanges(); // Sparar ändringarna i databasen
         }
 
-        public void RemoveFromCart(int id)
+        public void RemoveFromCart(int userId, int productId)
         {
-            var cart = GetCart();
-            var item = cart.FirstOrDefault(p => p.CartItemsId == id);
+            var cartItem = _context.CartItems
+                .FirstOrDefault(ci => ci.UserId == userId && ci.Product.ProductId == productId);
 
-            if (item != null)
+            if (cartItem != null)
             {
-                if(item.Quantity > 1)
+                if (cartItem.Quantity > 1)
                 {
-                    item.Quantity--;
+                    cartItem.Quantity--;
                 }
                 else
                 {
-                    cart.Remove(item);
+                    _context.CartItems.Remove(cartItem);
                 }
 
-                SaveCart(cart);
+                _context.SaveChanges();
             }
         }
-       
-        public decimal GetTotalPrice()
+
+        public decimal GetTotalPrice(int userId)
         {
-            return GetCart().Sum(item => item.TotalPrice * item.Quantity);
-        }
-        
-        private void SaveCart(List<CartItems> cart)
-        {
-            var session = _httpContextAccessor.HttpContext.Session;
-            session.SetString(SessionKey, JsonSerializer.Serialize(cart, jsonOptions));
+            return _context.CartItems
+                .Where(ci => ci.UserId == userId)
+                .Sum(ci => ci.TotalPrice);
         }
     }
 }

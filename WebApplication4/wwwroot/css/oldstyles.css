@@ -527,10 +527,17 @@ iframe {
     margin: 5px;
 }
 
+.kundkorg-rubrik-container {
+    display: flex; /* Gör att rubriken och knappen placeras i en rad */
+    justify-content: space-between; /* Skapar utrymme mellan rubriken och knappen */
+    align-items: center; /* Centrerar innehållet vertikalt */
+}
+
 .kundkorg-rubrik {
     color: #44442a;
     width: 100%;
     padding: 20px;
+    margin: 0;
 }
 
 .kundkorg-varor {
@@ -541,16 +548,10 @@ iframe {
 }
 
 .kundkorg-till-kassa {
-    color: #44442a;
-    font-weight: 600;
-    background-color: #b0b07b;
-    padding: 20px;
-    margin: 5px;
-    min-width: 200px;
-    height: 200px;
+    padding:20px;
 }
 
-.kundkorg-knapp {
+.tillKassan-Knapp {
     color: #55552b;
     font-size: 15px;
     font-weight: 800;
@@ -565,7 +566,7 @@ iframe {
     min-width: 130px;
 }
 
-    .kundkorg-knapp:hover {
+    .tillKassan-Knapp:hover {
         color: green;
         box-shadow: none;
     }
@@ -637,13 +638,23 @@ iframe {
     margin-inline:50px;
 }
 
+.cart-table {
+    width: 100%;
+}
+
+.cart-table th, .cart-table td {
+    padding: 12px 15px;
+    text-align: center; 
+}
+
+.cart-table th {
+    background-color: #b0b07b;
+    font-weight: bold;
+}
+
 
 /*Kontakt Adam*/
-
-
 /*Boka - Rama*/
-
-
 /* Box-sizing för att säkerställa att padding inte överskrider bredden */
 * {
     box-sizing: border-box;

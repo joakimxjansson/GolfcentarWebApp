@@ -34,9 +34,10 @@
                 @foreach (var item in Model.CartItems)
                 {
                     <tr>
-                        <td>@item.Product.</td>
-                        <td>@item.Quantity</td> 
-                        <td>@item.TotalPrice:-</td>
+                        <td>@item.Product.ProdName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Product.ProdPrice kr</td>
+                        <td>@(item.Product.ProdPrice * item.Quantity) kr</td>
                     </tr>
                 }
             </tbody>
