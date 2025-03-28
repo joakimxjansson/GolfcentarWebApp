@@ -1,0 +1,28 @@
+﻿@page "{id:int}"
+@model WebApplication4.Pages.Blog.DetailsModel
+@{
+    ViewData["Title"] = Model.BlogPost.Title;
+    Layout = "_Layout"; // Här används den gemensamma layouten
+}
+
+<div class="blog-post-detail">
+    <h2>@Model.BlogPost.Title</h2>
+    <p>@Model.BlogPost.Content</p>
+    <p><strong>Författare:</strong> @Model.BlogPost.Author</p>
+    <p><strong>Publicerat:</strong> @Model.BlogPost.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</p>
+
+    <h3>Kommentarer</h3>
+    @foreach (var comment in Model.BlogPost.Comments)
+    {
+        <div class="comment">
+            <p>@comment.Content</p>
+            <p><strong>Av:</strong> @comment.Author</p>
+        </div>
+    }
+
+    <form method="post">
+        <textarea name="commentContent" placeholder="Skriv en kommentar..." required></textarea>
+        <button type="submit" class="btn-submit">Skicka kommentar</button>
+    </form>
+</div>
+

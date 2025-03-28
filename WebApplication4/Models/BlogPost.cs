@@ -1,15 +1,12 @@
-﻿namespace WebApplication4.Models
+﻿namespace WebApplication4.Models.Blog
 {
     public class BlogPost
     {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty; // Initialize with a default value
-        public string Content { get; set; } = string.Empty; // Initialize with a default value
-        public string Author { get; set; } = string.Empty; // Initialize with a default value
-
-        // Lägg till en lista med kommentarer
-        public List<Comment> Comments { get; set; } = new List<Comment>(); // Tom lista som standard
+        public int BlogPostId { get; set; }  
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string Author { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }
-
-
