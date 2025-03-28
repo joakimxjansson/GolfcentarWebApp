@@ -61,7 +61,7 @@ namespace WebApplication4.Pages
             Console.WriteLine("Här" + userId.Value);
             
 
-            return RedirectToPage("checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
+            return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
         }
 
 
