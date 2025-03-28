@@ -21,6 +21,8 @@ namespace WebApplication4.Pages.Cart
         }
 
         public List<CartItems> CartItems { get; set; } = new();
+        [BindProperty]
+        public CartItems CartItem { get; set; } 
 
         public void OnGet()
         {
