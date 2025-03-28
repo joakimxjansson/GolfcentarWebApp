@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication4.Data;
 
@@ -12,11 +11,9 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    [Migration("20250311132233_SeedProducts")]
-    partial class SeedProducts
+    partial class GolfContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,7 +152,7 @@ namespace WebApplication4.Migrations
                             ProductId = 2,
                             ProdDescription = "Järnklubba i världsklass",
                             ProdImage = "jarnklubba.jpg",
-                            ProdName = "Golfklubba Järn",
+                            ProdName = "Golfklubba J�rn",
                             ProdPrice = 1999m
                         },
                         new

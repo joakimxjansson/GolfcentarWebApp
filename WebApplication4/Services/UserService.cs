@@ -1,6 +1,7 @@
 namespace WebApplication4.Services;
 using WebApplication4.Data;
 
+// Denna klass används för att hämta diverse info om inloggad användare (Se metodnamn) //Joakim
 public class UserService {
     private readonly GolfContext _contexts;
 
@@ -24,4 +25,21 @@ public class UserService {
         return user.Saldo;
 
     }
+
+    public string GetImage(int id) {
+        var user = _contexts.Users.Find(id);
+        return user.UserImage;
+    }
+
+    public string GetEmail(int id)
+    {
+        var user = _contexts.Users.Find(id);
+        return user.Email;
+    }
+
+    public int GetRole(int id) {
+        var user = _contexts.Users.Find(id);
+        return user.Admin;
+    }
 }
+

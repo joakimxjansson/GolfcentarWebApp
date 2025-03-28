@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    [Migration("20250311132110_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250313124238_SandraMigration")]
+    partial class SandraMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,7 +155,7 @@ namespace WebApplication4.Migrations
                             ProductId = 2,
                             ProdDescription = "Järnklubba i världsklass",
                             ProdImage = "jarnklubba.jpg",
-                            ProdName = "Golfklubba Järn",
+                            ProdName = "Golfklubba J�rn",
                             ProdPrice = 1999m
                         },
                         new

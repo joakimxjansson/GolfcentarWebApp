@@ -1,0 +1,11 @@
+﻿@model WebApplication4.Models.Comment
+
+<h1>Skriv en kommentar</h1>
+<form method="post" action="@Url.Action("Create", "Comment")">
+    <input type="hidden" name="PostId" value="@Model.PostId" />
+    <label for="author">Ditt namn:</label>
+    <input type="text" id="author" name="Author" required />
+    <label for="content">Kommentar:</label>
+    <textarea id="content" name="Content" required></textarea>
+    <button type="submit">Skicka</button>
+</form>
