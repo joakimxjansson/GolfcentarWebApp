@@ -9,10 +9,12 @@ namespace WebApplication4.Pages.Cart
 {
     public class CartModel : PageModel
     {
+
         private readonly GolfContext _context; 
         private readonly CartService _cartService;
 
         public CartModel(CartService cartService, GolfContext context)
+
         {
             _cartService = cartService;
             _context = context; 
@@ -39,12 +41,12 @@ namespace WebApplication4.Pages.Cart
 
         public IActionResult OnPostAddToCart(int id)
         {
-            //Hämtar produkt från varukorgen
+            //HÃ¤mtar produkt frÃ¥n varukorgen
             var product = _context.Product.FirstOrDefault(p => p.ProductId == id);
 
             _cartService.AddToCart(UserId, id);
 
-            //Redirect till DisplayProductTemplate för att stanna kvar på sidan istället för att hamna i cart
+            //Redirect till DisplayProductTemplate fï¿½r att stanna kvar pï¿½ sidan istï¿½llet fï¿½r att hamna i cart
             return RedirectToPage("/DisplayProductTemplate");
         }
     }
