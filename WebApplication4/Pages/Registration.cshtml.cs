@@ -31,7 +31,7 @@ namespace WebApplication4.Pages
             }
             if(_db.Users.Any(u => u.Username == User.Username))
             {
-                Message = "Användernamn är redan i användning";
+                Message = "Användarnamn är redan i användning!";
                 return Page(); //Användare finns redan
             }
 
