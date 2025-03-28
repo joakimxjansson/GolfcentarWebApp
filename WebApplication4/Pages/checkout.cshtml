@@ -64,7 +64,7 @@
                     <form method="post" asp-page="/checkoutexit">
                         <input type="hidden" name="OrderNumber" value="@Model.OrderNumber" />
                         <input type="hidden" name="OrderDate" value="@Model.OrderDate.ToString("O")" />
-                        <button type="submit" class="buttonLS">Slutför köp</button>
+                        <button type="submit" asp-page-handler="Checkout" class="buttonLS">Slutför köp </button>
                     </form>
 
                 </div>

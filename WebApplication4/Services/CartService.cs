@@ -6,6 +6,7 @@ using WebApplication4.Data;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -36,6 +37,7 @@ namespace WebApplication4.Services
         };
 
         public List<CartItems> GetCart()
+        
         {
             var session = _httpContextAccessor.HttpContext.Session;
             var cartData = session.GetString(SessionKey);
@@ -55,8 +57,10 @@ namespace WebApplication4.Services
             else
             {
                 cart.Add(item);
+                
             }
             SaveCart(cart);
+            
         }
 
         public void RemoveFromCart(int id)
@@ -111,6 +115,7 @@ namespace WebApplication4.Services
             foreach (var item in cart)
             {
                 var orderDate = DateTime.Now;
+                
                 var order = new Order
                 {
                     User = user,
@@ -122,9 +127,13 @@ namespace WebApplication4.Services
                 };
                 _context.Order.Add(order);
                 _context.SaveChanges();
+                
+                
+                
             }
-            
+           
             ClearCart();
+            
         }
         
 

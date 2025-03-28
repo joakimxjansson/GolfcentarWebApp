@@ -29,7 +29,7 @@ namespace WebApplication4.Pages
 
         public void OnGet()
         {
-            // Hämta användarens ID från session
+            // Hï¿½mta anvï¿½ndarens ID frï¿½n session
             var id = HttpContext.Session.GetInt32("Id");
             if (id != null)
             {
@@ -38,7 +38,7 @@ namespace WebApplication4.Pages
                 UserSaldo = _userService.GetSaldo(UserId);
             }
 
-            // Ladda varukorgens innehåll
+            // Ladda varukorgens innehï¿½ll
             CartItems = _cartService.GetCart();
 
             foreach (var item in CartItems)
@@ -47,17 +47,19 @@ namespace WebApplication4.Pages
             }
         }
 
-        //sparar varorna i ordertabell och tömmer varukorgen
+        //sparar varorna i ordertabell och tï¿½mmer varukorgen
         public async Task<IActionResult> OnPostCheckoutAsync()
-        {
+        { Console.WriteLine("HÃ¤r");
             var userId = HttpContext.Session.GetInt32("Id");
             if (userId == null)
             {
                 return Unauthorized();
             }
-
+            Console.WriteLine("HÃ¤r" + userId.Value);
             var orderNumber = _cartService.GenerateOrderNumber();
             _cartService.SaveCartToOrder(userId.Value, orderNumber);
+            Console.WriteLine("HÃ¤r" + userId.Value);
+            
 
             return RedirectToPage("checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
         }
