@@ -6,6 +6,8 @@ using WebApplication4.Data;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace WebApplication4.Services
@@ -14,14 +16,19 @@ namespace WebApplication4.Services
     {
         // Hanterar HTTP-sessionen
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly GolfContext _context;
         // Nyckel som används för att spara och hämta varukorgsdata från sessionen
         private const string SessionKey = "Cart";
 
-        // Konstruktor som tar in IHttpContextAccessor för att få åtkomst till sessionen
-        public CartService(IHttpContextAccessor httpContextAccessor)
+        
+
+        // Konstruktor
+        public CartService(GolfContext context, IHttpContextAccessor httpContextAccessor)
         {
+            _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
+
 
         private static readonly JsonSerializerOptions jsonOptions = new()
         {
@@ -30,6 +37,7 @@ namespace WebApplication4.Services
         };
 
         public List<CartItems> GetCart()
+        
         {
             var session = _httpContextAccessor.HttpContext.Session;
             var cartData = session.GetString(SessionKey);
@@ -49,8 +57,10 @@ namespace WebApplication4.Services
             else
             {
                 cart.Add(item);
+                
             }
             SaveCart(cart);
+            
         }
 
         public void RemoveFromCart(int id)
@@ -60,7 +70,7 @@ namespace WebApplication4.Services
 
             if (item != null)
             {
-                if(item.Quantity > 1)
+                if (item.Quantity > 1)
                 {
                     item.Quantity--;
                 }
@@ -73,17 +83,77 @@ namespace WebApplication4.Services
             }
         }
 
-       
+
         public decimal GetTotalPrice()
         {
             return GetCart().Sum(item => item.TotalPrice * item.Quantity);
         }
-        
 
-        private void SaveCart(List<CartItems> cart)
+
+        public void SaveCart(List<CartItems> cart)
         {
             var session = _httpContextAccessor.HttpContext.Session;
-            session.SetString(SessionKey, JsonSerializer.Serialize(cart, jsonOptions));
+            var cartJson = JsonSerializer.Serialize(cart);
+            session.SetString("Cart", cartJson);
         }
+
+
+
+        // Sparar varukorgen till databasen som en order
+        public void SaveCartToOrder(int userId, string orderNumber)
+
+        {
+            var cart = GetCart();
+            var user = _context.Users.Find(userId);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("Användaren kunde inte hittas");
+            }
+            Console.WriteLine($"Användar-ID: {userId}");
+
+            foreach (var item in cart)
+            {
+                var orderDate = DateTime.Now;
+                
+                var order = new Order
+                {
+                    User = user,
+                    ProductId = item.Product.ProductId,
+                    Quantity = item.Quantity,
+                    TotalPrice = GetTotalPrice(),
+                    OrderDate = orderDate,
+                    OrderNumber = orderNumber,
+                };
+                _context.Order.Add(order);
+                _context.SaveChanges();
+                
+                
+                
+            }
+           
+            ClearCart();
+            
+        }
+        
+
+        public string GenerateOrderNumber()
+        {
+            // skapar ett unikt ordernummer med Guid Globally Unique Identifier
+            return Guid.NewGuid().ToString();
+        }
+
+
+        //Rensar varukorgen efter att ordern är skapad
+        public void ClearCart()
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            session.Remove("Cart");
+            Console.WriteLine("Varukorgen har rensats");
+        }
+
+
+
     }
 }
+
