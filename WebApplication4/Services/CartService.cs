@@ -119,9 +119,9 @@ namespace WebApplication4.Services
                 var order = new Order
                 {
                     User = user,
-                    Product = item.Product,
+                    ProductId = item.Product.ProductId,
                     Quantity = item.Quantity,
-                    TotalPrice = item.Quantity * item.Product.ProdPrice,
+                    TotalPrice = GetTotalPrice(),
                     OrderDate = orderDate,
                     OrderNumber = orderNumber,
                 };
