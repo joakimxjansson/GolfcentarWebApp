@@ -1,0 +1,257 @@
+﻿@page "{id:int}"
+@model WebApplication4.Pages.ProductDetails2Model
+
+@{
+    ViewData["Title"] = Model.Product.ProdName;
+}
+<div class="allt_container">
+    <div class="proddetail_container">
+        <div class="prod-img_container">
+            <div class="template-img">
+                <img src="@Url.Content("~/images/" + Model.Product.ProdImage)" class="template-img" alt="@Model.Product.ProdName">
+            </div>
+        </div>
+
+        <div class="prod-content_container">
+            <h2 class="proddetail_name">@Model.Product.ProdName</h2>
+            <p class="proddetail_description">@Model.Product.ProdDescription</p>
+            <p class="proddetail_price">Pris: @Model.Product.ProdPrice kr</p>
+            <button class="addToCart">Lägg till i kundvagn</button>
+            <hr/>
+
+            <div class="return_container">
+                <a asp-page="DisplayProductTemplate" class="return-to-prods">Tillbaka till produkter</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="review_container">
+        <hr />
+        <div class="posted_container">
+            <h5 class="rev_rubrik">Recensioner</h5>
+            @if (Model.Reviews != null && Model.Reviews.Any())
+            {
+                <ul class="ul">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <li class="posted_item">
+                            <div class="posted_header">
+                            <strong>@review.User.Username</strong> - <em>@review.Date.ToShortDateString()</em><br />
+                            </div>
+
+                                @review.Content
+                            
+                            @if (Model.CurrentUserId == review.UserId)
+                            {
+                                <form method="post" asp-page-handler="DeleteReview" class="delete_form">
+                                     <input type="hidden" name="reviewId" value="@review.ReviewId" />
+                                     <input type="hidden" name="productId" value="@Model.Product.ProductId" />
+                                     <button type="submit" class="delete_button">Ta bort</button>
+                                </form>
+                             }
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Inga recensioner än. Var den första att skriva en!</p>
+            }
+        </div>
+        <hr />
+
+        <div class="create_rev_container">
+            <h5 class="rev_rubrik">Lämna en recension</h5>
+
+            <form method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <div>
+                    <label for="recension">Skriv din recension här:</label>
+                    <textarea asp-for="CreateReview.Content" required class="revinput"></textarea>
+                    <span asp-validation-for="CreateReview.Content" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="revknapp">Skicka recension</button>
+            </form>
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <p style="color: red;">@TempData["ErrorMessage"]</p>
+            }
+
+ </div>
+</div>
+
+</div>
+
+@*CSS ProductDetails-sida - Sandra*@
+<style>
+    .allt_container{
+        display: flex;
+        flex-direction: column;
+        background-color: #bbbb77;
+        border: 5px solid #aaaa55;
+        border-radius: 1rem;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        max-width: 60%;
+        margin: 1rem auto;
+    }
+
+    .template-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .proddetail_container{
+        display: flex;
+        height: auto;
+        
+    }
+
+    .prod-img_container{
+       max-width: 50%;
+    }
+
+    .template-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        padding: 0.5rem;
+    }
+
+    .prod-content_container {
+        flex-direction: column;
+        color: #55552b;
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .proddetail_name {
+        text-decoration: underline;
+    }
+
+    .proddetail_price {
+        font-weight: bold;
+    }
+
+    .addToCart {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        width: 13em;
+        height: 35px;
+        transition: 0.5s;
+        font-weight: 500;
+    }
+
+    .return-to-prods {
+        color: white;
+    }
+
+
+    .review_container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .create_rev_container {
+        display: flex;
+        flex-direction: column;
+        background-color: #c3c388;
+        color: #55552b;
+        border-radius: 1rem;
+        margin: 0.5rem;
+        padding: 1rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .posted_container {
+        display: flex;
+        flex-direction: column;
+        background-color: #c3c388;
+        border-radius: 1rem;
+        color: #55552b;
+        text-align: center;
+        margin: 0;
+        margin-top: 0.1rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .rev_rubrik {
+        margin: 0.3rem;
+        text-decoration: underline;
+    }
+    .ul {
+        padding: 0;
+    }
+    
+    .posted_header{
+        text-decoration: underline;
+    }
+    .posted_item {
+        list-style-type: none;
+        background-color: #cccc99;
+        border-radius: 0.3rem;
+        padding: 0.7rem;
+        margin: 0.4rem;
+        margin-bottom: 15px;
+    }
+
+    .delete_button {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 0.3rem;
+        padding: 3px 7px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .delete_form {
+        text-align: right; /* Placera formuläret till höger */
+        margin-top: 5px;
+    }
+
+   
+
+    .delete-button:hover {
+        background-color: darkred;
+    }
+
+    .rev_rubrik{
+        text-align: center;
+    }
+
+    .revinput,
+    textarea.revinput {
+        width: 100%; 
+        padding: 8px; 
+        margin-top: 5px; 
+        margin-bottom: 15px; 
+        box-sizing: border-box; 
+        background-color: #d4d4aa;
+    }
+
+    .revknapp{
+        background-color: #aaaa55;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        width: 10em;
+        height: 2rem ;
+        transition: 0.5s;
+        font-weight: 500;
+
+    }
+</style>
