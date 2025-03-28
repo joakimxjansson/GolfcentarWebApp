@@ -1,40 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
-    public class checkoutexitModel(GolfContext contexts) : PageModel
+    public class checkoutexitModel : PageModel
     {
-        private readonly GolfContext _contexts = contexts;
-        //Hämta ordernummer
-        public string OrderNumber { get; set; }
-        public string OrderDate { get; set; }
-        public string order { get; set; }
+        public readonly GolfContext _context;
+        private readonly UserService _userService;
 
-        public void OnGet()
+        public string Username { get; set; } = string.Empty;
+        public int UserId { get; set; }
+        public int OrderNumber { get; set; }
+        public DateTime OrderDate { get; set; }
+
+        public checkoutexitModel(GolfContext db, UserService userService)
         {
-            var newOrder = new Order
+            _context = db;
+            _userService = userService;
+        }
+
+        public void OnGet(int orderNumber, bool v)
+        {
+            
+
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
             {
+                UserId = int.Parse(userIdClaim);
+                Username = _userService.GetUsername(UserId);
+            }
+
+            var order = _context.Order
+                .AsNoTracking()
+                .FirstOrDefault(o => v && o.User.UserId == UserId);
+                 OrderDate = DateTime.Now;
                 
-                OrderNumber = OrderNumber,
-                OrderDate = DateTime.Now
+
+            if (order != null)
+            {
+                OrderNumber = int.Parse(order.OrderNumber);
                 
-            };
-
-
-            _contexts.Order.Add(newOrder);
-            //Behövs för att spara ändringar i databasen? _contexts.SaveChanges();
-
+            }
         }
-        public int GetSaldo(int id)
-        {
-            var user = _contexts.Users.Find(id);
-            return user.Saldo;
-
-        }
-
     }
-
 }

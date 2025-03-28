@@ -24,4 +24,16 @@ public class UserService {
         return user.Saldo;
 
     }
+
+    public string GetImage(int id) {
+        var user = _contexts.Users.Find(id);
+        return user.UserImage;
+    }
+
+    public string GetEmail(int id)
+    {
+        var user = _contexts.Users.Find(id);
+        return user.Email;
+    }
 }
+

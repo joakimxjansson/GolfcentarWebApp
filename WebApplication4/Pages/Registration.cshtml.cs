@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
@@ -26,13 +27,12 @@ namespace WebApplication4.Pages
         {
             if (!ModelState.IsValid)
             {
-                Message = "Försök igen";
                 return Page(); //felaktig reg
             }
-            if (string.IsNullOrEmpty(User.Email))
+            if(_db.Users.Any(u => u.Username == User.Username))
             {
-                Message = "Email är obligatoriskt!";
-                return Page();
+                Message = "Användernamn är redan i användning";
+                return Page(); //Användare finns redan
             }
 
             _db.Users.Add(User);
@@ -41,7 +41,5 @@ namespace WebApplication4.Pages
             Message = "Du har registrerat dig!";
             return RedirectToPage("/Login"); //giltig reg, redirect till login-sida
         }
-
-        
     }
 }
