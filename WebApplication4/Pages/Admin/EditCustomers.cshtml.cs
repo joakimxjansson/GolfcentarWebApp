@@ -3,17 +3,13 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
-using WebApplication4.Services;
-
 namespace WebApplication4.Pages.Admin;
 
 public class EditCustomers : PageModel {
     private readonly GolfContext _context;
-    private readonly UserService _userService;
 
-    public EditCustomers(GolfContext context ,UserService userService) {
+    public EditCustomers(GolfContext context) {
         _context = context;
-        _userService = userService;
     }
     public IEnumerable<User>? Users { get; set; } = new List<User>();
     [BindProperty]
@@ -23,18 +19,8 @@ public class EditCustomers : PageModel {
     
    
     
-    public IActionResult OnGet() {
-        
-        var id = HttpContext.Session.GetInt32("Id");
-        if (id == null) {
-            return RedirectToPage("/Login");
-        }
-        var role = _userService.GetRole(id.Value);
-        if (role == 0) {
-            return RedirectToPage("/MyProfile");
-        }
+    public void OnGet() {
         Users = _context.Users;
-        return Page();
 
     }
 
@@ -53,18 +39,19 @@ public class EditCustomers : PageModel {
             user.LastName = User.LastName;
             user.Email = User.Email;
             user.Saldo = User.Saldo;
-            if (ImageFile != null) {
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profile", fileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await ImageFile.CopyToAsync(stream);
             }
 
            
-            user.UserImage = "/images/" + fileName;
+            user.UserImage = "/images/profile" + fileName;
         
-            }
+            
+           
+            
             await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditCustomers");
         }
