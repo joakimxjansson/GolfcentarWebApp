@@ -16,22 +16,6 @@ public class GolfContext : DbContext {
    public DbSet<Review> Review { get; set; }
     public DbSet<SubPost> SubPost { get; set; }
 
-    // Blogg och kommentarer - Batool
-    public DbSet<BlogPost> BlogPosts { get; set; }
-    public DbSet<Comment> Comments { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            optionsBuilder.UseSqlServer("YourConnectionStringHere", options =>
-            {
-                options.EnableRetryOnFailure();
-            });
-        }
-    }
-
-    // Blogg och kommentarer - Batool
 
     //Produkter - Anton
     protected override void OnModelCreating(ModelBuilder modelBuilder)
