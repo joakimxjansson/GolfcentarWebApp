@@ -14,6 +14,7 @@ public class GolfContext : DbContext {
     public DbSet<User> Users { get; set; }
    public DbSet<Review> Review { get; set; }
     public DbSet<SubPost> SubPost { get; set; }
+    public DbSet<Comment> Comments { get; set; } 
 
     //Produkter - Anton
     protected override void OnModelCreating(ModelBuilder modelBuilder)

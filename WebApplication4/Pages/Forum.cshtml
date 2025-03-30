@@ -1,0 +1,44 @@
+﻿@page
+@model WebApplication4.Pages.ForumModel
+
+@{
+    ViewData["Title"] = "Forum";
+}
+<div class="container mt-5">
+    <h1 class="text-center">Forum</h1>
+    <p class="text-center">Läs och kommentera inlägg!</p>
+
+    <hr />
+
+    <h2 class="mt-4">Senaste inläggen</h2>
+    @foreach (var post in Model.GetPosts)
+    {
+        <div class="card my-3 p-3 shadow-sm">
+            <h3>@post.Title</h3>
+            <p>@post.Content</p>
+            <small class="text-muted">Publicerat: @post.PublishDate.ToString("yyyy-MM-dd HH:mm")</small>
+
+            @if (Model.Comments.Any(c => c.PostId == post.PostId))
+            {
+                <h4 class="mt-3">Kommentarer:</h4>
+                <ul>
+                    @foreach (var comment in Model.Comments.Where(c => c.PostId == post.PostId))
+                    {
+                        <li>@comment.Content</li>
+                    }
+                </ul>
+            }
+
+            <form method="post" asp-page-handler="AddComment" asp-route-postId="@post.PostId" class="mt-2">
+                <div class="mb-3">
+                    <textarea name="CommentContent" class="form-control" rows="2" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Kommentera</button>
+            </form>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
