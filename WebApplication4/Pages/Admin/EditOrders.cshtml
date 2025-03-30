@@ -28,7 +28,8 @@
             <td>@orders.Product.ProdName</td>
             <td>@orders.Quantity</td>
             <td>@orders.TotalPrice</td>
-            <td><button class="btn btn-danger"> Radera </button></td>
+            <td><button class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-id="@orders.OrderId">Ta bort</button></td>
+            <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@orders.OrderId">Visa Kvitto</button></td>
         </tr>
         </tbody>
     }

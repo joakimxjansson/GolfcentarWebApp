@@ -36,4 +36,10 @@ public class EditOrders : PageModel {
 
 
     }
+
+    public IActionResult OnPostDownload() {
+        Orders = _context.Order.Include(o => o.User).Include(o => o.Product).ToList();
+        return Page();
+        
+    }
 }
