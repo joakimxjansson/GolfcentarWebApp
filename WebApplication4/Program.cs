@@ -17,6 +17,8 @@ builder.Services.AddScoped<CartService>();
 
 var app = builder.Build();
 
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Error");
@@ -24,12 +26,13 @@ if (!app.Environment.IsDevelopment()) {
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
-app.UseAuthorization();
 app.UseSession();
+app.UseAuthorization();
+
 
 app.MapStaticAssets();
 app.MapRazorPages()

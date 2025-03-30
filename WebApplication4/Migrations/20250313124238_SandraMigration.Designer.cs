@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    [Migration("20250323164109_Initial")]
-    partial class Initial
+    [Migration("20250313124238_SandraMigration")]
+    partial class SandraMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,7 +194,7 @@ namespace WebApplication4.Migrations
                         {
                             ProductId = 7,
                             ProdDescription = "Perfekt när solen tittar fram",
-                            ProdImage = "centarkeps.jpg",
+                            ProdImage = "keps.jpg",
                             ProdName = "Golfkeps",
                             ProdPrice = 249m
                         },
@@ -298,8 +298,7 @@ namespace WebApplication4.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
 

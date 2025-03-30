@@ -15,13 +15,13 @@
 <body>
 
         <!-- container för produkter i varukorgen -->
-    <div id="cart-container">                    
+    <div id="cart-container">
         <div id="header-container">
             <h1>Golfcentar</h1>
             <h5>Din varukorg</h5>
         </div>
 
-        <div id="cart-items-container">                                               
+        <div id="cart-items-container">
             <table>
                 <thead>
                     <tr>
@@ -36,10 +36,9 @@
                     @foreach (var item in Model.CartItems)
                     {
                         <tr>
-                            <td>@(item.Product?.ProdName ?? "Unknown Product")</td>
+                            <td>@item.Product</td>
                             <td>@item.Quantity</td>
-                            <td>@item.Product?.ProdPrice ?? 0:-</td>
-                            <td>@item.TotalPrice:-</td>
+                            <td>@item.TotalPrice = Product * Quantity</td>
                         </tr>
                     }
                 </tbody>
@@ -50,12 +49,12 @@
     <!--Container för cart details-->
         <div id="cart-details">
             <!--Hämtar in artiklar i varukorgen för att beräkna summa-->
-            <p>Totalt pris: @(Model.CartItems?.Sum(item => item.TotalPrice)):-</p>
+            <p>Totalt pris: @Model.CartItems.Sum(item => item.TotalPrice):-</p>
             <p>Frakavigt: <b>Fri Frakt</b></p>
 
             <div style="text-align: center;">
-                
-                <h5>Förvalt betalsätt: Crediter laddat på konto för användare: @Model.Username</h5>
+                <!-- kollar id på user som är inloggad-->
+                <h5>Förvalt betalsätt: Crediter laddat på konto för id: @Model.User.FindFirst("UserId")</h5>
                 <p>Ditt saldo: @Model.UserSaldo</p>
 
                 <div style="text-align: left;">

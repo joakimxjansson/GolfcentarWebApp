@@ -4,74 +4,54 @@ using WebApplication4.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Reflection.Metadata.Ecma335;
-using WebApplication4.Services;
-using System.Text.Json;
 
 namespace WebApplication4.Pages
 {
     public class checkoutModel : PageModel
     {
-        private readonly GolfContext _context;
-        private readonly UserService _userService;
+        public readonly GolfContext _context;
 
-        // Lista för varor i CartItems
+        //Lista för varor i CartItems
         public List<CartItems> CartItems { get; set; } = new List<CartItems>();
-        public string Username { get; set; }
-        public int UserId { get; set; }
-        public int UserSaldo { get; set; }
 
-        public checkoutModel(GolfContext context, UserService userService)
+        public checkoutModel(GolfContext db)
         {
-            _context = context;
-            _userService = userService;
+            _context = db;
         }
 
+        //Hämta data i CartItems och omvandla till lista
         public void OnGet()
         {
-            var id = HttpContext.Session.GetInt32("Id");
-            Username = _userService.GetUsername(id.Value);
-            UserSaldo = _userService.GetSaldo(id.Value);
-            // Hämta inloggad användares ID
-            //var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
-
-            // Ladda varukorgens artiklar
             CartItems = _context.CartItems
                 .Include(c => c.Product)
                 .AsNoTracking()
                 .ToList();
 
-            // Beräkna TotalPrice för varje artikel
             foreach (var item in CartItems)
             {
-                item.TotalPrice = (int)(item.Product.ProdPrice * item.Quantity);
+                item.TotalPrice = (int)(item.Quantity * (item.Product.ProdPrice));
             }
         }
-
+        //asynkrod metod för att checka ut varor i varukorgen när en användare lägger en order
         public async Task<IActionResult> OnPostCheckoutAsync()
         {
-            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim, out var userId))
+            //Hämtar den inloggade användarens id
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //Kollar om användaren är inloggad. Om UserId = null är inte användaren behörig 
+            if (userId == null)
             {
                 return Unauthorized();
             }
-
-            // Hämta användare
-            var user = await _context.Users.FindAsync(userId);
+            //Hämtar användare från databasen med specifikt id
+            var user = await _context.Users.FindAsync(int.Parse(userId));
             if (user == null)
             {
-                
-                return NotFound("debug");
+                return NotFound();
             }
-
-            // Skapa order för varje produkt
+            //Skapar en ny order och tillderlar den till användaren (i databasen)
             foreach (var item in CartItems)
             {
-                if (item.Product == null)
-                {
-                    continue; // Skip if product is null
-                }
-
+                //Skapar en ny order för varje produkt i användarens varukorg
                 var order = new Order
                 {
                     User = user,
@@ -81,13 +61,23 @@ namespace WebApplication4.Pages
                     OrderDate = DateTime.Now,
                     OrderNumber = Guid.NewGuid().ToString()
                 };
-
+                //Skapar order i databas
                 _context.Order.Add(order);
             }
-
+            //Sparar data och retrunerar till sidan checkoutexit
             await _context.SaveChangesAsync();
+
             return RedirectToPage("checkoutexit");
         }
 
+        public int UserSaldo { get; set; }
+
+        //Metod för att visa saldo hon användare
+        public int GetSaldo(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null) return 0;
+            return user.Saldo;
+        }
     }
 }
