@@ -51,6 +51,10 @@ namespace WebApplication4.Services
             SaveCart(cart);
         }
 
+        public int GetQunatity() {
+            return GetCart().Sum(p => p.Quantity);
+        }
+
         public void RemoveFromCart(int id)
         {
             var cart = GetCart();

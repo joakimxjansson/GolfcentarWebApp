@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using WebApplication4.Services
+@inject CartService CartService
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -22,13 +24,16 @@
             <a href="/Login">Medlem</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
             <a asp-page="/DisplayProductTemplate">Webshop</a>
+            <a asp-page="/Forum">Forum</a> 
+
+
             
         </nav>
 
         <div id="cart-container">
             <a href="/Cart/Cart">
-                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">             
-                    <p id="cart-counter">#</p>
+                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">   
+                <p id="cart-counter">@CartService.GetQunatity()</p>
                 <img />
             </a>
         </div>
@@ -61,6 +66,8 @@
                 <li><a href="kontakt.html"><i class="fa-regular fa-address-card"></i>Kontakta oss</a></li>
                 <li><a href="restaurang.html"><i class="fa-solid fa-utensils"></i>Restaurang</a></li>
                 <li><a href="shop.html"><i class="fa-solid fa-shop"></i>Shop</a></li>
+                <li><a href="/Forum"><i class="fa-solid fa-comments"></i>Forum</a></li> 
+
             </ul>
 
         </nav>
