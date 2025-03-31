@@ -36,4 +36,21 @@ public class EditOrders : PageModel {
 
 
     }
+
+    public IActionResult OnPostDelete(int id) {
+        var order = _context.Order.Find(id);
+        _context.Order.Remove(order);
+        _context.SaveChanges();
+        return RedirectToPage("/Admin/EditOrders");
+        
+        
+    }
+
+
+
+    public IActionResult OnPostDownload() {
+        Orders = _context.Order.Include(o => o.User).Include(o => o.Product).ToList();
+        return Page();
+        
+    }
 }

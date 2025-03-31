@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>acf9afc6-a52d-4411-9798-d289a4ddfb3d</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,10 +22,13 @@
 
 
 	<ItemGroup>
-
-		<Folder Include="Migrations\" />
 		<Folder Include="wwwroot\images\profile\" />
 
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Remove="Migrations\GolfContextModelSnapshot.cs" />
 	</ItemGroup>
 
 

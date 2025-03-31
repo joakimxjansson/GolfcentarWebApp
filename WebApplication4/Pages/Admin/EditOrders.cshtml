@@ -10,27 +10,33 @@
 </head>
 <body>
 
-<div class="col-md-3 d-flex ">
-    <ul class="list-unstyled d-flex gap-5 ">
-        <li><strong>Beställare: </strong></li>
-        <li><strong>Ordernummer: </strong></li>
-        <li><strong>Produkter: </strong></li>
-        <li><strong>Antal: </strong></li>
-        <li><strong>Totalpris: </strong></li>
-    </ul>
-
-    
-    <ul class="list-unstyled">
-        @foreach (var orders in Model.Orders) {
-            <li><strong>@orders.User.Username</strong></li>
-            <li><strong>@orders.OrderNumber</strong></li>
-            <li><strong>@orders.Product.ProdName</strong></li>
-            <li><strong>@orders.Quantity</strong></li>
-            <li><strong>@orders.TotalPrice</strong></li>
-        
-        }
-    
-    </ul>
-</div>  
+<table class="table table-bordered">
+    <thead>
+    <tr>
+    <th>Beställare</th>
+    <th>Ordernummer</th>
+    <th>Produkter</th>
+    <th>Antal</th>
+    <th>Totalpris</th>
+    </tr>
+    </thead>
+    @foreach (var orders in Model.Orders) {
+        <form method="post">
+        <input type="hidden" name="Order.OrderId" value="@orders.OrderId"/>
+        <tbody>
+        <tr>
+            <td>@orders.User.Username</td>
+            <td>@orders.OrderNumber</td>
+            <td>@orders.Product.ProdName</td>
+            <td>@orders.Quantity</td>
+            <td>@orders.TotalPrice</td>
+            <td><button class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-id="@orders.OrderId">Ta bort</button></td>
+            <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@orders.OrderId">Visa Kvitto</button></td>
+        </tr>
+        </tbody>
+        </form>
+    }
+</table>
+  
 </body>
 </html>

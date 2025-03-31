@@ -12,8 +12,8 @@ using WebApplication4.Data;
 namespace WebApplication4.Migrations
 {
     [DbContext(typeof(GolfContext))]
-    [Migration("20250313124238_SandraMigration")]
-    partial class SandraMigration
+    [Migration("20250330083623_AddCommentTable")]
+    partial class AddCommentTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,32 @@ namespace WebApplication4.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItems");
+                });
+
+            modelBuilder.Entity("WebApplication4.Data.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("WebApplication4.Data.Order", b =>
@@ -194,7 +220,7 @@ namespace WebApplication4.Migrations
                         {
                             ProductId = 7,
                             ProdDescription = "Perfekt när solen tittar fram",
-                            ProdImage = "keps.jpg",
+                            ProdImage = "centarkeps.jpg",
                             ProdName = "Golfkeps",
                             ProdPrice = 249m
                         },
@@ -298,7 +324,8 @@ namespace WebApplication4.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.HasKey("UserId");
 
@@ -349,7 +376,7 @@ namespace WebApplication4.Migrations
             modelBuilder.Entity("WebApplication4.Data.Review", b =>
                 {
                     b.HasOne("WebApplication4.Data.Product", "Product")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -374,6 +401,11 @@ namespace WebApplication4.Migrations
                         .IsRequired();
 
                     b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("WebApplication4.Data.Product", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
