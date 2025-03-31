@@ -22,10 +22,13 @@
 
 
 	<ItemGroup>
-
-		<Folder Include="Migrations\" />
 		<Folder Include="wwwroot\images\profile\" />
 
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Remove="Migrations\GolfContextModelSnapshot.cs" />
 	</ItemGroup>
 
 

@@ -21,6 +21,8 @@
     </tr>
     </thead>
     @foreach (var orders in Model.Orders) {
+        <form method="post">
+        <input type="hidden" name="Order.OrderId" value="@orders.OrderId"/>
         <tbody>
         <tr>
             <td>@orders.User.Username</td>
@@ -32,6 +34,7 @@
             <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@orders.OrderId">Visa Kvitto</button></td>
         </tr>
         </tbody>
+        </form>
     }
 </table>
   
