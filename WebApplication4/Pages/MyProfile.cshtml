@@ -22,8 +22,9 @@
 
 				<div class="profile-container">
 
-					<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image" width="100">
-
+					<div>
+						<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image">
+					</div>
 					<div class="ml-3">
 						<h5 class="MyProfile-name">@Model.Name</h5>
 						<p class="MyProfile-mail">@Model.Email</p>
