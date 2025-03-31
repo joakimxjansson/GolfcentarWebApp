@@ -1,0 +1,40 @@
+﻿@page
+@using WebApplication4.Data
+@model WebApplication4.Pages.Feed.MyFeedModel
+
+@{
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Feed</title>
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center">
+        <div class="feed-btn d-flex flex-column justify-content-center align-items-center">
+            <h1>Flöde</h1>
+            <h5>Här kan du se ditt allmänna flöde samt ditt personliga flöde från folk du följer.</h5>
+        
+            <form method="post">
+                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="MyFeed">Allmänt</button>
+
+                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="Following">Följer</button>
+            </form>
+        </div>
+
+        <div class="feed">
+            @foreach (var post in Model.GetPosts)
+            {
+                <div class="card my-3 p-3 shadow-sm">
+                    <p>@post.User.Username</p>
+                    <h2>@post.Title</h2>
+                    <p>@post.Content</p>
+                    <small class="text-muted">Publicerat: @post.PublishDate.ToString("yyyy-MM-dd HH:mm")</small> 
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

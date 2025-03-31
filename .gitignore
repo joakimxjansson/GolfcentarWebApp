@@ -9,3 +9,9 @@ riderModule.iml
 /WebApplication4/Migrations/20250312130401_InitialCreate2.cs
 /WebApplication4/Migrations/20250312130401_InitialCreate2.Designer.cs
 /WebApplication4/Migrations/GolfContextModelSnapshot.cs
+/WebApplication4/Migrations/20250331203112_initial.Designer.cs
+/WebApplication4/Migrations/20250331203112_initial.cs
+/WebApplication4/Migrations/20250330084149_CreateProductTable.Designer.cs
+/WebApplication4/Migrations/20250330084149_CreateProductTable.cs
+/WebApplication4/Migrations/20250330083623_AddCommentTable.cs
+/WebApplication4/Migrations/20250330083623_AddCommentTable.Designer.cs
