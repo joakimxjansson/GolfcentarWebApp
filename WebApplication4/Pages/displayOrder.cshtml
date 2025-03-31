@@ -1,0 +1,98 @@
+﻿@page
+@model WebApplication4.Pages.displayOrderModel
+@{
+    ViewData["Title"] = "Order List";
+}
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <!-- container för produkter i varukorgen -->
+    <div id="cart-container-ls">
+        <div id="header-container-ls">
+            <h1>Golfcentar</h1>
+            <h5>Din varukorg</h5>
+        </div>
+        <div class="order">
+            <h3>Orderhistorik för användare: @Model.Username</h3>
+            
+        </div>
+        <div id="cart-items-container-ls">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Antal</th>
+                        <th>Pris</th>
+                        <th>Summa</th>
+                        <th>Ordernummer</th>
+                        <th>Orderdatum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--  Laddar in lista med product/antal och pris-->
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <td>@(item.Product?.ProdName)</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Product?.ProdPrice:-</td>
+                            <td>@item.TotalPrice:-</td>
+                            <td>@item.OrderNumber</td>
+                            <td>@item.OrderDate</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <a href="/MyProfile">Tillbaka till profilen</a>
+        </div>
+        <!-- slut på container -->
+          
+    </div>
+    
+   
+
+</body>
+</html>
+
+<!-- css-->
+
+<style>
+
+
+    #header-container-ls {
+        text-align: center;
+    }
+
+
+
+    .order-details-ls {
+        text-align: center;
+    }
+
+    #cart-container-ls {
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 3em;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    #cart-details-ls {
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+</style>
