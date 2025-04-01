@@ -1,0 +1,52 @@
+﻿@page
+@using WebApplication4.Data
+@model WebApplication4.Pages.Feed.MyFeedModel
+
+@{
+    
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Feed</title>
+</head>
+<body>
+    <div class="container feed-con mt-1 d-flex flex-column justify-content-center align-items-center">
+        <div class="feed-btn mt-3 d-flex flex-column justify-content-center align-items-center">
+            
+            <h1>Flöde</h1>
+            <h5>Här kan du se ditt allmänna flöde samt ditt personliga flöde från folk du följer.</h5>
+        
+            <form method="post">
+                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="MyFeed">Allmänt</button>
+
+                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="Following">Följer</button>
+            </form>
+        </div>
+
+        @* Läser in blogginlägg *@ 
+        <div class="feed">
+            @foreach (var post in Model.GetPosts)
+            {
+                <div class="card my-3 p-3 shadow-sm">
+                    <p> <img src="@Url.Content("~" + @post.User.UserImage)" class="img-fluid feed-img"> @post.User.Username har skapat ett blogginlägg.</p>
+                    <h4>Inlägg: @post.Title</h4>
+                    <p>@post.Content</p>
+                    <small class="text-muted">Publicerat: @post.PublishDate.ToString("yyyy-MM-dd HH:mm")</small> 
+                </div>
+            }
+
+            @foreach (var review in Model.GetReviews) 
+            {
+                <div class="card my-3 p-3 shadow-sm">
+                    <p> <img src="@Url.Content("~" + @review.User.UserImage)" class="img-fluid feed-img"> @review.User.Username har lämnat en recension.</p>
+                    <h4>Recension: @review.Product.ProdName</h4>
+                    <p>@review.Content</p>
+                    <small class="text-muted">Publicerat: @review.Date.ToString("yyyy-MM-dd HH:mm")</small>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

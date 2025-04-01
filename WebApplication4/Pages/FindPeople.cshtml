@@ -1,0 +1,42 @@
+@page
+@model WebApplication4.Pages.FindPeople
+
+@{
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1> Användare</h1>
+<form method="post" asp-page-handler="Search" asp-for="Search" class="mt-2">
+    <div class="mb-3">
+        <textarea name="Search" class="form-control" rows="1" asp-for="Search"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Sök</button>
+</form>
+<div class="d-flex gap-3">
+@foreach (var users in Model.Users) {
+    <form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="User.UserId" value="@users.UserId"/>
+
+    <div class="card"  style="width: 18rem;">
+        <img class="card-img-top" src="@users.UserImage" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@users.Username</h5>
+            <a class="btn btn-primary" asp-page-handler="Follow" asp-route-id="@users.UserId">Följ</a>
+           
+        </div>
+    </div>
+    </form>
+}
+</div>
+
+
+
+</body>
+</html>
