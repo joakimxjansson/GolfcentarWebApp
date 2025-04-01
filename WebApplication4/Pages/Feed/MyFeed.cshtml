@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container d-flex flex-column justify-content-center align-items-center">
-        <div class="feed-btn d-flex flex-column justify-content-center align-items-center">
+        <div class="feed-btn mt-3 d-flex flex-column justify-content-center align-items-center">
             <h1>Flöde</h1>
             <h5>Här kan du se ditt allmänna flöde samt ditt personliga flöde från folk du följer.</h5>
         
@@ -30,9 +30,19 @@
             {
                 <div class="card my-3 p-3 shadow-sm">
                     <p>@post.User.Username</p>
-                    <h2>@post.Title</h2>
+                    <h4>@post.Title</h4>
                     <p>@post.Content</p>
                     <small class="text-muted">Publicerat: @post.PublishDate.ToString("yyyy-MM-dd HH:mm")</small> 
+                </div>
+            }
+
+            @foreach (var review in Model.GetReviews) 
+            {
+                <div class="card my-3 p-3 shadow-sm">
+                    <p>@review.User.Username har lämnat en recension.</p>
+                    <h4>@review.Product.ProdName</h4>
+                    <p>@review.Content</p>
+                    <small class="text-muted">Publicerat: @review.Date.ToString("yyyy-MM-dd HH:mm")</small>
                 </div>
             }
         </div>

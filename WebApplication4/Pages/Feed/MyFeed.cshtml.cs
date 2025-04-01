@@ -17,12 +17,16 @@ namespace WebApplication4.Pages.Feed
         }
 
         public List<Post> GetPosts { get; set; } = new List<Post>();
+        public List<Review> GetReviews { get; set; } = new List<Review>();
 
         //hämtar blogginlägg från databasen
         public async Task<IActionResult> OnGetAsync()
         {
             GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate)
             .Include(p => p.User).ToListAsync();
+            
+            GetReviews = await _context.Review.OrderByDescending(r => r.Date)
+            .Include(r => r.User).Include(r => r.Product).ToListAsync();
             return Page();
         }
 
