@@ -11,5 +11,6 @@ namespace WebApplication4.Data
         public DateTime? CreatedAt { get; set; }
         public int? PostId { get; set; }
         public int? UserId { get; set; }
+        public int? ReviewId { get; set; }
     }
 }
