@@ -16,6 +16,8 @@ public class FindPeople : PageModel {
     public string Search { get; set; }
     public int UserId { get; set; }
     public List <Follow>  Follow { get; set; } = new List<Follow>();
+    public Follow? Followers { get; set; }
+    
     
 
     public FindPeople(GolfContext context, UserService userService) {
@@ -24,6 +26,7 @@ public class FindPeople : PageModel {
     }
     public void OnGet() {
         Users = _context.Users;
+        Follow = _context.Follows.ToList();
 
 
     }
@@ -35,33 +38,39 @@ public class FindPeople : PageModel {
         
         var search = _context.Users.Where(u => u.Username.Contains(Search));
         Users = search;
-        
-        
-        
-         
-       
-        
-        
         return Page();
         }
         Users = _context.Users;
         return Page();
     }
 
-    public IActionResult OnPostFollow() {
-        int? id = HttpContext.Session.GetInt32("Id");
+    public IActionResult OnPostFollow(int followeeid) {
+        var id = HttpContext.Session.GetInt32("Id").Value;
+        var followee = _context.Users.Find(followeeid);
+
+     
         
-        
-        var follower = new Follow();
+
+
+
+    var follower = new Follow();
         {
-          
-                
+            follower.FollowerId = id;
+            follower.FolloweeId = followee.UserId;
+
 
         };
+        if (_context.Follows.Any(f => f.FollowerId == id && f.FolloweeId == followee.UserId))
+        {
+            _context.Follows.Remove(follower);
+            _context.SaveChanges();
+        return RedirectToPage("/FindPeople");
+        }
         _context.Follows.Add(follower);
         _context.SaveChanges();
-        Console.WriteLine("Här" + id + " " + UserId );
-        return Page();
-        
+        Console.WriteLine("Här" + id + " " + followee.UserId );
+        return RedirectToPage("/FindPeople");
+
+       
     }
 }
