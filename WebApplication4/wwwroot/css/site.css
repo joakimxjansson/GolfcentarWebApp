@@ -234,3 +234,9 @@ body {
     text-align: center;
     margin: 3px;
 }
+
+.feed-con {
+    border-right: 3px solid #55552b;
+    border-left: 3px solid #55552b;
+    border-radius: 25px;
+}
