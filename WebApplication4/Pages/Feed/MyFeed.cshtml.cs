@@ -18,6 +18,7 @@ namespace WebApplication4.Pages.Feed
 
         public List<Post> GetPosts { get; set; } = new List<Post>();
 
+        //hämtar blogginlägg från databasen
         public async Task<IActionResult> OnGetAsync()
         {
             GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate)
