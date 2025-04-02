@@ -41,7 +41,7 @@ public class FindPeople : PageModel {
         return Page();
         }
         Users = _context.Users;
-        return Page();
+        return RedirectToPage("/FindPeople");
     }
 
     public IActionResult OnPostFollow(int followeeid) {

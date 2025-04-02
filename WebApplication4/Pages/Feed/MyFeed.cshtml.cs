@@ -67,9 +67,19 @@ namespace WebApplication4.Pages.Feed
             return RedirectToPage("/Feed/MyFeed");
         }
 
-        public IActionResult OnPostFollowing()
-        {
-            return RedirectToPage("/Feed/Following");
+        public IActionResult OnPostFollowing() {
+            GetReviews = _context.Review.Where(r => _context.Follows
+                    .Any(f => f.FollowerId == HttpContext.Session.GetInt32("Id") && f.FolloweeId == r.UserId))
+                .Include(r => r.User)
+                .Include(r => r.Product).OrderByDescending(r => r.Date).ToList();
+            
+            GetComments =  _context.Comments.OrderByDescending(c => c.CreatedAt)
+                .Include(c => c.User).OrderByDescending(c => c.CreatedAt).ToList();
+            
+            GetPosts = _context.Post.Where(p => _context.Follows
+                    .Any(f => f.FollowerId == HttpContext.Session.GetInt32("Id") && f.FolloweeId == p.UserId))
+                .Include(p => p.User).OrderByDescending(p => p.PublishDate).ToList();
+            return Page();
         }
 
         public IActionResult OnPostFindPeople()
