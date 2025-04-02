@@ -49,6 +49,10 @@ namespace WebApplication4.Pages
             return RedirectToPage("/Admin/EditCustomers");
         }
 
-
+        public IActionResult OnPostFind()
+        {
+            Console.WriteLine("hejhej");
+            return RedirectToPage("/FindPeople");
+        }
     }
 }

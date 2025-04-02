@@ -26,11 +26,16 @@
 						<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image">
 					</div>
 					
-					<div class="ml-3">
+					<div>
 						<h5 class="MyProfile-name">@Model.Name</h5>
 						<p class="MyProfile-mail">@Model.Email</p>
 						<p class ="MyProfile-mail">Följer: @Model.User.Follower.Count Följare: @Model.User.Followee.Count</p>
+						<form method="post" class="MyProfile-mail">
+							<button type="submit" class="btn btn-primary px-4 py-2 rounded shadow" asp-page-handler="Find">Hitta användare</button>
+						</form>
 					</div>
+
+					
 				</div>
 
 
