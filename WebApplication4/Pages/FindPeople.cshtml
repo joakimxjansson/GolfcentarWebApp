@@ -23,21 +23,28 @@
 @foreach (var users in Model.Users) {
     <form method="post" asp-page-handler="Follow" asp-route-followeeid="@users.UserId" asp-for="Follow" enctype="multipart/form-data">
         <input type="hidden" name="User.UserId" value="@users.UserId"/>
+        @if (@users.UserId != HttpContext.Session.GetInt32("Id")) {
 
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="@users.UserImage" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">@users.Username</h5>
-                @if (@Model.Follow.Any(f => f.FollowerId == HttpContext.Session.GetInt32("Id").Value && f.FolloweeId == @users.UserId))
-                {<button class="btn btn-danger">Avfölj </button>
-                }
-                else
-                {
-                <button class="btn btn-primary">Följ</button>
-                }
+            
+        
 
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="@users.UserImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@users.Username</h5>
+                    @if (@Model.Follow.Any(f => f.FollowerId == HttpContext.Session.GetInt32("Id").Value && f.FolloweeId == @users.UserId))
+                    {<button class="btn btn-danger">Avfölj </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary">Följ</button>
+                    }
+                
+
+                </div>
             </div>
-        </div>
+        }
     </form>
 }
 </div>
