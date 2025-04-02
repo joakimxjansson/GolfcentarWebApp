@@ -44,7 +44,7 @@ namespace WebApplication4.Pages.Feed
             if (userId == null)
             {
                 ModelState.AddModelError(string.Empty, "Logga in för att kommentera.");
-                return RedirectToPage();
+                return RedirectToPage("/login");
             }
 
             var comment = new Comment
@@ -70,6 +70,11 @@ namespace WebApplication4.Pages.Feed
         public IActionResult OnPostFollowing()
         {
             return RedirectToPage("/Feed/Following");
+        }
+
+        public IActionResult OnPostFindPeople()
+        {
+            return RedirectToPage("/FindPeople");
         }
     }
 }
