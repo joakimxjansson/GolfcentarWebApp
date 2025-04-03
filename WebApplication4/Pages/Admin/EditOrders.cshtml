@@ -22,7 +22,7 @@
     </thead>
     @foreach (var orders in Model.Orders) {
         <form method="post">
-        <input type="hidden" name="Order.OrderId" value="@orders.OrderId"/>
+        <input type="hidden" name="Order.OrderId" value="@orders.OrderNumber"/>
         <tbody>
         <tr>
             <td>@orders.User.Username</td>
@@ -31,7 +31,7 @@
             <td>@orders.Quantity</td>
             <td>@orders.TotalPrice</td>
             <td><button class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-id="@orders.OrderId">Ta bort</button></td>
-            <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@orders.OrderId">Visa Kvitto</button></td>
+            <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@orders.OrderNumber">Visa Kvitto</button></td>
         </tr>
         </tbody>
         </form>
