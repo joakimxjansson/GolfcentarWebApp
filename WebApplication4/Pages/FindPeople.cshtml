@@ -25,23 +25,30 @@
     <form method="post" asp-page-handler="Follow" asp-route-followeeid="@users.UserId" asp-for="Follow" enctype="multipart/form-data">
         <input type="hidden" name="User.UserId" value="@users.UserId"/>
         @if (@users.UserId != HttpContext.Session.GetInt32("Id")) {
-
             
-        
-
-
+            
+            
                     <div class="card d-flex justify-content-center align-items-center shadow" style="width: 18rem;">
                 <img class="card-img-top w-75 mt-2" src="@users.UserImage" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">@users.Username</h5>
+                    @if (HttpContext.Session.GetInt32("Id") != null) {
+                        
                     @if (@Model.Follow.Any(f => f.FollowerId == HttpContext.Session.GetInt32("Id").Value && f.FolloweeId == @users.UserId))
-                    {<button class="btn btn-danger">Avfölj </button>
+                    {
+                        <button class="btn btn-danger">Avfölj </button>
                     }
                     else
                     {
                         <button class="btn btn-primary">Följ</button>
                     }
-                
+                    } 
+                    else 
+                    {
+                        <button class="btn btn-centar">Logga in för att följa</button>
+                    }
+
+
 
                 </div>
             </div>

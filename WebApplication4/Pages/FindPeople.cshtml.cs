@@ -45,33 +45,30 @@ public class FindPeople : PageModel {
     }
 
     public IActionResult OnPostFollow(int followeeid) {
-        var id = HttpContext.Session.GetInt32("Id").Value;
-        var followee = _context.Users.Find(followeeid);
 
-     
-        
+        if (HttpContext.Session.GetInt32("Id") != null) {
+            var id = HttpContext.Session.GetInt32("Id").Value;
+            var followee = _context.Users.Find(followeeid);
+            
+            var follower = new Follow();
+            {
+                follower.FollowerId = id;
+                follower.FolloweeId = followee.UserId;
+                
+            }
+            ;
+            if (_context.Follows.Any(f => f.FollowerId == id && f.FolloweeId == followee.UserId)) {
+                _context.Follows.Remove(follower);
+                _context.SaveChanges();
+                return RedirectToPage("/FindPeople");
+            }
 
-
-
-    var follower = new Follow();
-        {
-            follower.FollowerId = id;
-            follower.FolloweeId = followee.UserId;
-
-
-        };
-        if (_context.Follows.Any(f => f.FollowerId == id && f.FolloweeId == followee.UserId))
-        {
-            _context.Follows.Remove(follower);
+            _context.Follows.Add(follower);
             _context.SaveChanges();
-        return RedirectToPage("/FindPeople");
+            Console.WriteLine("Här" + id + " " + followee.UserId);
+            return RedirectToPage("/FindPeople");
         }
-        _context.Follows.Add(follower);
-        _context.SaveChanges();
-        Console.WriteLine("Här" + id + " " + followee.UserId );
-        return RedirectToPage("/FindPeople");
-
-       
+        return RedirectToPage("/Login");
     }
 
     public IActionResult OnPostMyFeed()
