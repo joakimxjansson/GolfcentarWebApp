@@ -31,7 +31,8 @@
 						<p class="MyProfile-mail">@Model.Email</p>
 						<p class ="MyProfile-mail">Följer: @Model.User.Follower.Count Följare: @Model.User.Followee.Count</p>
 						<form method="post" class="MyProfile-mail">
-							<button type="submit" class="btn btn-primary px-4 py-2 rounded shadow" asp-page-handler="Find">Hitta användare</button>
+							<button type="submit" class="btn btn-primary btn-sm rounded shadow" asp-page-handler="Find">Hitta användare</button>
+							<button type="submit" class="btn btn-centar btn-sm rounded shadow" asp-page-handler="MyFeed">Flöde</button>
 						</form>
 					</div>
 

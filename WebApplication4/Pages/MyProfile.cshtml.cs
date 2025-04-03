@@ -54,5 +54,10 @@ namespace WebApplication4.Pages
             Console.WriteLine("hejhej");
             return RedirectToPage("/FindPeople");
         }
+
+        public IActionResult OnPostMyFeed()
+        {
+            return RedirectToPage("/Feed/MyFeed");
+        }
     }
 }
