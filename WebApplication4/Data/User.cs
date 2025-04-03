@@ -21,5 +21,9 @@ public class User {
 
     public int Admin { get; set; } = 0;
     public int Saldo { get; set; } = 1000;
-    public string? UserImage { get; set; }
+    public string? UserImage { get; set; } = "/images/DefaultImage.png";
+    
+    public ICollection<Follow>? Follower { get; set; }
+
+    public ICollection<Follow>? Followee { get; set; }
 }

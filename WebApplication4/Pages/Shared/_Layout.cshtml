@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using WebApplication4.Services
+@inject CartService CartService
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -19,8 +21,9 @@
             <a asp-page="/OldPages/AboutUs">Om oss</a> 
             <a asp-page="/OldPages/Booking">Boka</a>
             <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
-            <a asp-page="login">Medlem</a>
+            <a href="/Login">Medlem</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
+<<<<<<< HEAD
             <a asp-page="/Blogg/Blogg">Community</a>
 
             @if (Context.Session.GetInt32("Id") == null)
@@ -35,12 +38,19 @@
                     <a asp-page="/OldPages/Shop">Shop</a>
                 </div>
             </div>
+=======
+            <a asp-page="/DisplayProductTemplate">Webshop</a>
+            <a asp-page="/Forum">Forum</a> 
+
+
+            
+>>>>>>> master
         </nav>
 
         <div id="cart-container">
             <a href="/Cart/Cart">
-                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">             
-                    <p id="cart-counter">#</p>
+                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">   
+                <p id="cart-counter">@CartService.GetQunatity()</p>
                 <img />
             </a>
         </div>
@@ -79,6 +89,8 @@
                 }
                 <li><a href="restaurang.html"><i class="fa-solid fa-utensils"></i>Restaurang</a></li>
                 <li><a href="shop.html"><i class="fa-solid fa-shop"></i>Shop</a></li>
+                <li><a href="/Forum"><i class="fa-solid fa-comments"></i>Forum</a></li> 
+
             </ul>
 
         </nav>
@@ -104,6 +116,7 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/acf33f1b0e.js" crossorigin="anonymous"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,71 +1,67 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
-using WebApplication4.Services;
+using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApplication4.Pages
 {
     public class checkoutexitModel : PageModel
     {
-        private readonly GolfContext _context;
+        public readonly GolfContext _context;
+        public string OrderNumber { get; set; } = string.Empty; // Required attributet ersatt med en säker initiering.
+        public DateTime OrderDate { get; set; }
+        public string Username { get; set; }
+        public int UserId { get; set; }
 
-        public checkoutexitModel(GolfContext context)
+        public checkoutexitModel(GolfContext db)
         {
-            _context = context;
+            _context = db;
         }
-
-        // Lagrar ordernummer/orderdatum
-        public string OrderNumber { get; set; }
-        public string OrderDate { get; set; }
-        public int OrderId { get; set; }
-        public User user { get; set; }
-
-        
-
-        public void OnGet()
+        public void OnGet(string orderNumber, string orderDate)
         {
-            var id = HttpContext.Session.GetInt32("Id");
-            OrderNumber = "Ingen order skapad";
-
-
-            if (user != null)
+            // Hämta användarens ID från HTTP-session
+            var sessionId = HttpContext.Session.GetInt32("Id");
+            if (sessionId != null)
             {
-                var newOrder = new Order
+                UserId = sessionId.Value;
+
+                // Hämta användarens namn 
+                var user = _context.Users.AsNoTracking().FirstOrDefault(u => u.UserId == UserId);
+                if (user != null)
                 {
-                    OrderNumber = GenerateOrderNumber(), // Generera ett unikt ordernummer
-                    OrderDate = DateTime.Now,
-                    User = user // Tilldela den inloggade användaren till ordern
-                };
+                    Username = user.Username;
+                }
+            }
+            // Hanterar GET-anrop 
+            OrderNumber = orderNumber;
 
-                _context.Order.Add(newOrder);
-               // _context.SaveChanges(); // spara ändringarna i databasen
-
-                // Tilldela ordernumret till newOrder
-                OrderNumber = newOrder.OrderNumber;
-                OrderDate = newOrder.OrderDate.ToString("yyyy-MM-dd HH:mm:ss");
+            if (DateTime.TryParse(orderDate, out DateTime parsedDate))
+            {
+                OrderDate = parsedDate;
             }
             else
             {
-                // Om användaren inte hittas skrivs följande ut:
-                OrderNumber = " Användaren hittades inte";
-                OrderDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                OrderDate = DateTime.MinValue;
             }
         }
 
-        //Metod för att generera ett ordernummer
-        private string GenerateOrderNumber()
+        public IActionResult OnPost(string orderNumber, string orderDate)
         {
-            var random = new Random();
-            int length = random.Next(5, 8); // Generera ett nummer mellan 5 och 7
-            var orderNumber = new char[length];
-            for (int i = 0; i < length; i++)
-            {
-                orderNumber[i] = (char)('0' + random.Next(0, 10));
-            }
-            return new string(orderNumber);
-        }
+            // Hanterar POST-anrop från formuläret i checkout
+            OrderNumber = orderNumber;
 
+            if (DateTime.TryParse(orderDate, out var parsedDate))
+            {
+                OrderDate = parsedDate;
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Ogiltigt datumformat.");
+                return Page();
+            }
+
+            return Page();
+        }
     }
 }
-

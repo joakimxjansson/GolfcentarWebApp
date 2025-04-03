@@ -103,6 +103,114 @@ body {
     }
 /*CSS Registration form SLUT - Sandra*/
 
+/*CSS till MyProfile*/
+.myprofile{
+    background-color: #fff;
+    width: 50%;
+    border-radius: 33px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 2rem;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    border-radius: 10px;   
+    width: 12em;
+}
+
+.MyProfile-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #272727;
+    position: relative;
+    top: 8px;
+    margin-left: 1em;
+}
+
+.MyProfile-mail {
+    font-size: 14px;
+    color: grey;
+    position: relative;
+    top: 2px;
+    margin-left: 1em;
+}
+
+.balance-container {
+    background-color: #eee;
+    border-radius: 12px;
+}
+
+.dollar-div {
+
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.current-balance {
+    font-size: 15px;
+    color: #272727;
+    font-weight: bold;
+}
+
+.amount {
+    color: #55552b;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.kr {
+    font-size: 16px;
+    color: #272727;
+    font-weight: bold;
+}
+
+.recent-orders {
+    font-size: 16px;
+    font-weight: 700;
+    color: #5957f9;
+    margin-left: 2px;
+}
+
+.links {
+    font-size: 16px;
+    font-weight: 700;
+    color: #272727;
+    text-decoration: none;
+}
+
+.links-border:hover {
+    border-bottom: 1px solid #55552b;
+    cursor: pointer;
+}
+
+@media (max-width: 991px) {
+
+    .myprofile {
+        width: 70%;
+    }
+}
+
+@media (max-width: 528px) {
+
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+
+
+    .myprofile {
+        width: 90%;
+    }
+}
+
+/*slut på CSS till MyProfile*/
+
 #cart-container {
     position:relative;
     width: 100px;
@@ -124,4 +232,16 @@ body {
     color: white;
     text-align: center;
     margin: 3px;
+}
+
+.feed-con {
+    border-right: 3px solid #55552b;
+    border-left: 3px solid #55552b;
+    border-radius: 25px;
+}
+
+.feed-img {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
 }

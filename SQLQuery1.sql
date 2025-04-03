@@ -1,0 +1,6 @@
+﻿CREATE TABLE Post (
+    PostId INT PRIMARY KEY IDENTITY(1,1),
+    Title NVARCHAR(200) NOT NULL,
+    Content NVARCHAR(MAX),
+    CreatedDate DATETIME DEFAULT GETDATE()
+);

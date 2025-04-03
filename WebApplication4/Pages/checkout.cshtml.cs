@@ -3,91 +3,67 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using System.Reflection.Metadata.Ecma335;
 using WebApplication4.Services;
-using System.Text.Json;
 
 namespace WebApplication4.Pages
 {
     public class checkoutModel : PageModel
     {
-        private readonly GolfContext _context;
+        public readonly GolfContext _context;
         private readonly UserService _userService;
+        private readonly CartService _cartService;
 
-        // Lista för varor i CartItems
         public List<CartItems> CartItems { get; set; } = new List<CartItems>();
         public string Username { get; set; }
         public int UserId { get; set; }
+        public string OrderNumber { get; set; }
+        public DateTime OrderDate { get; set; }
         public int UserSaldo { get; set; }
 
-        public checkoutModel(GolfContext context, UserService userService)
+        public checkoutModel(GolfContext db, UserService userService, CartService cartService)
         {
-            _context = context;
+            _context = db;
             _userService = userService;
+            _cartService = cartService;
         }
 
         public void OnGet()
         {
+            // Hï¿½mta anvï¿½ndarens ID frï¿½n session
             var id = HttpContext.Session.GetInt32("Id");
-            Username = _userService.GetUsername(id.Value);
-            UserSaldo = _userService.GetSaldo(id.Value);
-            // Hämta inloggad användares ID
-            //var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
+            if (id != null)
+            {
+                UserId = id.Value;
+                Username = _userService.GetUsername(UserId);
+                UserSaldo = _userService.GetSaldo(UserId);
+            }
 
-            // Ladda varukorgens artiklar
-            CartItems = _context.CartItems
-                .Include(c => c.Product)
-                .AsNoTracking()
-                .ToList();
+            // Ladda varukorgens innehï¿½ll
+            CartItems = _cartService.GetCart();
 
-            // Beräkna TotalPrice för varje artikel
             foreach (var item in CartItems)
             {
-                item.TotalPrice = (int)(item.Product.ProdPrice * item.Quantity);
+                item.TotalPrice = (int)(item.Quantity * (item.Product.ProdPrice));
             }
         }
 
+        //sparar varorna i ordertabell och tï¿½mmer varukorgen
         public async Task<IActionResult> OnPostCheckoutAsync()
-        {
-            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userIdClaim == null || !int.TryParse(userIdClaim, out var userId))
+        { Console.WriteLine("HÃ¤r");
+            var userId = HttpContext.Session.GetInt32("Id");
+            if (userId == null)
             {
                 return Unauthorized();
             }
+            Console.WriteLine("HÃ¤r" + userId.Value);
+            var orderNumber = _cartService.GenerateOrderNumber();
+            _cartService.SaveCartToOrder(userId.Value, orderNumber);
+            Console.WriteLine("HÃ¤r" + userId.Value);
+            
 
-            // Hämta användare
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null)
-            {
-                
-                return NotFound("debug");
-            }
-
-            // Skapa order för varje produkt
-            foreach (var item in CartItems)
-            {
-                if (item.Product == null)
-                {
-                    continue; // Skip if product is null
-                }
-
-                var order = new Order
-                {
-                    User = user,
-                    Product = item.Product,
-                    Quantity = item.Quantity,
-                    TotalPrice = item.Quantity * item.Product.ProdPrice,
-                    OrderDate = DateTime.Now,
-                    OrderNumber = Guid.NewGuid().ToString()
-                };
-
-                _context.Order.Add(order);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToPage("checkoutexit");
+            return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
         }
+
 
     }
 }
