@@ -48,12 +48,19 @@
                     }
                 </ul>
             }
-            <div class="mt-2">
-                <a asp-page="/EditBlogg" asp-route-id="@post.PostId" class="btn btn-warning btn-sm">Redigera</a>
-                <form method="post" asp-page-handler="Delete" asp-route-id="@post.PostId" class="d-inline" onsubmit="return confirm('Är du säker?');">
-                    <button type="submit" class="btn btn-danger btn-sm">Radera</button>
-                </form>
-            </div>
+            @{
+                int? userId = HttpContext.Session.GetInt32("Id");
+            }
+
+            @if (userId != null)
+            {
+                <div class="mt-2">
+                    <a asp-page="/Blogg/EditBlogg" asp-route-id="@post.PostId" class="btn btn-warning btn-sm">Redigera</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@post.PostId" class="d-inline" onsubmit="return confirm('Är du säker?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Radera</button>
+                    </form>
+                </div>
+            }
         </div>
     }
 

@@ -21,6 +21,13 @@
             <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
             <a asp-page="login">Medlem</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
+            <a asp-page="/Blogg/Blogg">Community</a>
+
+            @if (Context.Session.GetInt32("Id") == null)
+            {
+                <a asp-page="/registration">Registrera dig</a> 
+            }
+
             <div class="dropdown">
                 <a href="#" class="dropbtn">Restaurang och shop</a>
                 <div class="dropdown-content">
@@ -48,6 +55,7 @@
                 <a class="buttonLogInLS" asp-page="/Login">Logga in</a>
             }
         <!-- slut-->
+
         <!--Hamburgermeny start-->
         <nav class="hamburgermeny">
 
@@ -64,6 +72,11 @@
                 <li><a href="events.html"><i class="fa-solid fa-calendar-days"></i>Tävlingar och Evenemang</a></li>
                 <li><a href="medlemssektion.html"><i class="fa-solid fa-user"></i>Medlem</a></li>
                 <li><a href="kontakt.html"><i class="fa-regular fa-address-card"></i>Kontakta oss</a></li>
+                <li><a asp-page="/blogg/blogg"><i class="fa-solid fa-user-plus"></i>Community</a></li>
+                @if (Context.Session.GetInt32("Id") == null)
+                {
+                    <li><a asp-page="/registration"><i class="fa-solid fa-user-plus"></i>Registrera dig</a></li>
+                }
                 <li><a href="restaurang.html"><i class="fa-solid fa-utensils"></i>Restaurang</a></li>
                 <li><a href="shop.html"><i class="fa-solid fa-shop"></i>Shop</a></li>
             </ul>
