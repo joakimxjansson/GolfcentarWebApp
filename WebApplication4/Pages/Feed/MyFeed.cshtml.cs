@@ -86,5 +86,10 @@ namespace WebApplication4.Pages.Feed
         {
             return RedirectToPage("/FindPeople");
         }
+
+        public IActionResult OnPostBlogPost()
+        {
+            return RedirectToPage("/blogg/blogg");
+        }
     }
 }

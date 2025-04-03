@@ -73,4 +73,9 @@ public class FindPeople : PageModel {
 
        
     }
+
+    public IActionResult OnPostMyFeed()
+    {
+        return RedirectToPage("/Feed/MyFeed");
+    }
 }
