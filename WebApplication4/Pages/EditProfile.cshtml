@@ -1,0 +1,137 @@
+﻿@page
+@model WebApplication4.Pages.EditProfileModel
+@{
+}
+<div class="edit_form">
+<form method="post" enctype="multipart/form-data">
+    
+        <div class="edit_img">
+            <h3>Redigera Profil</h3>
+            @if (!string.IsNullOrEmpty(Model.User.UserImage))
+            {
+                <img src="@Model.User.UserImage" alt="Profilbild" class="profile-image" />
+            }
+            else
+            {
+                <img src="/images/default-profile.png" alt="Profilbild" class="profile-image" />
+            }
+            <label for="fileInput" class="custom_label">Välj en bild</label>
+            <input type="file" id="fileInput" asp-for="UserImage" />
+        </div>
+        <div class="edit_content">
+            <label>Namn:</label>
+            <input asp-for="User.FirstName" />
+
+            <label>Efternamn:</label>
+            <input asp-for="User.LastName" />
+
+            <label>Användarnamn:</label>
+            <input asp-for="User.Username" />
+
+            <label>Email:</label>
+            <input asp-for="User.Email" />
+
+            <button type="submit" class="edit_button">Spara ändringar</button>
+
+            <a href="/MyProfile">Tillbaka till profilen</a>
+        </div>
+    
+</form>
+</div>
+
+
+@*@if (Model.User.UserImage != null)
+{
+    <img src="@Model.User.UserImage" alt="Profilbild" width="100" />
+} *@
+
+<style>
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .edit_form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 60%;
+        margin: 1.5rem auto;
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        
+    }
+
+    .edit_content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .edit_content label {
+        font-weight: bold;
+        color: #55552b;
+    }
+
+    .edit_content div {
+        min-width: 45%; 
+    }
+
+    .edit_content input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #55552b;
+        border-radius: 1rem;
+        font-size: 16px;
+
+    }
+
+    .edit_img {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .profile-image {
+        width: 12rem;
+        height: 12rem;
+        border-radius: 50%; 
+        object-fit: cover; 
+        border: 3px solid #c3c388;
+    }
+
+    .edit_img input {
+        padding: 5px;
+    }
+
+    input[type="file"] {
+        display: none; /* Gömmer "ingen fil är vald" */
+    }
+
+    .custom_label {
+        background-color: #aaaa55;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 14px;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .custom_label:hover {
+        background-color: #c3c388;
+    }
+
+    .edit_button {
+        background-color: #c3c388;
+        border-radius: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+</style>
