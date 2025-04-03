@@ -26,9 +26,4 @@
 	</ItemGroup>
 
 
-	<ItemGroup>
-	  <Compile Remove="Migrations\GolfContextModelSnapshot.cs" />
-	</ItemGroup>
-
-
 </Project>
