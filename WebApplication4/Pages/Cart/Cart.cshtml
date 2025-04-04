@@ -9,13 +9,13 @@
     <div class="kundkorg-container">
         <div class="kundkorg-kundkorg">
             <h1 class="kundkorg-rubrik">
-                @if (Model.CartItems.Count == 1)
+                @if (Model.CartItems.Count == 1)  
                 {
-                    @($"Du har {Model.CartItems.Count} produkt i varukorgen.")
-                }
-                else
+                    @($"Du har {Model.CartService.GetQunatity()} produkt i varukorgen.")
+                }  
+                else  
                 {
-                    @($"Du har {Model.CartItems.Count} produkter i varukorgen.")
+                    @($"Du har {Model.CartService.GetQunatity()} produkter i varukorgen.")
                 }
             </h1>
 
