@@ -3,30 +3,43 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using System;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
     public class checkoutexitModel : PageModel
     {
         public readonly GolfContext _context;
-        public string OrderNumber { get; set; } = string.Empty; // Required attributet ersatt med en säker initiering.
+        public readonly CartService _cartService;
+        public string OrderNumber { get; set; } = string.Empty; // Required attributet ersatt med en sï¿½ker initiering.
         public DateTime OrderDate { get; set; }
         public string Username { get; set; }
         public int UserId { get; set; }
 
-        public checkoutexitModel(GolfContext db)
+        public checkoutexitModel(GolfContext db ,CartService cartService)
         {
+            _cartService = cartService;
             _context = db;
         }
-        public void OnGet(string orderNumber, string orderDate)
+        public IActionResult OnGet(string orderNumber, string orderDate)
         {
-            // Hämta användarens ID från HTTP-session
+            if (HttpContext.Session.GetInt32("Id") == null) {
+                
+                return RedirectToPage("/Login");
+            }
+
+            if (orderNumber == null || orderDate == null) {
+                return RedirectToPage("/DisplayProductTemplate");
+            }
+
+
+            // Hï¿½mta anvï¿½ndarens ID frï¿½n HTTP-session
             var sessionId = HttpContext.Session.GetInt32("Id");
             if (sessionId != null)
             {
                 UserId = sessionId.Value;
 
-                // Hämta användarens namn 
+                // Hï¿½mta anvï¿½ndarens namn 
                 var user = _context.Users.AsNoTracking().FirstOrDefault(u => u.UserId == UserId);
                 if (user != null)
                 {
@@ -44,11 +57,12 @@ namespace WebApplication4.Pages
             {
                 OrderDate = DateTime.MinValue;
             }
+            return Page();
         }
 
         public IActionResult OnPost(string orderNumber, string orderDate)
         {
-            // Hanterar POST-anrop från formuläret i checkout
+            // Hanterar POST-anrop frï¿½n formulï¿½ret i checkout
             OrderNumber = orderNumber;
 
             if (DateTime.TryParse(orderDate, out var parsedDate))
