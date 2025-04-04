@@ -64,7 +64,16 @@
                     <form method="post">
                         <input type="hidden" name="OrderNumber" value="@Model.OrderNumber" />
                         <input type="hidden" name="OrderDate" value="@Model.OrderDate.ToString("O")" />
-                        <button type="submit" asp-page-handler="Checkout" class="buttonLS">Slutför köp </button>
+                        @if (HttpContext.Session.GetInt32("Id") != null) {
+                            @if (Model.Quantity != 0) {
+                                <button type="submit" asp-page-handler="Checkout" class="buttonLS">Slutför köp </button>
+                            } else {
+                                <button type="submit" asp-page-handler="Checkout" class="buttonLS">Din varukorg är tom </button>
+                            }
+                        } else {
+                            <button type="submit" asp-page-handler="Checkout" class="buttonLS">Logga in för att Slutföra </button>
+                        }
+
                     </form>
 
                 </div>

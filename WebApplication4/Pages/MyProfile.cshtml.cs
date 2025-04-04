@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
 using WebApplication4.Services;
 
@@ -15,6 +16,7 @@ namespace WebApplication4.Pages
         public int Saldo { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
+        public User User { get; set; }
 
         public MyProfileModel(GolfContext db, UserService userService)
         {
@@ -22,16 +24,23 @@ namespace WebApplication4.Pages
             _userService = userService;
         }
         
-        public void OnGet()
-        {
+        public void OnGet() {
+            
             var id = HttpContext.Session.GetInt32("Id");
+            User = _db.Users
+                .Where(u => u.UserId == id.Value)
+                .Include(u => u.Follower)
+                .Include (u => u.Followee).FirstOrDefault();
+            
+                
             Username = _userService.GetUsername(id.Value);
             UserImage = _userService.GetImage(id.Value);
             Saldo = _userService.GetSaldo(id.Value);
             Email = _userService.GetEmail(id.Value);
             Name = _userService.GetName(id.Value);
+            
 
-            Message = "Välkommen " + Username + "!";
+            Message = "VÃ¤lkommen " + Username + "!";
 
         }
 
@@ -40,6 +49,15 @@ namespace WebApplication4.Pages
             return RedirectToPage("/Admin/EditCustomers");
         }
 
+        public IActionResult OnPostFind()
+        {
+            Console.WriteLine("hejhej");
+            return RedirectToPage("/FindPeople");
+        }
 
+        public IActionResult OnPostMyFeed()
+        {
+            return RedirectToPage("/Feed/MyFeed");
+        }
     }
 }

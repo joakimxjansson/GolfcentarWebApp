@@ -1,4 +1,4 @@
-﻿@page
+@page
 @using WebApplication4.Data
 @model WebApplication4.Pages.Feed.MyFeedModel
 
@@ -23,11 +23,15 @@
                 <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="MyFeed">Allmänt</button>
 
                 <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="Following">Följer</button>
+
+                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="FindPeople">Hitta användare</button>
+
+                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="BlogPost">Skapa inlägg</button>
             </form>
         </div>
 
-        @* Läser in blogginlägg *@ 
-        <div class="feed">
+        @* Läser in blogginlägg Kod från Forum.cshtml som jag stylat om lite och lagt in så att Userimage laddas in*@ 
+        <div class="feed w-75">
             @foreach (var post in Model.GetPosts)
             {
                 <div class="card my-3 p-3 shadow-sm">
@@ -45,7 +49,7 @@
                             @foreach (var comment in Model.GetComments.Where(c => c.PostId == post.PostId))
                             {
                                 <li>
-                                    <img src="@Url.Content("~" + @post.User.UserImage)" class="img-fluid feed-img">
+                                    <img src="@Url.Content("~" + @comment.User.UserImage)" class="img-fluid feed-img">
                                     @comment.User.Username har kommenterat: @comment.Content
                                 </li>
                                 
@@ -72,7 +76,7 @@
                     <p>@review.Content</p>
                     <small class="text-muted">Publicerat: @review.Date.ToString("yyyy-MM-dd HH:mm")</small>
 
-                    @* Kommentarer: Kod från Forum.cshtml som jag ändrat till att kommentera på reviews samt stylat om lite och lagt in så att Userimage laddas in *@
+                    @* Kommentarer*@
                     @if (Model.GetComments.Any(c => c.ReviewId == review.ReviewId))
                     {
                         <h4 class="mt-1">Kommentarer:</h4>
@@ -80,7 +84,7 @@
                             @foreach (var comment in Model.GetComments.Where(c => c.ReviewId == review.ReviewId))
                             {
                                 <li>
-                                    <img src="@Url.Content("~" + @review.User.UserImage)" class="img-fluid feed-img">
+                                    <img src="@Url.Content("~" + @comment.User.UserImage)" class="img-fluid feed-img">
                                     @comment.User.Username har kommenterat: @comment.Content
                                 </li>
 
