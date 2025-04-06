@@ -15,7 +15,7 @@ namespace WebApplication4.Pages.UserActions
             _db = db;
         }
 
-        [BindProperty, EmailAddress]
+        [BindProperty, EmailAddress(ErrorMessage = "Det bör vara en giltig E-mail adress")]
         public string EmailAddress { get; set; }
         public string? UserName { get; set; }
         public bool MailRecived { get; set; }
