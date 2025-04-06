@@ -19,6 +19,10 @@ namespace WebApplication4.Pages
         public string OrderNumber { get; set; }
         public DateTime OrderDate { get; set; }
         public int UserSaldo { get; set; }
+        public int Quantity { get; set; }
+
+        [BindProperty]
+        public int TotalAmount { get; set; }
 
         public checkoutModel(GolfContext db, UserService userService, CartService cartService)
         {
@@ -29,6 +33,8 @@ namespace WebApplication4.Pages
 
         public void OnGet()
         {
+            Quantity = _cartService.GetQunatity();
+           
             // H�mta anv�ndarens ID fr�n session
             var id = HttpContext.Session.GetInt32("Id");
             if (id != null)
@@ -47,22 +53,38 @@ namespace WebApplication4.Pages
             }
         }
 
+        
+
         //sparar varorna i ordertabell och t�mmer varukorgen
-        public async Task<IActionResult> OnPostCheckoutAsync()
-        { Console.WriteLine("Här");
+        public async Task<IActionResult> OnPostCheckoutAsync() {
+            if (HttpContext.Session.GetInt32("Id") != null)
+            { 
+            if (_cartService.GetQunatity() == 0  ) {
+                Console.WriteLine(_cartService.GetQunatity());
+                return RedirectToPage("/DisplayProductTemplate");
+            }
+           
             var userId = HttpContext.Session.GetInt32("Id");
             if (userId == null)
             {
                 return Unauthorized();
             }
-            Console.WriteLine("Här" + userId.Value);
+            
             var orderNumber = _cartService.GenerateOrderNumber();
             _cartService.SaveCartToOrder(userId.Value, orderNumber);
-            Console.WriteLine("Här" + userId.Value);
-            
 
-            return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
+                var userobj = _context.Users.Where(x => x.UserId == userId).FirstOrDefault();
+                int TotalorderPrice = TotalAmount;
+                if (userobj != null)
+                {
+                    userobj.Saldo -= TotalorderPrice;
+                    _context.SaveChanges();
+                }
+                return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
         }
+            return RedirectToPage("/Login");
+        }
+        
 
 
     }

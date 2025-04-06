@@ -18,17 +18,12 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="PDFsharp" Version="6.1.1" />
     </ItemGroup>
 
 
 	<ItemGroup>
 		<Folder Include="wwwroot\images\profile\" />
-
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <Compile Remove="Migrations\GolfContextModelSnapshot.cs" />
 	</ItemGroup>
 
 

@@ -25,10 +25,18 @@
 					<div>
 						<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image">
 					</div>
-					<div class="ml-3">
+					
+					<div>
 						<h5 class="MyProfile-name">@Model.Name</h5>
 						<p class="MyProfile-mail">@Model.Email</p>
+						<p class ="MyProfile-mail">Följer: @Model.User.Follower.Count Följare: @Model.User.Followee.Count</p>
+						<form method="post" class="MyProfile-mail">
+							<button type="submit" class="btn btn-primary btn-sm rounded shadow" asp-page-handler="Find">Hitta användare</button>
+							<button type="submit" class="btn btn-centar btn-sm rounded shadow" asp-page-handler="MyFeed">Flöde</button>
+						</form>
 					</div>
+
+					
 				</div>
 
 
@@ -49,7 +57,7 @@
 					<a class="links" asp-page="/displayOrder">Mina ordrar / kvitton</a>
 				</div>
 				<div class="links-border pt-2">
-					<a class="links" asp-page="/Admin/EditCustomers">Redigera användaruppgifter</a>
+					<a class="links" asp-page="/EditProfile">Redigera användaruppgifter</a>
 				</div>
 			
 			</div>
@@ -59,3 +67,13 @@
     </div>
 </body>
 </html>
+
+<style> /*stil för att göra bilden rund - Sandra*/
+	.profile-image { 
+		width: 12rem; 
+		height: 12rem;
+		border-radius: 50%; 
+		object-fit: cover; 
+		border: 5px solid #ddd; 
+	}
+</style>

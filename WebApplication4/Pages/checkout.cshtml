@@ -14,14 +14,14 @@
 
 <body>
 
-        <!-- container för produkter i varukorgen -->
-    <div id="cart-container-ls">                    
+    <!-- container för produkter i varukorgen -->
+    <div id="cart-container-ls">
         <div id="header-container-ls">
             <h1>Golfcentar</h1>
             <h5>Din varukorg</h5>
         </div>
 
-        <div id="cart-items-container-ls">                                               
+        <div id="cart-items-container-ls">
             <table>
                 <thead>
                     <tr>
@@ -46,40 +46,57 @@
                 </tbody>
             </table>
         </div>
-    <!-- slut på container -->
-
-    <!--Container för cart details-->
+        <!-- slut på container -->
+        <!--Container för cart details-->
         <div id="cart-details-ls">
             <!--Hämtar in artiklar i varukorgen för att beräkna summa-->
             <p>Totalt pris: @(Model.CartItems?.Sum(item => item.TotalPrice)):-</p>
             <p>Frakavigt: <b>Fri Frakt</b></p>
 
             <div style="text-align: center;">
-                
                 <h5>Förvalt betalsätt: Crediter laddat på konto för användare: @Model.Username</h5>
                 <p>Ditt saldo: @Model.UserSaldo</p>
-                
+                <p>Totalt belopp: @(Model.CartItems?.Sum(item => item.TotalPrice))</p>
 
                 <div style="text-align: left;">
                     <form method="post">
                         <input type="hidden" name="OrderNumber" value="@Model.OrderNumber" />
                         <input type="hidden" name="OrderDate" value="@Model.OrderDate.ToString("O")" />
-                        <button type="submit" asp-page-handler="Checkout" class="buttonLS">Slutför köp </button>
+                        <input type="hidden" name="TotalAmount" value="@(Model.CartItems?.Sum(item => item.TotalPrice))" />
+                        @if (HttpContext.Session.GetInt32("Id") != null)
+                        {
+                            if (Model.Quantity == 0)
+                            {
+                                <button type="submit" asp-page-handler="Checkout" class="buttonLS" disabled>Din varukorg är tom</button>
+                            }
+                            else if (Model.UserSaldo < (Model.CartItems?.Sum(item => item.TotalPrice)))
+                            {
+                                <button type="submit" class="buttonLS" disabled>Otillräckligt saldo</button>
+                            }
+                            else
+                            {
+                                <button type="submit" asp-page-handler="Checkout" class="buttonLS">Slutför köp</button>
+                            }
+                        }
+                        else
+                        {
+                            <button type="submit" asp-page-handler="Checkout" class="buttonLS">Logga in för att Slutföra</button>
+                        }
                     </form>
-
                 </div>
             </div>
         </div>
-        </div>
+
+    </div>
     <!--Slut-->
 
 </body>
 </html>
 
-            <!-- css-->
+<!-- css-->
 
-    <style>
-        
+<style>
+
 
     .buttonLS {
         display: block;
@@ -89,45 +106,45 @@
         font-weight: bold;
         text-align: center;
         color: darkgray;
-        border: none; 
-        border-radius: 30px; 
+        border: none;
+        border-radius: 30px;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
         .buttonLS:hover {
             background-color: #55552b;
-            transform: scale(1.05); 
+            transform: scale(1.05);
         }
 
 
-         #header-container-ls {
-         text-align:center;
-         }
+    #header-container-ls {
+        text-align: center;
+    }
 
-    
 
-        .order-details-ls {
-            text-align: center;
-        }
 
-        #cart-container-ls {
-            text-align: center;
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-top: 3em;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            width: 80%;
-            margin: 0 auto;
-        }
+    .order-details-ls {
+        text-align: center;
+    }
 
-        #cart-details-ls {
-            margin-bottom: 20px;
-        }
+    #cart-container-ls {
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-top: 3em;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        width: 80%;
+        margin: 0 auto;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-    </style>
+    #cart-details-ls {
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+</style>

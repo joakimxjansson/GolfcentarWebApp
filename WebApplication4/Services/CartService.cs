@@ -131,20 +131,27 @@ namespace WebApplication4.Services
                 };
                 _context.Order.Add(order);
                 _context.SaveChanges();
-                
-                
-                
+                 
             }
            
             ClearCart();
             
         }
-        
-
+        // metod för att generera ordernummer
         public string GenerateOrderNumber()
         {
-            // skapar ett unikt ordernummer med Guid Globally Unique Identifier
-            return Guid.NewGuid().ToString();
+            // hämta det senaste ordernumret
+            var lastOrder = _context.Order.OrderByDescending(o => o.OrderId).FirstOrDefault();
+            int orderNumber = 1001; // startvärde på ordernummer
+
+            // Om lastOrder inte är null ökar ordernumret med +1
+            if (lastOrder != null)
+            {
+                // öka det senaste ordernummret med +1
+                orderNumber = int.Parse(lastOrder.OrderNumber) + 1;
+            }
+            //retrunera ordernumret
+            return orderNumber.ToString();
         }
 
 
