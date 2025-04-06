@@ -3,6 +3,8 @@
 @{
 }
 
+<h1>Glömt ditt användarnamn?</h1>
+
 @if (Model.MailRecived){
 	<div class="w-75 bg-white">
 		<div>
@@ -26,9 +28,11 @@
 
 <div>
 	<form method="post">
-		<label asp-for="EmailAddress">Skriv in din E-mail adress:</label>
-		<input asp-for="EmailAddress" />
-		<span asp-validation-for="EmailAddress" class="text-danger"></span>
+		<div>
+			<label asp-for="EmailAddress">Skriv in din E-mail adress:</label>
+			<input asp-for="EmailAddress" />
+			<span asp-validation-for="EmailAddress" class="text-danger"></span>
+		</div>		
 		<input type="submit" class="btn btn-centar" value="Hämta anändarnamn" />
 	</form>
 </div>

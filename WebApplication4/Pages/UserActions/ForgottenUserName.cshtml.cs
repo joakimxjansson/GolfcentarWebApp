@@ -18,12 +18,7 @@ namespace WebApplication4.Pages.UserActions
         [BindProperty, EmailAddress]
         public string EmailAddress { get; set; }
         public string? UserName { get; set; }
-
         public bool MailRecived { get; set; }
-
-        public void OnGet()
-        {
-        }
 
         public async Task<IActionResult> OnPostAsync()
         {            
