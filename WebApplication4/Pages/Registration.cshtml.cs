@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebApplication4.Data;
 using WebApplication4.Services;
 
@@ -11,6 +12,7 @@ namespace WebApplication4.Pages
 
         private readonly GolfContext _db;
         private readonly UserService _userService;
+        private readonly PasswordHasher _passwordHasher = new();
 
         public RegistrationModel(GolfContext db , UserService userService)
         {
@@ -51,7 +53,7 @@ namespace WebApplication4.Pages
                 Message = "Användernamn är redan i användning";
                 return Page(); //Användare finns redan
             }
-
+            User.Password = _passwordHasher.Hash(User.Password);
             _db.Users.Add(User);
             await _db.SaveChangesAsync();
 
