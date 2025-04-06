@@ -21,6 +21,9 @@ namespace WebApplication4.Pages
         public int UserSaldo { get; set; }
         public int Quantity { get; set; }
 
+        [BindProperty]
+        public int TotalAmount { get; set; }
+
         public checkoutModel(GolfContext db, UserService userService, CartService cartService)
         {
             _context = db;
@@ -69,7 +72,15 @@ namespace WebApplication4.Pages
             
             var orderNumber = _cartService.GenerateOrderNumber();
             _cartService.SaveCartToOrder(userId.Value, orderNumber);
-            return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
+
+                var userobj = _context.Users.Where(x => x.UserId == userId).FirstOrDefault();
+                int TotalorderPrice = TotalAmount;
+                if (userobj != null)
+                {
+                    userobj.Saldo -= TotalorderPrice;
+                    _context.SaveChanges();
+                }
+                return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
         }
             return RedirectToPage("/Login");
         }

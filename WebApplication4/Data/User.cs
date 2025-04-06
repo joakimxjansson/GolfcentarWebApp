@@ -20,7 +20,7 @@ public class User {
     public string LastName { get; set; }
 
     public int Admin { get; set; } = 0;
-    public int Saldo { get; set; } = 1000;
+    public int Saldo { get; set; } = 10000;
     public string? UserImage { get; set; } = "/images/DefaultImage.png";
     
     public ICollection<Follow>? Follower { get; set; }
