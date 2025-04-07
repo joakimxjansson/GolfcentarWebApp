@@ -69,16 +69,16 @@
 
             <ul class="menu">
 
-                <li><a asp-page="/Index">Startsida<i class="fa-solid fa-house"></i></a></li>
-                <li><a asp-page="/OldPages/AboutUs"><i class="fa-solid fa-circle-user"></i>Om oss</a></li>
-                <li><a asp-page="/OldPages/Booking"><i class="fa-solid fa-circle-check"></i>Boka</a></li>
-                <li><a asp-page="/OldPages/Events"><i class="fa-solid fa-calendar-days"></i>Tävlingar och evenemang</a></li>
-                <li><a href="/Login"><i class="fa-solid fa-user"></i>Medlem</a></li>
-                <li><a asp-page="/OldPages/Contact"><i class="fa-regular fa-address-card"></i>Kontakta oss</a></li>
-                <li><a asp-page="/DisplayProductTemplate"><i class="fa-solid fa-shop"></i>Webshop</a></li>
+                <li><a asp-page="/Index"><i class="fa-solid fa-house"></i> Startsida</a></li>
+                <li><a asp-page="/OldPages/AboutUs"><i class="fa-solid fa-circle-user"></i> Om oss</a></li>
+                <li><a asp-page="/OldPages/Booking"><i class="fa-solid fa-circle-check"></i> Boka</a></li>
+                <li><a asp-page="/OldPages/Events"><i class="fa-solid fa-calendar-days"></i> Tävlingar och evenemang</a></li>
+                <li><a href="/Login"><i class="fa-solid fa-user"></i> Medlem</a></li>
+                <li><a asp-page="/OldPages/Contact"><i class="fa-regular fa-address-card"></i> Kontakta oss</a></li>
+                <li><a asp-page="/DisplayProductTemplate"><i class="fa-solid fa-shop"></i> Webshop</a></li>
                 @if (Context.Session.GetInt32("Id") == null)
                 {
-                    <li><a asp-page="/registration"><i class="fa-solid fa-user-plus"></i>Registrera dig</a></li>
+                    <li><a asp-page="/registration"><i class="fa-solid fa-user-plus"></i> Registrera dig</a></li>
                 }
                 
 
