@@ -1,0 +1,63 @@
+@page
+@model WebApplication4.Pages.FindPeople
+
+@{
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1> Användare</h1>
+<form method="post" asp-page-handler="Search" asp-for="Search"  class="mt-2">
+    <div class="mb-3">
+        <textarea name="Search" class="form-control" placeholder="Sök efter användare här..." rows="1" asp-for="Search"></textarea>
+    </div>
+        <button type="submit" class="btn btn-primary px-4 py-2 rounded shadow">Sök</button>
+        <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="MyFeed">Flöde</button>
+</form>
+<div class="d-flex flex-wrap justify-content-center gap-3 mt-3 mb-3">
+@foreach (var users in Model.Users) {
+    <form method="post" asp-page-handler="Follow" asp-route-followeeid="@users.UserId" asp-for="Follow" enctype="multipart/form-data">
+        <input type="hidden" name="User.UserId" value="@users.UserId"/>
+        @if (@users.UserId != HttpContext.Session.GetInt32("Id")) {
+            
+            
+            
+                    <div class="card d-flex justify-content-center align-items-center shadow" style="width: 18rem;">
+                <img class="card-img-top w-75 mt-2" src="@users.UserImage" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@users.Username</h5>
+                    @if (HttpContext.Session.GetInt32("Id") != null) {
+                        
+                    @if (@Model.Follow.Any(f => f.FollowerId == HttpContext.Session.GetInt32("Id").Value && f.FolloweeId == @users.UserId))
+                    {
+                        <button class="btn btn-danger">Avfölj </button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary">Följ</button>
+                    }
+                    } 
+                    else 
+                    {
+                        <button class="btn btn-centar">Logga in för att följa</button>
+                    }
+
+
+
+                </div>
+            </div>
+        }
+    </form>
+}
+</div>
+
+
+
+</body>
+</html>

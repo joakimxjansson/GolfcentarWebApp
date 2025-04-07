@@ -27,9 +27,20 @@ namespace WebApplication4.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             Posts = await _context.SubPost.Include(p => p.Post).OrderByDescending(p => p.Date).ToListAsync();
-            GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).ToListAsync();
+
+            int? userId = HttpContext.Session.GetInt32("Id");
+            if (userId == null)
+            {
+                GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).ToListAsync();
+            }
+            else
+            {
+                GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).Where(x => x.UserId == userId).ToListAsync();
+            }
+
             return Page();
         }
+
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -57,8 +68,18 @@ namespace WebApplication4.Pages
 
 
             return RedirectToPage();
+        }
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var post = await _context.Post.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            _context.Post.Remove(post);
+            await _context.SaveChangesAsync();
 
-
+            return RedirectToPage("/Blogg/Blogg");
         }
     }
 }

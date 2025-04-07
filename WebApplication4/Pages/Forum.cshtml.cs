@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query;
 using WebApplication4.Data;
 
 namespace WebApplication4.Pages
@@ -17,14 +18,16 @@ namespace WebApplication4.Pages
         {
             _context = context;
         }
-
+        [BindProperty]
         public List<Post> GetPosts { get; set; } = new List<Post>();
-        public List<Comment> Comments { get; set; } = new List<Comment>();
+        [BindProperty]
+        public List<Comment> GetComments { get; set; } = new List<Comment>();
 
         public async Task<IActionResult> OnGetAsync()
         {
             GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).ToListAsync();
-            Comments = await _context.Comments.ToListAsync(); // Anta att du har en Comment-tabell
+            GetComments = await _context.Comments.OrderByDescending(c => c.CreatedAt)
+                .Include (c => c.User).ToListAsync();
             return Page();
         }
 
@@ -52,4 +55,5 @@ namespace WebApplication4.Pages
             return RedirectToPage();
         }
     }
+    
 }

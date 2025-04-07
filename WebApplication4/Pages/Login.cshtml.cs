@@ -9,6 +9,7 @@ namespace WebApplication4.Pages
     {
         private readonly GolfContext _db;
         private readonly UserService _userService;
+        private readonly PasswordHasher _passwordHasher = new();
         
         public LoginModel(GolfContext db , UserService userService )
         {
@@ -40,9 +41,9 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = _db.Users.FirstOrDefault(u => u.Username == UserName && u.Password == PassWord);
+            var user = _db.Users.FirstOrDefault(u => u.Username == UserName);
 
-            if (user != null)
+            if (user != null && _passwordHasher.Verify(PassWord, user.Password))
             {
                 HttpContext.Session.SetInt32("Id", user.UserId); //skapar session
                 if (user.Admin == 0) {

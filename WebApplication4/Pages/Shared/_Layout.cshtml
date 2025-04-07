@@ -1,4 +1,4 @@
-﻿@using WebApplication4.Services
+@using WebApplication4.Services
 @inject CartService CartService
 <!DOCTYPE html>
 <html lang="en">
@@ -21,13 +21,22 @@
             <a asp-page="/OldPages/AboutUs">Om oss</a> 
             <a asp-page="/OldPages/Booking">Boka</a>
             <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
-            <a href="/Login">Medlem</a>
+            <a href="/Login">Min Profil</a>
             <a asp-page="/OldPages/Contact">Kontakta oss</a>
+
+
+            @if (Context.Session.GetInt32("Id") == null)
+            {
+                <a asp-page="/registration">Registrera dig</a> 
+            }
+
+
             <a asp-page="/DisplayProductTemplate">Webshop</a>
-            <a asp-page="/Forum">Forum</a> 
+            <a asp-page="/Feed/MyFeed">Flöde</a> 
 
 
             
+
         </nav>
 
         <div id="cart-container">
@@ -48,6 +57,7 @@
                 <a class="buttonLogInLS" asp-page="/Login">Logga in</a>
             }
         <!-- slut-->
+
         <!--Hamburgermeny start-->
         <nav class="hamburgermeny">
 
@@ -58,15 +68,19 @@
             <i class="fa-solid fa-bars fa-beat-fade"></i>
 
             <ul class="menu">
-                <li><a href="index.html" class="aktiv-link"><i class="fa-solid fa-house"></i>Startsida</a></li>
-                <li><a href="om-oss.html"><i class="fa-solid fa-circle-user"></i>Om oss</a></li>
-                <li><a href="boka.html"><i class="fa-solid fa-circle-check"></i>Boka</a></li>
-                <li><a href="events.html"><i class="fa-solid fa-calendar-days"></i>Tävlingar och Evenemang</a></li>
-                <li><a href="medlemssektion.html"><i class="fa-solid fa-user"></i>Medlem</a></li>
-                <li><a href="kontakt.html"><i class="fa-regular fa-address-card"></i>Kontakta oss</a></li>
-                <li><a href="restaurang.html"><i class="fa-solid fa-utensils"></i>Restaurang</a></li>
-                <li><a href="shop.html"><i class="fa-solid fa-shop"></i>Shop</a></li>
-                <li><a href="/Forum"><i class="fa-solid fa-comments"></i>Forum</a></li> 
+
+                <li><a asp-page="/Index">Startsida<i class="fa-solid fa-house"></i></a></li>
+                <li><a asp-page="/OldPages/AboutUs"><i class="fa-solid fa-circle-user"></i>Om oss</a></li>
+                <li><a asp-page="/OldPages/Booking"><i class="fa-solid fa-circle-check"></i>Boka</a></li>
+                <li><a asp-page="/OldPages/Events"><i class="fa-solid fa-calendar-days"></i>Tävlingar och evenemang</a></li>
+                <li><a href="/Login"><i class="fa-solid fa-user"></i>Medlem</a></li>
+                <li><a asp-page="/OldPages/Contact"><i class="fa-regular fa-address-card"></i>Kontakta oss</a></li>
+                <li><a asp-page="/DisplayProductTemplate"><i class="fa-solid fa-shop"></i>Webshop</a></li>
+                @if (Context.Session.GetInt32("Id") == null)
+                {
+                    <li><a asp-page="/registration"><i class="fa-solid fa-user-plus"></i>Registrera dig</a></li>
+                }
+                
 
             </ul>
 
