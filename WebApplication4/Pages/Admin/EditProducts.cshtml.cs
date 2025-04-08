@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
 using WebApplication4.Services;
 
@@ -22,18 +23,20 @@ public class EditProducts : PageModel
     [BindProperty]
     public IFormFile ImageFile { get; set; }
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         var id = HttpContext.Session.GetInt32("Id");
-        if (id == null) {
+        if (id == null) 
+        {
             return RedirectToPage("/Login");
         }
         
         var role = _userService.GetRole(id.Value);
-        if (role == 0) {
+        if (role == 0) 
+        {
             return RedirectToPage("/MyProfile");
         }
-        Products = _context.Product;
+        Products = await _context.Product.ToListAsync();
         return Page();
         
         
