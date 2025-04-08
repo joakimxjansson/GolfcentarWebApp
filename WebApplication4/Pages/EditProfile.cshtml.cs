@@ -61,9 +61,9 @@ namespace WebApplication4.Pages
             if (UserImage != null)
             {
                 //ta bort gammal bild från wwwroot ifall den inte används längre
-                if (!string.IsNullOrEmpty(UserImage.FileName))
+                if (!string.IsNullOrEmpty(userToUpdate.UserImage) && userToUpdate.UserImage != "/images/DefaultImage.png")
                 {
-                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(UserImage.FileName));
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(userToUpdate.UserImage));
                     if (System.IO.File.Exists(oldImagePath))
                     {
                         System.IO.File.Delete(oldImagePath);
