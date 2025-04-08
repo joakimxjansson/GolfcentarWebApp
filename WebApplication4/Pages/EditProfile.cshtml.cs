@@ -60,14 +60,30 @@ namespace WebApplication4.Pages
 
             if (UserImage != null)
             {
+                //ta bort gammal bild från wwwroot ifall den inte används längre
+                if (!string.IsNullOrEmpty(userToUpdate.UserImage) && userToUpdate.UserImage != "/images/DefaultImage.png")
+                {
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(userToUpdate.UserImage));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(UserImage.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await UserImage.CopyToAsync(stream);
                 }
 
                 userToUpdate.UserImage = "/images/" + fileName; //ändrar & uppdaterar bilden
+            }
+
+            else
+            {
+                userToUpdate.UserImage = userToUpdate.UserImage;
             }
 
             _db.SaveChanges();
