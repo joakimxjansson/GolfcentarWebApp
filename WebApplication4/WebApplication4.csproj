@@ -23,12 +23,7 @@
 
 
 	<ItemGroup>
-<<<<<<< HEAD
-		<Folder Include="Migrations\" />
-		<Folder Include="Views\" />
-=======
 		<Folder Include="wwwroot\images\profile\" />
->>>>>>> master
 	</ItemGroup>
 
 
