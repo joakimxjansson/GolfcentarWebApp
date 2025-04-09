@@ -19,19 +19,18 @@ public class User {
     [Required(ErrorMessage = "Du bör fylla i detta fält!")]
     public string LastName { get; set; }
     public int Admin { get; set; } = 0;
-<<<<<<< HEAD
-    public int Saldo { get; set; } = 100;
+
+    public int Saldo { get; set; } = 10000;
     public string? PhoneNumber { get; set; }
-    public string? UserImage { get; set; }
+  
 
 
     
-=======
-    public int Saldo { get; set; } = 10000;
+
+    
     public string? UserImage { get; set; } = "/images/DefaultImage.png";
     
     public ICollection<Follow>? Follower { get; set; }
 
     public ICollection<Follow>? Followee { get; set; }
->>>>>>> master
 }
