@@ -1,40 +1,126 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
+using System;
+using Microsoft.EntityFrameworkCore;
+using WebApplication4.Services;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using PdfSharp.UniversalAccessibility.Drawing;
 
 namespace WebApplication4.Pages
 {
-    public class checkoutexitModel(GolfContext contexts) : PageModel
+    public class checkoutexitModel : PageModel
     {
-        private readonly GolfContext _contexts = contexts;
-        //H‰mta ordernummer
-        public string OrderNumber { get; set; }
-        public string OrderDate { get; set; }
-        public string order { get; set; }
+        public readonly GolfContext _context;
+        public readonly CartService _cartService;
+        public string OrderNumber { get; set; } = string.Empty; // Required attributet ersatt med en sÔøΩker initiering.
+        public DateTime OrderDate { get; set; }
+        public string Username { get; set; }
+        public int UserId { get; set; }
 
-        public void OnGet()
+        public checkoutexitModel(GolfContext db ,CartService cartService)
         {
-            var newOrder = new Order
+            _cartService = cartService;
+            _context = db;
+        }
+        public IActionResult OnGet(string orderNumber, string orderDate)
+        {
+            if (HttpContext.Session.GetInt32("Id") == null) {
+                
+                return RedirectToPage("/Login");
+            }
+
+            if (orderNumber == null || orderDate == null) {
+                return RedirectToPage("/DisplayProductTemplate");
+            }
+
+
+            // HÔøΩmta anvÔøΩndarens ID frÔøΩn HTTP-session
+            var sessionId = HttpContext.Session.GetInt32("Id");
+            if (sessionId != null)
             {
-                
-                OrderNumber = OrderNumber,
-                OrderDate = DateTime.Now
-                
-            };
+                UserId = sessionId.Value;
 
+                // HÔøΩmta anvÔøΩndarens namn 
+                var user = _context.Users.AsNoTracking().FirstOrDefault(u => u.UserId == UserId);
+                if (user != null)
+                {
+                    Username = user.Username;
+                }
+            }
+            // Hanterar GET-anrop 
+            OrderNumber = orderNumber;
 
-            _contexts.Order.Add(newOrder);
-            //Behˆvs fˆr att spara ‰ndringar i databasen? _contexts.SaveChanges();
-
+            if (DateTime.TryParse(orderDate, out DateTime parsedDate))
+            {
+                OrderDate = parsedDate;
+            }
+            else
+            {
+                OrderDate = DateTime.MinValue;
+            }
+            return Page();
         }
-        public int GetSaldo(int id)
+
+        public IActionResult OnPost(string orderNumber, string orderDate)
         {
-            var user = _contexts.Users.Find(id);
-            return user.Saldo;
+            // Hanterar POST-anrop frÔøΩn formulÔøΩret i checkout
+            OrderNumber = orderNumber;
 
+            if (DateTime.TryParse(orderDate, out var parsedDate))
+            {
+                OrderDate = parsedDate;
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Ogiltigt datumformat.");
+                return Page();
+            }
+
+            return Page();
         }
 
-    }
+        public IActionResult OnPostDownload(string id) {
+             var order = _context.Order.Include(p => p.User)
+            .Include(o => o.Product)
+            .Where(o => o.OrderNumber == id).ToList();
+        
+        using (PdfDocument document = new PdfDocument()) {
+            document.PageLayout = PdfPageLayout.SinglePage;
+            document.Info.Title = "Kvitto: " + order.First().OrderNumber;
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont font = new XFont("Verdana", 12);
+            int y = 180;
+            
+            
+            gfx.DrawString("Kvitto fr√•n Golfcentar AB", font, XBrushes.Black, new XPoint(200, 20 ));
+            
+            gfx.DrawString("Kund: " + order.First().User.FirstName + " " + order.First().User.LastName, font, XBrushes.Black, new XPoint(70, 60 ) );
+            gfx.DrawString("E-post: " + order.First().User.Email, font, XBrushes.Black, new XPoint(70, 80 ) );
+            gfx.DrawString("Ordernummer: " + order.First().OrderNumber, font, XBrushes.Black, new XPoint(70, 100 ) );
+            gfx.DrawString("Datum f√∂r k√∂p: " + order.First().OrderDate, font, XBrushes.Black, new XPoint(70, 120 ) );
 
+            gfx.DrawString("Produkt(er): ", font, XBrushes.Black, new XPoint(70, 160 ) );
+            foreach (var orders in order) {
+                gfx.DrawString(orders.Product.ProdName + " Pris: " + orders.Product.ProdPrice + ":- inkl moms  (" + orders.Product.ProdPrice/1.25m + ":- exkl moms)", font, XBrushes.Black, new XPoint(100, y));
+                 y += 20;
+            }
+
+            double center = page.Width / 2;
+            gfx.DrawString("Totalpris: " + order.First().TotalPrice + ":- inkl moms  (" + order.First().TotalPrice/1.25m + ":- exkl moms)" , 
+                font, XBrushes.Black, new XPoint(70, y+20 ) );
+            
+            gfx.DrawString("Tack f√∂r att du handlat p√• Centarshoppen. V√§lkommen √•ter!" , 
+                font, XBrushes.Black, new XPoint(100, y+50 ) );
+
+            using (MemoryStream ms = new MemoryStream()) {
+                document.Save(ms);
+                return File(ms.ToArray(), "application/pdf");
+            }
+        }
+       
+        }
+    }
 }

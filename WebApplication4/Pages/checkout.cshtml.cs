@@ -2,37 +2,90 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication4.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
     public class checkoutModel : PageModel
     {
-        // Kontext för databasen 
         public readonly GolfContext _context;
-        //konstruktör för att skapa en instans av databasen
-        public checkoutModel(GolfContext db)
+        private readonly UserService _userService;
+        private readonly CartService _cartService;
+
+        public List<CartItems> CartItems { get; set; } = new List<CartItems>();
+        public string Username { get; set; }
+        public int UserId { get; set; }
+        public string OrderNumber { get; set; }
+        public DateTime OrderDate { get; set; }
+        public int UserSaldo { get; set; }
+        public int Quantity { get; set; }
+
+        [BindProperty]
+        public int TotalAmount { get; set; }
+
+        public checkoutModel(GolfContext db, UserService userService, CartService cartService)
         {
             _context = db;
+            _userService = userService;
+            _cartService = cartService;
         }
 
-
-        //Lista för varor i varukorgen
-        public List<CartItems> CartItems { get; set; } = new List<CartItems>();
-        // Hämtar alla varukorgens artiklar från databasen och inkluderar relevant produktdata
         public void OnGet()
         {
-            CartItems = _context.CartItems
-                .Include(c => c.Product)
-                .ToList();
+            Quantity = _cartService.GetQunatity();
+           
+            // Hï¿½mta anvï¿½ndarens ID frï¿½n session
+            var id = HttpContext.Session.GetInt32("Id");
+            if (id != null)
+            {
+                UserId = id.Value;
+                Username = _userService.GetUsername(UserId);
+                UserSaldo = _userService.GetSaldo(UserId);
+            }
+
+            // Ladda varukorgens innehï¿½ll
+            CartItems = _cartService.GetCart();
+
+            foreach (var item in CartItems)
+            {
+                item.TotalPrice = (int)(item.Quantity * (item.Product.ProdPrice));
+            }
         }
-        /*
-             CartItems = new List<CartItems>
-             {
-                 new CartItems { Product = new Product { ProdName = "Product1", ProdPrice = 1000m }, Quantity = 1, TotalPrice = 1000 },
-                 new CartItems { Product = new Product { ProdName = "Vantar ProductID #100", ProdPrice = 200m }, Quantity = 2, TotalPrice = 400 },
-                 new CartItems { Product = new Product { ProdName = "Mössa ProductID #101", ProdPrice = 100m }, Quantity = 1, TotalPrice = 100 },
-                 new CartItems { Product = new Product { ProdName = "Driver ProductID #103", ProdPrice = 1345m }, Quantity = 3, TotalPrice = 4035 }
-             };
-             */
+
+        
+
+        //sparar varorna i ordertabell och tï¿½mmer varukorgen
+        public async Task<IActionResult> OnPostCheckoutAsync() {
+            if (HttpContext.Session.GetInt32("Id") != null)
+            { 
+            if (_cartService.GetQunatity() == 0  ) {
+                Console.WriteLine(_cartService.GetQunatity());
+                return RedirectToPage("/DisplayProductTemplate");
+            }
+           
+            var userId = HttpContext.Session.GetInt32("Id");
+            if (userId == null)
+            {
+                return Unauthorized();
+            }
+            
+            var orderNumber = _cartService.GenerateOrderNumber();
+            _cartService.SaveCartToOrder(userId.Value, orderNumber);
+
+                var userobj = _context.Users.Where(x => x.UserId == userId).FirstOrDefault();
+                int TotalorderPrice = TotalAmount;
+                if (userobj != null)
+                {
+                    userobj.Saldo -= TotalorderPrice;
+                    _context.SaveChanges();
+                }
+                return RedirectToPage("/checkoutexit", new { orderNumber = orderNumber, orderDate = DateTime.Now });
+        }
+            return RedirectToPage("/Login");
+        }
+        
+
+
     }
 }

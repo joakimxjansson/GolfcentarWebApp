@@ -9,13 +9,13 @@
     <div class="kundkorg-container">
         <div class="kundkorg-kundkorg">
             <h1 class="kundkorg-rubrik">
-                @if (Model.CartItems.Count == 1)
+                @if (Model.CartItems.Count == 1)  
                 {
-                    @($"Du har {Model.CartItems.Count} produkt i varukorgen.")
-                }
-                else
+                    @($"Du har {Model.CartService.GetQunatity()} produkt i varukorgen.")
+                }  
+                else  
                 {
-                    @($"Du har {Model.CartItems.Count} produkter i varukorgen.")
+                    @($"Du har {Model.CartService.GetQunatity()} produkter i varukorgen.")
                 }
             </h1>
 
@@ -26,12 +26,14 @@
                 }
                 else
                 {
-                    <ul>
+                    <ul class="ul-cart">
+                        <p class="cartitemsRubrik">| Produkt | Pris | Antal |</p>
                         @foreach (var item in Model.CartItems)
                         {
-                            <li>
-                                @item.Product.ProdName - @item.Product.ProdPrice kr
-                                <a asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
+                            <li class="cart-item">
+                                <img src="~/images/@item.Product.ProdImage" alt="item.Product.ProdName" class="cart-image"/>
+                                @item.Product.ProdName - @item.Product.ProdPrice kr - @item.Quantity
+                                <a class="ta-bort-knapp" asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
                             </li>
                         }
                     </ul>
@@ -39,7 +41,10 @@
             </div>
         </div>
         <div class="kundkorg-till-kassa">
-            <button class="kundkorg-knapp">Till kassan</button>
+            <form method="get" action="/Checkout">
+                <button type="submit" class="kundkorg-knapp">Till kassan</button>
+            </form>
+
         </div>
     </div>
 </main>

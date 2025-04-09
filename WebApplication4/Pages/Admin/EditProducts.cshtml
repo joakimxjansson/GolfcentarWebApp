@@ -17,9 +17,8 @@
         @{
             //form för att lägga till en produkt
             <div class="regcontainer" style="padding:20px">
-                <form method="post" asp-page-handler="Create" class="form">
+                <form method="post" enctype="multipart/form-data" asp-page-handler="Create" class="form">
                     <h3 class="regrubrik">Lägg till en produkt</h3>
-                    <p class="regtext">Se till att filnamn på bild finns i wwwroot/images</p>
 
                     <div class="form-group">
                         <label asp-for="Product.ProdName">Produktnamn:</label>
@@ -37,41 +36,61 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Product.ProdImage">Bild(Filnamn):</label>
-                        <input type="text" class="textbox" asp-for="Product.ProdImage" />
+                        <label asp-for="ImageFile">Bild:</label>
+                        <input type="file" class="form-control" asp-for="ImageFile" />
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Lägg till produkt" />
+                        <input type="submit" class="btn btn-centar mt-2" value="Lägg till produkt" />
                     </div>
                 </form>
             </div>
 
 
             //Visar all produkter samt knapp för att uppdatera och ta bort
-            foreach (Product product in Model.Products)
+            @foreach (var product in Model.Products)
             {
-                <label asp-for="Product.ProdName">Produkt:</label>
-                <th>@product.ProdName</th>
-                <form method="post">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0">Produkt: @product.ProdName</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="ProductId" value="@product.ProductId" />
 
-                    <input type="hidden" asp-for="Product.ProductId" value="@product.ProductId" />
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label" for="prodName">Namn:</label>
+                                    <input type="text" class="form-control" id="prodName" name="ProdName" value="@product.ProdName" placeholder="Namn" />
+                                </div>
 
-                    <label asp-for="Product.ProdName">Namn:</label>
-                    <input type="text" asp-for="Product.ProdName" value="@product.ProdName" placeholder="Namn" />
+                                <div class="col-md-3">
+                                    <label class="form-label" for="prodDescription">Beskrivning:</label>
+                                    <input type="text" class="form-control" id="prodDescription" name="ProdDescription" value="@product.ProdDescription" placeholder="Beskrivning" />
+                                </div>
 
-                    <label asp-for="Product.ProdDescription">Beskrivning:</label>
-                    <input type="text" asp-for="Product.ProdDescription" value="@product.ProdDescription" placeholder="Beskrivning" />
+                                <div class="col-md-3">
+                                    <label class="form-label" for="prodPrice">Pris:</label>
+                                    <input type="number" step="0.01" class="form-control" id="prodPrice" name="ProdPrice" value="@product.ProdPrice" placeholder="Pris" />
+                                </div>
 
-                    <label asp-for="Product.ProdPrice">Pris:</label>
-                    <input type="text" asp-for="Product.ProdPrice" value="@product.ProdPrice" placeholder="Pris" />
+                                <div class="col-md-3">
+                                    <label class="form-label" for="image">Produktbild:</label>
+                                    <input type="file" class="form-control" id="image" name="ImageFile" />
+                                </div>
 
-                    <label asp-for="Product.ProdImage">Bild:</label>
-                    <input type="text" asp-for="Product.ProdImage" value="@product.ProdImage" placeholder="Bild" />
+                                <div class="col-md-3">
+                                    <img src="@Url.Content("~/images/" + @product.ProdImage)" class="img-thumbnail mw-10" style="width: 200px; height: 200px;" />
+                                </div>
 
-                    <button class="btn btn-primary" type="submit" asp-route-id="@product.ProductId">Uppdatera</button>
-                    <button class="btn btn-danger" type="submit" asp-page-handler="Delete" asp-route-id="@product.ProductId">Ta bort</button>
-                </form>
+                                <div class="col-12 d-flex justify-content-end gap-2">
+                                    <button class="btn btn-danger w-25" type="submit" asp-page-handler="Delete" asp-route-id="@product.ProductId">Ta bort</button>
+                                    <button class="btn btn-primary w-25" type="submit" asp-page-handler="Update" asp-route-id="@product.ProductId">Uppdatera</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             }
         }
     </div>

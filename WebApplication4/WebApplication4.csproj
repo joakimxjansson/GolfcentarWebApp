@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>acf9afc6-a52d-4411-9798-d289a4ddfb3d</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,12 +18,17 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="PDFsharp" Version="6.1.1" />
     </ItemGroup>
 
 
 	<ItemGroup>
+<<<<<<< HEAD
 		<Folder Include="Migrations\" />
 		<Folder Include="Views\" />
+=======
+		<Folder Include="wwwroot\images\profile\" />
+>>>>>>> master
 	</ItemGroup>
 
 
