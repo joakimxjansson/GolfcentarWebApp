@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
 using WebApplication4.Services;
 
@@ -22,25 +23,27 @@ public class EditProducts : PageModel
     [BindProperty]
     public IFormFile ImageFile { get; set; }
 
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         var id = HttpContext.Session.GetInt32("Id");
-        if (id == null) {
+        if (id == null) 
+        {
             return RedirectToPage("/Login");
         }
         
         var role = _userService.GetRole(id.Value);
-        if (role == 0) {
+        if (role == 0) 
+        {
             return RedirectToPage("/MyProfile");
         }
-        Products = _context.Product;
+        Products = await _context.Product.ToListAsync();
         return Page();
         
         
     }
 
-    //L�gg till produkt
-    public IActionResult OnPostCreate()
+    //Lägg till produkt
+    public async Task<IActionResult> OnPostCreateAsync()
     {
         if (Product != null)
         {
@@ -50,7 +53,7 @@ public class EditProducts : PageModel
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    ImageFile.CopyToAsync(stream);
+                    await ImageFile.CopyToAsync(stream);
                 }
 
 
@@ -58,16 +61,16 @@ public class EditProducts : PageModel
 
             }
             _context.Product.Add(Product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditProducts");
         }
         return Page();
     }
 
     //redigera/updatera produkt
-    public IActionResult OnPost(int id)
+    public async Task<IActionResult> OnPostAsync(int id)
     {
-        var product = _context.Product.Find(id);
+        var product = await _context.Product.FindAsync(id);
         if (product == null)
         {
             return NotFound();
@@ -78,36 +81,63 @@ public class EditProducts : PageModel
             product.ProdName = Product.ProdName;
             product.ProdDescription = Product.ProdDescription;
             product.ProdPrice = Product.ProdPrice;
-            product.ProdImage = Product.ProdImage;
+            
             if (ImageFile != null)
             {
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                //ta bort gammal bild från wwwroot ifall den inte används längre
+                if (!string.IsNullOrEmpty(product.ProdImage))
                 {
-                     ImageFile.CopyToAsync(stream);
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(product.ProdImage));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
                 }
 
+                // laddar upp ny bild till wwwroot
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(stream);
+                }
 
                 product.ProdImage = "/images/" + fileName;
-
             }
-            _context.SaveChanges();
+
+            else
+            {
+                product.ProdImage = Product.ProdImage;
+            }
+            
+            await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditProducts");
         }
         return Page();
     }
 
-    //Ta bort produkt
-    public IActionResult OnPostDelete(int id)
+    //ta bort produkt
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        var product = _context.Product.Find(id);
+        var product = await _context.Product.FindAsync(id);
         if (product == null)
         {
             return NotFound();
         }
+
+        //ta bort bilden från wwwroot
+        if (!string.IsNullOrEmpty(product.ProdImage))
+        {
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(product.ProdImage));
+            if (System.IO.File.Exists(imagePath))
+            {
+                System.IO.File.Delete(imagePath);
+            }
+        }
+
         _context.Product.Remove(product);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return RedirectToPage("/Admin/EditProducts");
     }
 }

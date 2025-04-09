@@ -18,6 +18,11 @@
     <h5>Orderdatum: @Model.OrderDate</h5>
     
     <h5>Leveranstid: 15 min en kvart.</h5>
+    <div class="align-content-md-center d-flex justify-content-center">
+        <form method="post">
+            <button class="btn btn-primary" asp-route-id="@Model.OrderNumber" asp-page-handler="Download"> Visa Kvitto </button>
+        </form>
+    </div>
 </div>
 
 <style>
