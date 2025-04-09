@@ -4,6 +4,7 @@ using System.Reflection;
 namespace WebApplication4.Data;
 
 public class GolfContext : DbContext {
+    private readonly PasswordHasher _passwordHasher = new();
     public GolfContext(DbContextOptions<GolfContext> options) : base(options) {
 
     }
@@ -60,7 +61,7 @@ public class GolfContext : DbContext {
             {
                 UserId = 1, Username ="Admin", FirstName ="Nevena",
                 LastName = "Kicanovic",
-                Password = "Admin123",
+                Password =_passwordHasher.Hash("Admin123"),
                 Admin = 1, Email = "admin@test.com",
                 Saldo = 10000,
                 UserImage = "/images/DefaultImage.png"
@@ -70,7 +71,10 @@ public class GolfContext : DbContext {
                 UserId = 2,
                 Username = "TigerWoods",
                 FirstName = "Tiger", LastName = "Woods",
-                Password = "Woods123", Admin = 0, Email = "woods@test.com", UserImage = "/images/DefaultImage.png",
+                Password = _passwordHasher.Hash("Woods123"), 
+                Admin = 0, 
+                Email = "woods@test.com", 
+                UserImage = "/images/DefaultImage.png",
                 Saldo = 10000
             }
         );
