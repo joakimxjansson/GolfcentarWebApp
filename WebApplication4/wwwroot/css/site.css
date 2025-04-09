@@ -164,7 +164,6 @@ body {
     }
 
 /* Profilredigering Slut - Rama */
-=======
 
 .profile-container {
     display: flex;
@@ -266,15 +265,16 @@ body {
 /*slut på CSS till MyProfile*/
 
 #cart-container {
-    position:relative;
-    width: 100px;
-    height: 100px;
+    position: relative;
+    width: 80px;
+    height: 70px;
+    margin-left: 10px;
 }
 
 #cart-icon {
-    width: 100px;
-    height: 100px;   
-    position:absolute;
+    width: 80px;
+    height: 80px;
+    position: absolute;
 }
 
 #cart-counter {
@@ -299,4 +299,4 @@ body {
     width: 2em;
     height: 2em;
 }
->>>>>>> master
+
