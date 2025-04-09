@@ -107,7 +107,7 @@ public class GolfContext : DbContext {
                 PostId = 1,
                 UserId = 1,
                 CreatedAt = new DateTime(2025, 01, 25),
-                ReviewId = 1,
+                ReviewId = null,
                 User = null,
             },
 
@@ -118,12 +118,56 @@ public class GolfContext : DbContext {
                 PostId = 2,
                 UserId = 2,
                 CreatedAt = new DateTime(2025, 01, 25),
+                ReviewId = null,
+                User = null,
+            },
+            new Comment
+            {
+                CommentID = 3,
+                Content = "Tråkigt att höra om klubban,kom förbi shoppen så testar vi ut en ny åt dig!  ",
+                PostId = null,
+                UserId = 1,
+                CreatedAt = new DateTime(2025, 01, 25),
+                ReviewId = 2,
+                User = null,
+            },
+
+            new Comment
+            {
+                CommentID = 4,
+                Content = "Härligt!! Såg när du stod och körde med den här om dagen!",
+                PostId = null,
+                UserId = 2,
+                CreatedAt = new DateTime(2025, 01, 28),
                 ReviewId = 1,
                 User = null,
             }
+
         );
 
+        modelBuilder.Entity<Review>().HasData(
+            new Review
+            {
+                ReviewId = 1,
+                Content = "Bra golfklubba, rekommenderar den starkt!",
+                Product = null,
+                ProductId = 1,
+                UserId = 1,
+                Date = new DateTime(2025, 01, 25),
+                User = null
+            },
+            new Review
+            {
+                ReviewId = 2,
+                Content = "Inte så bra som jag trott. Känns inte så bra i handen.",
+                Product = null,
+                ProductId = 2,
+                UserId = 2,
+                Date = new DateTime(2025, 01, 25),
+                User = null
+            }
 
+        );
 
         modelBuilder.Entity<Follow>()                                           
             .HasKey(k => new { k.FollowerId, k.FolloweeId });
@@ -143,7 +187,4 @@ public class GolfContext : DbContext {
 
     }
     
-        
-    
-
 }
