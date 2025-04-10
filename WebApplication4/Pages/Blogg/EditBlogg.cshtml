@@ -11,16 +11,17 @@
         <h2 class="text-center text-primary">Redigera inlägg</h2>
         <form method="post" class="needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-            <input type="hidden" asp-for="Post.UserId" />
-            <input type="hidden" asp-for="Post.PostId" />
+            <input type="hidden" asp-for="Post.UserId"/>
+            <input type="hidden" asp-for="Post.PostId"/>
             <div class="mb-3">
                 <label for="Title" class="form-label fw-bold">Titel:</label>
-                <input type="text" id="Title" asp-for="Post.Title" class="form-control shadow-sm" required />
+                <input type="text" id="Title" asp-for="Post.Title" class="form-control shadow-sm" required/>
                 <span class="text-danger small" asp-validation-for="Post.Title"></span>
             </div>
             <div class="mb-3">
                 <label for="Content" class="form-label fw-bold">Innehåll:</label>
-                <textarea id="Content" asp-for="Post.Content" class="form-control shadow-sm" rows="5" required></textarea>
+                <textarea id="Content" asp-for="Post.Content" class="form-control shadow-sm" rows="5"
+                          required></textarea>
                 <span class="text-danger small" asp-validation-for="Post.Content"></span>
             </div>
             <div class="text-center mt-4">
@@ -29,5 +30,5 @@
         </form>
     </div>
 
-    <hr />
+    <hr/>
 </div>

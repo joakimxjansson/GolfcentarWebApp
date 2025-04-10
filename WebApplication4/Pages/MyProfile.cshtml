@@ -9,71 +9,75 @@
 
 <html>
 <head>
-    <title>MyProfile</title>
+	<title>MyProfile</title>
 </head>
 <body>
-    <div>
-        <h1 class="d-flex justify-content-center mt-2"> @Model.Message</h1>
+<div>
+	<h1 class="d-flex justify-content-center mt-2"> @Model.Message</h1>
 
 
-		<div class="container d-flex justify-content-center mt-3 mb-3">
+	<div class="container d-flex justify-content-center mt-3 mb-3">
 
-			<div class="card myprofile">
+		<div class="card myprofile">
 
-				<div class="profile-container">
+			<div class="profile-container">
 
-					<div>
-						<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image">
-					</div>
-					
-					<div>
-						<h5 class="MyProfile-name">@Model.Name</h5>
-						<p class="MyProfile-mail">@Model.Email</p>
-						<p class ="MyProfile-mail">Följer: @Model.User.Follower.Count Följare: @Model.User.Followee.Count</p>
-						<form method="post" class="MyProfile-mail">
-							<button type="submit" class="btn btn-primary btn-sm rounded shadow" asp-page-handler="Find">Hitta användare</button>
-							<button type="submit" class="btn btn-centar btn-sm rounded shadow" asp-page-handler="MyFeed">Flöde</button>
-						</form>
-					</div>
+				<div>
+					<img src="@Url.Content("~" + @Model.UserImage)" class="img-fluid profile-image">
+				</div>
 
-					
+				<div>
+					<h5 class="MyProfile-name">@Model.Name</h5>
+					<p class="MyProfile-mail">@Model.Email</p>
+					<p class="MyProfile-mail">Följer: @Model.User.Follower.Count Följare: @Model.User.Followee.Count</p>
+					<form method="post" class="MyProfile-mail">
+						<button type="submit" class="btn btn-primary btn-sm rounded shadow" asp-page-handler="Find">
+							Hitta användare
+						</button>
+						<button type="submit" class="btn btn-centar btn-sm rounded shadow" asp-page-handler="MyFeed">
+							Flöde
+						</button>
+					</form>
 				</div>
 
 
-				<div class="balance-container d-flex justify-content-between align-items-center mt-3 p-2">
-					<div class="dollar-div">
+			</div>
 
-						<img src="~/images/money.webp"  width="70">
 
-					</div>
-					<div class="d-flex flex-column text-right mr-2">
-						<span class="current-balance">Nuvarande Saldo</span>
-						<span class="amount"/>  <span class="kr">Kr: @Model.Saldo</span>
-					</div>
+			<div class="balance-container d-flex justify-content-between align-items-center mt-3 p-2">
+				<div class="dollar-div">
+
+					<img src="~/images/money.webp" width="70">
 
 				</div>
+				<div class="d-flex flex-column text-right mr-2">
+					<span class="current-balance">Nuvarande Saldo</span>
+					<span class="amount"/> <span class="kr">Kr: @Model.Saldo</span>
+				</div>
 
-				<div class="links-border mt-4">
-					<a class="links" asp-page="/displayOrder">Mina ordrar / kvitton</a>
-				</div>
-				<div class="links-border pt-2">
-					<a class="links" asp-page="/EditProfile">Redigera användaruppgifter</a>
-				</div>
-			
+			</div>
+
+			<div class="links-border mt-4">
+				<a class="links" asp-page="/displayOrder">Mina ordrar / kvitton</a>
+			</div>
+			<div class="links-border pt-2">
+				<a class="links" asp-page="/EditProfile">Redigera användaruppgifter</a>
 			</div>
 
 		</div>
 
-    </div>
+	</div>
+
+</div>
 </body>
 </html>
 
 <style> /*stil för att göra bilden rund - Sandra*/
-	.profile-image { 
-		width: 12rem; 
+	.profile-image {
+		width: 12rem;
 		height: 12rem;
-		border-radius: 50%; 
-		object-fit: cover; 
-		border: 5px solid #ddd; 
+		border-radius: 50%;
+		object-fit: cover;
+		border: 5px solid #ddd;
 	}
 </style>

@@ -4,50 +4,47 @@
 }
 
 
-@if (Model.MailRecived){
+@if (Model.MailRecived) {
 	<div class="mail-container">
 		<div class="d-flex">
 			<p class="mail-sender-icon">GC</p>
 			<p class="m-lg-2">Från: <a href="">Support@Golfcentar.se</a></p>
 		</div>
 		<div class="text-center">
-			@if (Model.UserName is not null)
-			{
+			@if (Model.UserName is not null) {
 				<p>
-					Hej! Det har skickats en förfrågan av ditt användarnamn på <br />
+					Hej! Det har skickats en förfrågan av ditt användarnamn på <br/>
 					våran hemsida.
-					<br />
-					<br />
+					<br/>
+					<br/>
 					Ditt användarnamn är: @Model.UserName
-					<br />
+					<br/>
 					<a href="/Login" class="mail-login-btn">
 						Logga in
 					</a>
 				</p>
-			}
-			else
-			{
+			} else {
 				<p>
 					Någon försökte hitta en användare som använder din E-mail adress på våran hemsida:
-					<br />
+					<br/>
 					<a asp-page="/Index">www.Golfcentar.se</a>
 				</p>
 			}
 		</div>
 	</div>
 }
-@if (!Model.MailRecived){
+@if (!Model.MailRecived) {
 	<h1>Glömt ditt användarnamn?</h1>
 	<div>
 		<p>Du kan efterfråga ditt användarnamn om du har glömt det via mail!</p>
-		<br />
+		<br/>
 		<form method="post">
 			<div>
 				<label asp-for="EmailAddress">Skriv in din E-mail adress:</label>
-				<input type="email" required asp-for="EmailAddress" />
+				<input type="email" required asp-for="EmailAddress"/>
 				<span asp-validation-for="EmailAddress" class="text-danger"></span>
-			</div>		
-			<input type="submit" class="btn btn-centar" value="Hämta anändarnamn" />
+			</div>
+			<input type="submit" class="btn btn-centar" value="Hämta anändarnamn"/>
 		</form>
 	</div>
 }

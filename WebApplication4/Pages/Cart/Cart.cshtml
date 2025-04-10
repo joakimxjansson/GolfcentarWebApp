@@ -9,31 +9,26 @@
     <div class="kundkorg-container">
         <div class="kundkorg-kundkorg">
             <h1 class="kundkorg-rubrik">
-                @if (Model.CartItems.Count == 1)  
-                {
+                @if (Model.CartItems.Count == 1) {
                     @($"Du har {Model.CartService.GetQunatity()} produkt i varukorgen.")
-                }  
-                else  
-                {
+                } else {
                     @($"Du har {Model.CartService.GetQunatity()} produkter i varukorgen.")
                 }
             </h1>
 
             <div class="kundkorg-varor">
-                @if (Model.CartItems.Count == 0)
-                {
+                @if (Model.CartItems.Count == 0) {
                     <span>Din varukorg är tom.</span>
-                }
-                else
-                {
+                } else {
                     <ul class="ul-cart">
                         <p class="cartitemsRubrik">| Produkt | Pris | Antal |</p>
-                        @foreach (var item in Model.CartItems)
-                        {
+                        @foreach (var item in Model.CartItems) {
                             <li class="cart-item">
-                                <img src="~/images/@item.Product.ProdImage" alt="item.Product.ProdName" class="cart-image"/>
+                                <img src="~/images/@item.Product.ProdImage" alt="item.Product.ProdName"
+                                     class="cart-image"/>
                                 @item.Product.ProdName - @item.Product.ProdPrice kr - @item.Quantity
-                                <a class="ta-bort-knapp" asp-page="/Cart/Cart" asp-page-handler="Remove" asp-route-id="@item.CartItemsId">Ta bort</a>
+                                <a class="ta-bort-knapp" asp-page="/Cart/Cart" asp-page-handler="Remove"
+                                   asp-route-id="@item.CartItemsId">Ta bort</a>
                             </li>
                         }
                     </ul>

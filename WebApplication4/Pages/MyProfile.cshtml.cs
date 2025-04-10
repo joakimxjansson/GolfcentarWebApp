@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication4.Data;
 using WebApplication4.Services;
 
-namespace WebApplication4.Pages
-{
-    public class MyProfileModel : PageModel
-    {
+namespace WebApplication4.Pages {
+    public class MyProfileModel : PageModel {
         private readonly GolfContext _db;
         private readonly UserService _userService;
         public string Message { get; set; }
@@ -18,18 +16,14 @@ namespace WebApplication4.Pages
         public string Name { get; set; }
         public User User { get; set; }
 
-        public MyProfileModel(GolfContext db, UserService userService)
-        {
+        public MyProfileModel(GolfContext db, UserService userService) {
             _db = db;
             _userService = userService;
         }
-        
-        public async Task<IActionResult> OnGetAsync()
-        {
-            
+
+        public async Task<IActionResult> OnGetAsync() {
             var id = HttpContext.Session.GetInt32("Id");
-            if (id == null)
-            {
+            if (id == null) {
                 return RedirectToPage("/Login");
             }
 
@@ -44,25 +38,22 @@ namespace WebApplication4.Pages
             Saldo = _userService.GetSaldo(id.Value);
             Email = _userService.GetEmail(id.Value);
             Name = _userService.GetName(id.Value);
-            
+
 
             Message = "Välkommen " + Username + "!";
             return Page();
         }
 
-        public IActionResult OnPostEditUsers()
-        {
+        public IActionResult OnPostEditUsers() {
             return RedirectToPage("/Admin/EditCustomers");
         }
 
-        public IActionResult OnPostFind()
-        {
+        public IActionResult OnPostFind() {
             Console.WriteLine("hejhej");
             return RedirectToPage("/FindPeople");
         }
 
-        public IActionResult OnPostMyFeed()
-        {
+        public IActionResult OnPostMyFeed() {
             return RedirectToPage("/Feed/MyFeed");
         }
     }

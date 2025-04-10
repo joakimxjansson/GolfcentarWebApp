@@ -1,4 +1,5 @@
 namespace WebApplication4.Services;
+
 using WebApplication4.Data;
 
 // Denna klass används för att hämta diverse info om inloggad användare (Se metodnamn) //Joakim
@@ -17,13 +18,11 @@ public class UserService {
     public string GetName(int id) {
         var user = _contexts.Users.Find(id);
         return user.FirstName;
-
     }
 
     public int GetSaldo(int id) {
         var user = _contexts.Users.Find(id);
         return user.Saldo;
-
     }
 
     public string GetImage(int id) {
@@ -31,8 +30,7 @@ public class UserService {
         return user.UserImage;
     }
 
-    public string GetEmail(int id)
-    {
+    public string GetEmail(int id) {
         var user = _contexts.Users.Find(id);
         return user.Email;
     }
@@ -42,4 +40,3 @@ public class UserService {
         return user.Admin;
     }
 }
-
