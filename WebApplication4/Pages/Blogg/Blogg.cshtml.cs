@@ -5,58 +5,46 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication4.Data; 
+using WebApplication4.Data;
 
-namespace WebApplication4.Pages
-{
-    public class BloggModel : PageModel
-    {
+namespace WebApplication4.Pages {
+    public class BloggModel : PageModel {
         private readonly GolfContext _context;
 
-        public BloggModel(GolfContext context)
-        {
+        public BloggModel(GolfContext context) {
             _context = context;
         }
 
-        [BindProperty]
-        public Post NewPost { get; set; } = new Post();
+        [BindProperty] public Post NewPost { get; set; } = new Post();
 
-        public List<SubPost> Posts { get; set; } = new List<SubPost>();
+
         public List<Post> GetPosts { get; set; } = new List<Post>();
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            Posts = await _context.SubPost.Include(p => p.Post).OrderByDescending(p => p.Date).ToListAsync();
-
+        public async Task<IActionResult> OnGetAsync() {
             int? userId = HttpContext.Session.GetInt32("Id");
-            if (userId == null)
-            {
+            if (userId == null) {
                 GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).ToListAsync();
-            }
-            else
-            {
-                GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).Where(x => x.UserId == userId).ToListAsync();
+            } else {
+                GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).Where(x => x.UserId == userId)
+                    .ToListAsync();
             }
 
             return Page();
         }
 
 
-        public async Task<IActionResult> OnPostAsync()
-        {
+        public async Task<IActionResult> OnPostAsync() {
             int? userId = HttpContext.Session.GetInt32("Id");
 
-            if (userId == null)
-            {
+            if (userId == null) {
                 ModelState.AddModelError(string.Empty, "Logga in för att skapa inlägg.");
-                Posts = await _context.SubPost.Include(p => p.Post).OrderByDescending(p => p.Date).ToListAsync();
+
                 GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).ToListAsync();
                 return Page();
             }
+
             NewPost.UserId = (int)userId;
-            if (!ModelState.IsValid)
-            {
-                Posts = await _context.SubPost.Include(p => p.Post).OrderByDescending(p => p.Date).ToListAsync();
+            if (!ModelState.IsValid) {
                 GetPosts = await _context.Post.OrderByDescending(p => p.PublishDate).ToListAsync();
                 return Page();
             }
@@ -69,13 +57,13 @@ namespace WebApplication4.Pages
 
             return RedirectToPage();
         }
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
-        {
+
+        public async Task<IActionResult> OnPostDeleteAsync(int id) {
             var post = await _context.Post.FindAsync(id);
-            if (post == null)
-            {
+            if (post == null) {
                 return NotFound();
             }
+
             _context.Post.Remove(post);
             await _context.SaveChangesAsync();
 

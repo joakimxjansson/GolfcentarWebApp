@@ -6,37 +6,31 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WebApplication4.Services;
 
-namespace WebApplication4.Pages
-{
-    public class ProductDetails2Model : PageModel
-    {
+namespace WebApplication4.Pages {
+    public class ProductDetails2Model : PageModel {
         private readonly GolfContext _db;
         private readonly CartService _cartService;
 
-        public ProductDetails2Model(GolfContext db, CartService cartService)
-        {
+        public ProductDetails2Model(GolfContext db, CartService cartService) {
             _db = db;
             _cartService = cartService;
-
         }
 
-        [BindProperty]
-        public Review CreateReview { get; set; } = new Review();
+        [BindProperty] public Review CreateReview { get; set; } = new Review();
         public Product Product { get; set; } = default!;
         public List<Review> Reviews { get; set; } = new(); //list för att visa reviews
 
         public int? CurrentUserId { get; set; } //för att tracka redan inloggad användare
 
         public bool AddedCartItem { get; set; } //Om produkt lagts till i kundvagn
-        public async Task<IActionResult> OnGetAsync(int id)
-        {
+
+        public async Task<IActionResult> OnGetAsync(int id) {
             Product = await _db.Product
                 .Include(p => p.Reviews) //hämtar reviews relaterad till produkten
                 .ThenInclude(r => r.User) //användaren som skrev reviewen
                 .FirstOrDefaultAsync(p => p.ProductId == id); //hämta produkt med id fr. databas
-        
-            if (Product == null)
-            {
+
+            if (Product == null) {
                 return NotFound();
             }
 
@@ -48,19 +42,15 @@ namespace WebApplication4.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
-        {
+        public async Task<IActionResult> OnPostAsync(int id) {
             int? userId = HttpContext.Session.GetInt32("Id");
 
-            if (userId == null)
-            {
+            if (userId == null) {
                 TempData["ErrorMessage"] = "Du måste vara inloggad för att skriva en recension.";
                 return RedirectToPage(new { id = id });
-
             }
 
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) {
                 return Page();
             }
 
@@ -71,22 +61,18 @@ namespace WebApplication4.Pages
             _db.Review.Add(CreateReview);
             await _db.SaveChangesAsync();
 
-           
-            return RedirectToPage(new { id = id});
 
+            return RedirectToPage(new { id = id });
         }
 
         //egen OnPostAddToCart för att lägga till i kundvagn på detaljsida utan att skickas tillbaka till template-sidan
-        public IActionResult OnPostAddToCart(int id)
-        {
+        public IActionResult OnPostAddToCart(int id) {
             var product = _db.Product.FirstOrDefault(p => p.ProductId == id); //kod taget fr Cart.cshtml.cs
-            if (product == null)
-            {
+            if (product == null) {
                 return NotFound();
             }
 
-            var cartItem = new CartItems 
-            {
+            var cartItem = new CartItems {
                 Product = product,
                 Quantity = 1,
                 TotalPrice = (int)product.ProdPrice
@@ -100,30 +86,28 @@ namespace WebApplication4.Pages
             // Hämtar produkten igen så sidan kan laddas om rätt
             Product = product;
             Reviews = _db.Review
-                        .Where(r => r.Product.ProductId == id)
-                        .OrderByDescending(r => r.Date)
-                        .ToList();
+                .Where(r => r.Product.ProductId == id)
+                .OrderByDescending(r => r.Date)
+                .ToList();
 
             return Page(); // stannar på samma sida!
         }
 
 
         //metod för att kunna radera egna recensioner 
-        public async Task<IActionResult> OnPostDeleteReviewAsync(int reviewId, int productId)
-        {
+        public async Task<IActionResult> OnPostDeleteReviewAsync(int reviewId, int productId) {
             int? userId = HttpContext.Session.GetInt32("Id");
 
-            if (userId == null)
-            {   //kräver inlogg
-                TempData["ErrorMessage"] = "Du måste vara inloggad för att radera en recension."; 
+            if (userId == null) {
+                //kräver inlogg
+                TempData["ErrorMessage"] = "Du måste vara inloggad för att radera en recension.";
                 return RedirectToPage(new { id = productId });
             }
 
             var review = await _db.Review.FindAsync(reviewId);
 
-            if (review == null || review.UserId != userId.Value)
-            {
-                TempData["ErrorMessage"] = "Du kan bara radera dina egna recensioner."; 
+            if (review == null || review.UserId != userId.Value) {
+                TempData["ErrorMessage"] = "Du kan bara radera dina egna recensioner.";
                 return RedirectToPage(new { id = productId });
             }
 
@@ -132,7 +116,5 @@ namespace WebApplication4.Pages
 
             return RedirectToPage(new { id = productId });
         }
-
-
     }
 }

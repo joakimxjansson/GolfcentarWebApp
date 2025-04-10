@@ -6,19 +6,18 @@ namespace WebApplication4.Data;
 
 public class GolfContext : DbContext {
     private readonly PasswordHasher _passwordHasher = new();
-    public GolfContext(DbContextOptions<GolfContext> options) : base(options) {
 
+    public GolfContext(DbContextOptions<GolfContext> options) : base(options) {
     }
 
     public DbSet<Product> Product { get; set; }
-     public DbSet<Order> Order { get; set; }
-     public DbSet<Post> Post { get; set; }
+    public DbSet<Order> Order { get; set; }
+    public DbSet<Post> Post { get; set; }
     public DbSet<CartItems> CartItems { get; set; }
     public DbSet<User> Users { get; set; }
-   public DbSet<Review> Review { get; set; }
-    public DbSet<SubPost> SubPost { get; set; }
+    public DbSet<Review> Review { get; set; }
     public DbSet<Follow> Follows { get; set; }
-    public DbSet<Comment> Comments { get; set; } 
+    public DbSet<Comment> Comments { get; set; }
 
     //Produkter - Anton
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -28,7 +27,7 @@ public class GolfContext : DbContext {
                 ProdPrice = 2599, ProdImage = "driver.jpg"
             },
             new Product {
-                ProductId = 2, ProdName = "Golfklubba J�rn", ProdDescription = "Järnklubba i världsklass",
+                ProductId = 2, ProdName = "Golfklubba Järn", ProdDescription = "Järnklubba i världsklass",
                 ProdPrice = 1999, ProdImage = "jarnklubba.jpg"
             },
             new Product {
@@ -55,49 +54,45 @@ public class GolfContext : DbContext {
                 ProductId = 8, ProdName = "peg (10-pack)", ProdDescription = "pegs i trä", ProdPrice = 39,
                 ProdImage = "peg.jpg"
             }
-
         );
-        modelBuilder.Entity<User>().HasData (
-            new User
-            {
-                UserId = 1, Username ="Admin", FirstName ="Nevena",
+        modelBuilder.Entity<User>().HasData(
+            new User {
+                UserId = 1, Username = "Admin", FirstName = "Nevena",
                 LastName = "Kicanovic",
-                Password =_passwordHasher.Hash("Admin123"),
+                Password = _passwordHasher.Hash("Admin123"),
                 Admin = 1, Email = "admin@test.com",
                 Saldo = 10000,
                 UserImage = "/images/DefaultImage.png"
             },
-            new User
-            {
+            new User {
                 UserId = 2,
                 Username = "TigerWoods",
                 FirstName = "Tiger", LastName = "Woods",
-                Password = _passwordHasher.Hash("Woods123"), 
-                Admin = 0, 
-                Email = "woods@test.com", 
+                Password = _passwordHasher.Hash("Woods123"),
+                Admin = 0,
+                Email = "woods@test.com",
                 UserImage = "/images/DefaultImage.png",
                 Saldo = 10000
             }
         );
 
         modelBuilder.Entity<Post>().HasData(
-
-            new Post
-            {
+            new Post {
                 PostId = 1,
                 Title = "Golf är kul",
                 Content = "Första gången jag och familjen testar Golfcentars banor. Mycket trevlig upplevelse," +
-                "hela familjen hade roligt. Även Olle som inte är direkt intresserad av golf. I och för sig ville han bara" +
-                " gräva med sin spade i bunkern.. Aja godkänd sand från hans håll.",
+                          "hela familjen hade roligt. Även Olle som inte är direkt intresserad av golf. I och för sig ville han bara" +
+                          " gräva med sin spade i bunkern.. Aja godkänd sand från hans håll.",
                 UserId = 2,
                 User = null,
                 PublishDate = new DateTime(2025, 01, 25)
             },
             new Post {
                 PostId = 2, Title = "Måsar överallt",
-                Content = "Måsar är inte min grej. De är överallt och skriker. Jag vill bara spela golf i lugn och ro utan att" +
-                " de vanaliserar och snor mina bollar. Jag har till och med fått en mås i ansiktet. Det var inte kul. " +
-                " kanske går att träna på att slå dem med klubban? Jag ska prova nästa gång.",
+                Content =
+                    "Måsar är inte min grej. De är överallt och skriker. Jag vill bara spela golf i lugn och ro utan att" +
+                    " de vanaliserar och snor mina bollar. Jag har till och med fått en mås i ansiktet. Det var inte kul. " +
+                    " kanske går att träna på att slå dem med klubban? Jag ska prova nästa gång.",
                 UserId = 1,
                 User = null,
                 PublishDate = new DateTime(2025, 01, 25)
@@ -105,8 +100,7 @@ public class GolfContext : DbContext {
         );
 
         modelBuilder.Entity<Comment>().HasData(
-            new Comment
-            {
+            new Comment {
                 CommentID = 1,
                 Content = "Håller med, golf är kul!",
                 PostId = 1,
@@ -115,9 +109,7 @@ public class GolfContext : DbContext {
                 ReviewId = null,
                 User = null,
             },
-
-            new Comment
-            {
+            new Comment {
                 CommentID = 2,
                 Content = "Tråkigt att höra om måsarna! Men tror inte du ska öva med dem sen..",
                 PostId = 2,
@@ -126,8 +118,7 @@ public class GolfContext : DbContext {
                 ReviewId = null,
                 User = null,
             },
-            new Comment
-            {
+            new Comment {
                 CommentID = 3,
                 Content = "Tråkigt att höra om klubban,kom förbi shoppen så testar vi ut en ny åt dig!  ",
                 PostId = null,
@@ -136,9 +127,7 @@ public class GolfContext : DbContext {
                 ReviewId = 2,
                 User = null,
             },
-
-            new Comment
-            {
+            new Comment {
                 CommentID = 4,
                 Content = "Härligt!! Såg när du stod och körde med den här om dagen!",
                 PostId = null,
@@ -147,12 +136,10 @@ public class GolfContext : DbContext {
                 ReviewId = 1,
                 User = null,
             }
-
         );
 
         modelBuilder.Entity<Review>().HasData(
-            new Review
-            {
+            new Review {
                 ReviewId = 1,
                 Content = "Bra golfklubba, rekommenderar den starkt!",
                 Product = null,
@@ -161,8 +148,7 @@ public class GolfContext : DbContext {
                 Date = new DateTime(2025, 01, 25),
                 User = null
             },
-            new Review
-            {
+            new Review {
                 ReviewId = 2,
                 Content = "Inte så bra som jag trott. Känns inte så bra i handen.",
                 Product = null,
@@ -171,30 +157,26 @@ public class GolfContext : DbContext {
                 Date = new DateTime(2025, 01, 25),
                 User = null
             }
-
         );
 
-        modelBuilder.Entity<Follow>()                                           
+        modelBuilder.Entity<Follow>()
             .HasKey(k => new { k.FollowerId, k.FolloweeId });
 
-        modelBuilder.Entity<Follow>()                                          
+        modelBuilder.Entity<Follow>()
             .HasOne(u => u.Followee)
-            .WithMany( u => u.Follower)
+            .WithMany(u => u.Follower)
             .HasForeignKey(u => u.FollowerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Follow>()                                     
+        modelBuilder.Entity<Follow>()
             .HasOne(u => u.Follower)
-            .WithMany( u => u.Followee)
+            .WithMany(u => u.Followee)
             .HasForeignKey(u => u.FolloweeId)
             .OnDelete(DeleteBehavior.Restrict);
-
-
     }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         //ignorera varningar 
         optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
     }
-    
 }

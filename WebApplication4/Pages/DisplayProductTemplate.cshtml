@@ -11,10 +11,9 @@
 
 <!-- foreach loop för att visa alla produkterna i mallen- Anton -->
 <div class="product-container">
-    @foreach (var product in Model.Product)
-    {
+    @foreach (var product in Model.Product) {
         <!--partial view - Anton -->
-        <partial name="_ProduktMall" model="product" />
+        <partial name="_ProduktMall" model="product"/>
     }
 </div>
 

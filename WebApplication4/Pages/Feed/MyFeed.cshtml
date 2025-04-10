@@ -3,7 +3,6 @@
 @model WebApplication4.Pages.Feed.MyFeedModel
 
 @{
-    
 }
 
 <!DOCTYPE html>
@@ -12,98 +11,98 @@
     <title>My Feed</title>
 </head>
 <body>
-    <div class="container feed-con mt-1 d-flex flex-column justify-content-center align-items-center">
-        <div class="feed-btn mt-3 d-flex flex-column justify-content-center align-items-center">
-            
-            <h1>Flöde</h1>
-            <h5>Här kan du se ditt allmänna flöde samt ditt personliga flöde från folk du följer.</h5>
-        
-            @*knappar för att bestämma vilket flöde man vill se*@
-            <form method="post">
-                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="MyFeed">Allmänt</button>
+<div class="container feed-con mt-1 d-flex flex-column justify-content-center align-items-center">
+    <div class="feed-btn mt-3 d-flex flex-column justify-content-center align-items-center">
 
-                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="Following">Följer</button>
+        <h1>Flöde</h1>
+        <h5>Här kan du se ditt allmänna flöde samt ditt personliga flöde från folk du följer.</h5>
 
-                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="FindPeople">Hitta användare</button>
+        @*knappar för att bestämma vilket flöde man vill se*@
+        <form method="post">
+            <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="MyFeed">Allmänt
+            </button>
 
-                <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="BlogPost">Skapa inlägg</button>
-            </form>
-        </div>
+            <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="Following">Följer
+            </button>
 
-        @* Läser in blogginlägg Kod från Forum.cshtml som jag stylat om lite och lagt in så att Userimage laddas in*@ 
-        <div class="feed w-75">
-            @foreach (var post in Model.GetPosts)
-            {
-                <div class="card my-3 p-3 shadow-sm">
-                    <p> <img src="@Url.Content("~" + @post.User.UserImage)" class="img-fluid feed-img"> @post.User.Username har skapat ett blogginlägg.</p>
-                    <h4>Inlägg: @post.Title</h4>
-                    <p>@post.Content</p>
-                    <small class="text-muted">Publicerat: @post.PublishDate.ToString("yyyy-MM-dd HH:mm")</small>
-                    <hr/>
-                    
-                    @* Kommentarer: Kod från Forum.cshtml som jag stylat om lite och lagt in så att Userimage laddas in *@
-                    @if (Model.GetComments.Any(c => c.PostId == post.PostId))
-                    {
-                        <h4 class="mt-1">Kommentarer:</h4>
-                        <ul class="list-unstyled">
-                            @foreach (var comment in Model.GetComments.Where(c => c.PostId == post.PostId))
-                            {
-                                <li>
-                                    <img src="@Url.Content("~" + @comment.User.UserImage)" class="img-fluid feed-img">
-                                    @comment.User.Username har kommenterat: @comment.Content
-                                </li>
-                                
-                            }
-                        </ul>
-                    }
+            <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="FindPeople">Hitta
+                användare
+            </button>
 
-                    <form method="post" asp-page-handler="AddComment" asp-route-postId="@post.PostId" class="mt-1">
-                        <div class="mb-2">
-                            <textarea name="CommentContent" class="form-control" rows="2" placeholder="Skriv en kommentar här.." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Kommentera</button>
-                    </form>
-                </div>
-
-            }
-
-            @*laddar in alla reviews på flödet*@
-            @foreach (var review in Model.GetReviews) 
-            {
-                <div class="card my-3 p-3 shadow-sm">
-                    <p> <img src="@Url.Content("~" + @review.User.UserImage)" class="img-fluid feed-img"> @review.User.Username har lämnat en recension.</p>
-                    <h4>Recension: @review.Product.ProdName</h4>
-                    <p>@review.Content</p>
-                    <small class="text-muted">Publicerat: @review.Date.ToString("yyyy-MM-dd HH:mm")</small>
-
-                    @* Kommentarer*@
-                    @if (Model.GetComments.Any(c => c.ReviewId == review.ReviewId))
-                    {
-                        <h4 class="mt-1">Kommentarer:</h4>
-                        <ul class="list-unstyled">
-                            @foreach (var comment in Model.GetComments.Where(c => c.ReviewId == review.ReviewId))
-                            {
-                                <li>
-                                    <img src="@Url.Content("~" + @comment.User.UserImage)" class="img-fluid feed-img">
-                                    @comment.User.Username har kommenterat: @comment.Content
-                                </li>
-
-                            }
-                        </ul>
-                    }
-
-                    <form method="post" asp-page-handler="AddComment" asp-route-reviewId="@review.ReviewId" class="mt-1">
-                        <div class="mb-2">
-                            <textarea name="CommentContent" class="form-control" rows="2" placeholder="Skriv en kommentar här.." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm">Kommentera</button>
-                    </form>
-                </div>
-            }
-        </div>
+            <button type="submit" class="btn btn-centar px-4 py-2 rounded shadow" asp-page-handler="BlogPost">Skapa
+                inlägg
+            </button>
+        </form>
     </div>
 
-    
+    @* Läser in blogginlägg Kod från Forum.cshtml som jag stylat om lite och lagt in så att Userimage laddas in*@
+    <div class="feed w-75">
+        @foreach (var post in Model.GetPosts) {
+            <div class="card my-3 p-3 shadow-sm">
+                <p><img src="@Url.Content("~" + @post.User.UserImage)"
+                        class="img-fluid feed-img"> @post.User.Username har skapat ett blogginlägg.</p>
+                <h4>Inlägg: @post.Title</h4>
+                <p>@post.Content</p>
+                <small class="text-muted">Publicerat: @post.PublishDate.ToString("yyyy-MM-dd HH:mm")</small>
+                <hr/>
+
+                @* Kommentarer: Kod från Forum.cshtml som jag stylat om lite och lagt in så att Userimage laddas in *@
+                @if (Model.GetComments.Any(c => c.PostId == post.PostId)) {
+                    <h4 class="mt-1">Kommentarer:</h4>
+                    <ul class="list-unstyled">
+                        @foreach (var comment in Model.GetComments.Where(c => c.PostId == post.PostId)) {
+                            <li>
+                                <img src="@Url.Content("~" + @comment.User.UserImage)" class="img-fluid feed-img">
+                                @comment.User.Username har kommenterat: @comment.Content
+                            </li>
+                        }
+                    </ul>
+                }
+
+                <form method="post" asp-page-handler="AddComment" asp-route-postId="@post.PostId" class="mt-1">
+                    <div class="mb-2">
+                        <textarea name="CommentContent" class="form-control" rows="2"
+                                  placeholder="Skriv en kommentar här.." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Kommentera</button>
+                </form>
+            </div>
+        }
+
+        @*laddar in alla reviews på flödet*@
+        @foreach (var review in Model.GetReviews) {
+            <div class="card my-3 p-3 shadow-sm">
+                <p><img src="@Url.Content("~" + @review.User.UserImage)"
+                        class="img-fluid feed-img"> @review.User.Username har lämnat en recension.</p>
+                <h4>Recension: @review.Product.ProdName</h4>
+                <p>@review.Content</p>
+                <small class="text-muted">Publicerat: @review.Date.ToString("yyyy-MM-dd HH:mm")</small>
+
+                @* Kommentarer*@
+                @if (Model.GetComments.Any(c => c.ReviewId == review.ReviewId)) {
+                    <h4 class="mt-1">Kommentarer:</h4>
+                    <ul class="list-unstyled">
+                        @foreach (var comment in Model.GetComments.Where(c => c.ReviewId == review.ReviewId)) {
+                            <li>
+                                <img src="@Url.Content("~" + @comment.User.UserImage)" class="img-fluid feed-img">
+                                @comment.User.Username har kommenterat: @comment.Content
+                            </li>
+                        }
+                    </ul>
+                }
+
+                <form method="post" asp-page-handler="AddComment" asp-route-reviewId="@review.ReviewId" class="mt-1">
+                    <div class="mb-2">
+                        <textarea name="CommentContent" class="form-control" rows="2"
+                                  placeholder="Skriv en kommentar här.." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Kommentera</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
 
 </body>
 </html>

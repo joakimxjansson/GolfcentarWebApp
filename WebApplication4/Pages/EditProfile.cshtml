@@ -3,11 +3,9 @@
 @{
 }
 <div class="edit_form">
-    @if (!ViewData.ModelState.IsValid)
-    {
+    @if (!ViewData.ModelState.IsValid) {
         <div style="color:red">
-            @foreach (var error in ViewData.ModelState[string.Empty].Errors)
-            {
+            @foreach (var error in ViewData.ModelState[string.Empty].Errors) {
                 <div>@error.ErrorMessage</div>
             }
         </div>
@@ -16,29 +14,26 @@
 
         <div class="edit_img">
             <h3>Redigera Profil</h3>
-            @if (!string.IsNullOrEmpty(Model.User.UserImage))
-            {
-                <img src="@Model.User.UserImage" alt="Profilbild" class="profile-image" />
-            }
-            else
-            {
-                <img src="/images/default-profile.png" alt="Profilbild" class="profile-image" />
+            @if (!string.IsNullOrEmpty(Model.User.UserImage)) {
+                <img src="@Model.User.UserImage" alt="Profilbild" class="profile-image"/>
+            } else {
+                <img src="/images/default-profile.png" alt="Profilbild" class="profile-image"/>
             }
             <label for="fileInput" class="custom_label">Välj en bild</label>
-            <input type="file" id="fileInput" asp-for="UserImage" />
+            <input type="file" id="fileInput" asp-for="UserImage"/>
         </div>
         <div class="edit_content">
             <label>Namn:</label>
-            <input asp-for="User.FirstName" />
+            <input asp-for="User.FirstName"/>
 
             <label>Efternamn:</label>
-            <input asp-for="User.LastName" />
+            <input asp-for="User.LastName"/>
 
             <label>Användarnamn:</label>
-            <input asp-for="User.Username" />
+            <input asp-for="User.Username"/>
 
             <label>Email:</label>
-            <input asp-for="User.Email" />
+            <input asp-for="User.Email"/>
 
             <button type="submit" class="edit_button">Spara ändringar</button>
 
@@ -67,7 +62,7 @@
         padding: 1.5rem;
         border-radius: 1rem;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        
+
     }
 
     .edit_content {
@@ -82,7 +77,7 @@
     }
 
     .edit_content div {
-        min-width: 45%; 
+        min-width: 45%;
     }
 
     .edit_content input {
@@ -104,8 +99,8 @@
     .profile-image {
         width: 12rem;
         height: 12rem;
-        border-radius: 50%; 
-        object-fit: cover; 
+        border-radius: 50%;
+        object-fit: cover;
         border: 3px solid #c3c388;
     }
 

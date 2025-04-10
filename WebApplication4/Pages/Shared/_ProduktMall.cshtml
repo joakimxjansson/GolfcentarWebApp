@@ -5,21 +5,22 @@
 
 
 @*Html för mallen- Anton*@
-<a asp-page="ProductDetails2" asp-route-id="@Model.ProductId" class="template-link"> @*Gör produkterna klickbara för att komma till detaljsida - Sandra*@
-<div class="template">
-    <img src="@Url.Content("~/images/" + Model.ProdImage)" class="template-img" alt="@Model.ProdName">
-    <div class="template-body">
-        <h5 class="template-title">@Model.ProdName</h5>
-        
-        <p class="template-price">@Model.ProdPrice kr</p>
-        
-        @*Submit-knapp till Cart - Adam*@
-        <form method="post" asp-page="/Cart/Cart" asp-page-handler="AddToCart">
-            <input type="hidden" name="id" value="@Model.ProductId" />
-            <button type="submit" class="addToCart">Lägg till i kundvagn</button>
-        </form>
+<a asp-page="ProductDetails2" asp-route-id="@Model.ProductId"
+   class="template-link"> @*Gör produkterna klickbara för att komma till detaljsida - Sandra*@
+    <div class="template">
+        <img src="@Url.Content("~/images/" + Model.ProdImage)" class="template-img" alt="@Model.ProdName">
+        <div class="template-body">
+            <h5 class="template-title">@Model.ProdName</h5>
+
+            <p class="template-price">@Model.ProdPrice kr</p>
+
+            @*Submit-knapp till Cart - Adam*@
+            <form method="post" asp-page="/Cart/Cart" asp-page-handler="AddToCart">
+                <input type="hidden" name="id" value="@Model.ProductId"/>
+                <button type="submit" class="addToCart">Lägg till i kundvagn</button>
+            </form>
+        </div>
     </div>
-</div>
 </a>
 @*css för mallen och bilder- Anton*@
 <style>
@@ -90,9 +91,9 @@
 
     }
 
-        .addToCart:hover {
-            background-color: #218838;
-            box-shadow: none;
-        }
+    .addToCart:hover {
+        background-color: #218838;
+        box-shadow: none;
+    }
 </style>
 @*Slut på css för mallen och bilder- Anton*@

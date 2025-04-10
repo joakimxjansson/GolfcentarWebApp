@@ -15,77 +15,72 @@
 <body>
 
 <header>
-        <a asp-page="/Index"><img src="~/images/Centar.gif" alt="logga" class="logo"></a>
-        <nav class="navbar">
-            <a asp-page="/Index">Startsida</a>
-            <a asp-page="/OldPages/AboutUs">Om oss</a> 
-            <a asp-page="/OldPages/Booking">Boka</a>
-            <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
-            <a href="/Login">Min Profil</a>
-            <a asp-page="/OldPages/Contact">Kontakta oss</a>
+    <a asp-page="/Index"><img src="~/images/Centar.gif" alt="logga" class="logo"></a>
+    <nav class="navbar">
+        <a asp-page="/Index">Startsida</a>
+        <a asp-page="/OldPages/AboutUs">Om oss</a>
+        <a asp-page="/OldPages/Booking">Boka</a>
+        <a asp-page="/OldPages/Events">Tävlingar och evenemang</a>
+        <a href="/Login">Min Profil</a>
+        <a asp-page="/OldPages/Contact">Kontakta oss</a>
 
 
-            @if (Context.Session.GetInt32("Id") == null)
-            {
-                <a asp-page="/registration">Registrera dig</a> 
-            }
+        @if (Context.Session.GetInt32("Id") == null) {
+            <a asp-page="/registration">Registrera dig</a>
+        }
 
 
-            <a asp-page="/DisplayProductTemplate">Webshop</a>
-            <a asp-page="/Feed/MyFeed">Flöde</a> 
+        <a asp-page="/DisplayProductTemplate">Webshop</a>
+        <a asp-page="/Feed/MyFeed">Flöde</a>
 
 
-            
+    </nav>
 
-        </nav>
+    <div id="cart-container">
+        <a href="/Cart/Cart">
+            <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">
+            <p id="cart-counter">@CartService.GetQunatity()</p>
+            <img/>
+        </a>
+    </div>
 
-        <div id="cart-container">
-            <a href="/Cart/Cart">
-                <img src="~/images/shopping-cart.png" alt="cart" id="cart-icon" class=" ">   
-                <p id="cart-counter">@CartService.GetQunatity()</p>
-                <img />
-            </a>
-        </div>
+    <!-- Knapp för logga in-->
 
-        <!-- Knapp för logga in-->
-        
-            @if (Context.Session.GetInt32("Id") !=null) {
+    @if (Context.Session.GetInt32("Id") != null) {
         <a class="buttonLogInLS" asp-page="/Logout">Logga Ut</a>
+    } else {
+        <a class="buttonLogInLS" asp-page="/Login">Logga in</a>
+    }
+    <!-- slut-->
 
-        
-            } else {
-                <a class="buttonLogInLS" asp-page="/Login">Logga in</a>
+    <!--Hamburgermeny start-->
+    <nav class="hamburgermeny">
+
+        <input type="checkbox" id="menu-toggle" class="checkbox-toggle">
+        <label for="menu-toggle" class="menu-button-container">
+        </label>
+        <i class="fa-solid fa-bars fa-bar-static"></i>
+        <i class="fa-solid fa-bars fa-beat-fade"></i>
+
+        <ul class="menu">
+
+            <li><a asp-page="/Index"><i class="fa-solid fa-house"></i> Startsida</a></li>
+            <li><a asp-page="/OldPages/AboutUs"><i class="fa-solid fa-circle-user"></i> Om oss</a></li>
+            <li><a asp-page="/OldPages/Booking"><i class="fa-solid fa-circle-check"></i> Boka</a></li>
+            <li><a asp-page="/OldPages/Events"><i class="fa-solid fa-calendar-days"></i> Tävlingar och evenemang</a>
+            </li>
+            <li><a href="/Login"><i class="fa-solid fa-user"></i> Medlem</a></li>
+            <li><a asp-page="/OldPages/Contact"><i class="fa-regular fa-address-card"></i> Kontakta oss</a></li>
+            <li><a asp-page="/DisplayProductTemplate"><i class="fa-solid fa-shop"></i> Webshop</a></li>
+            @if (Context.Session.GetInt32("Id") == null) {
+                <li><a asp-page="/registration"><i class="fa-solid fa-user-plus"></i> Registrera dig</a></li>
             }
-        <!-- slut-->
 
-        <!--Hamburgermeny start-->
-        <nav class="hamburgermeny">
 
-            <input type="checkbox" id="menu-toggle" class="checkbox-toggle">
-            <label for="menu-toggle" class="menu-button-container">
-            </label>
-            <i class="fa-solid fa-bars fa-bar-static"></i>
-            <i class="fa-solid fa-bars fa-beat-fade"></i>
+        </ul>
 
-            <ul class="menu">
-
-                <li><a asp-page="/Index"><i class="fa-solid fa-house"></i> Startsida</a></li>
-                <li><a asp-page="/OldPages/AboutUs"><i class="fa-solid fa-circle-user"></i> Om oss</a></li>
-                <li><a asp-page="/OldPages/Booking"><i class="fa-solid fa-circle-check"></i> Boka</a></li>
-                <li><a asp-page="/OldPages/Events"><i class="fa-solid fa-calendar-days"></i> Tävlingar och evenemang</a></li>
-                <li><a href="/Login"><i class="fa-solid fa-user"></i> Medlem</a></li>
-                <li><a asp-page="/OldPages/Contact"><i class="fa-regular fa-address-card"></i> Kontakta oss</a></li>
-                <li><a asp-page="/DisplayProductTemplate"><i class="fa-solid fa-shop"></i> Webshop</a></li>
-                @if (Context.Session.GetInt32("Id") == null)
-                {
-                    <li><a asp-page="/registration"><i class="fa-solid fa-user-plus"></i> Registrera dig</a></li>
-                }
-                
-
-            </ul>
-
-        </nav>
-        <!--Hamburgermeny slut-->
+    </nav>
+    <!--Hamburgermeny slut-->
 </header>
 <div class="container">
     <main role="main" class="pb-3">
@@ -94,14 +89,14 @@
 </div>
 
 <footer>
-        <nav class="footercontent">
-            <ul>
-                <li><a asp-page="/Index">Hem</a></li>
-                <li><a asp-page ="/OldPages/AboutUs">Om oss</a></li>
-                <li><a asp-page="/OldPages/UserAgreement">Användarvillkor</a></li>
-            </ul>
-        </nav>
-        <a href="#top">Tillbaka till toppen</a>
+    <nav class="footercontent">
+        <ul>
+            <li><a asp-page="/Index">Hem</a></li>
+            <li><a asp-page="/OldPages/AboutUs">Om oss</a></li>
+            <li><a asp-page="/OldPages/UserAgreement">Användarvillkor</a></li>
+        </ul>
+    </nav>
+    <a href="#top">Tillbaka till toppen</a>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

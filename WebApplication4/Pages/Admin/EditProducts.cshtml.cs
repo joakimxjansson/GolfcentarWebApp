@@ -7,89 +7,74 @@ using WebApplication4.Services;
 
 namespace WebApplication4.Pages.Admin;
 
-public class EditProducts : PageModel
-{
+public class EditProducts : PageModel {
     private readonly GolfContext _context;
     private readonly UserService _userService;
 
-    public EditProducts(GolfContext context ,UserService userService)
-    {
+    public EditProducts(GolfContext context, UserService userService) {
         _context = context;
         _userService = userService;
     }
-    public IEnumerable<Product>? Products { get; set; } = new List<Product>();
-    [BindProperty]
-    public Product? Product { get; set; }
-    [BindProperty]
-    public IFormFile ImageFile { get; set; }
 
-    public async Task<IActionResult> OnGetAsync()
-    {
+    public IEnumerable<Product>? Products { get; set; } = new List<Product>();
+    [BindProperty] public Product? Product { get; set; }
+    [BindProperty] public IFormFile ImageFile { get; set; }
+
+    public async Task<IActionResult> OnGetAsync() {
         var id = HttpContext.Session.GetInt32("Id");
-        if (id == null) 
-        {
+        if (id == null) {
             return RedirectToPage("/Login");
         }
-        
+
         var role = _userService.GetRole(id.Value);
-        if (role == 0) 
-        {
+        if (role == 0) {
             return RedirectToPage("/MyProfile");
         }
+
         Products = await _context.Product.ToListAsync();
         return Page();
-        
-        
     }
 
     //Lägg till produkt
-    public async Task<IActionResult> OnPostCreateAsync()
-    {
-        if (Product != null)
-        {
-            if (ImageFile != null)
-            {
+    public async Task<IActionResult> OnPostCreateAsync() {
+        if (Product != null) {
+            if (ImageFile != null) {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
+                using (var stream = new FileStream(filePath, FileMode.Create)) {
                     await ImageFile.CopyToAsync(stream);
                 }
 
 
                 Product.ProdImage = fileName;
-
             }
+
             _context.Product.Add(Product);
             await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditProducts");
         }
+
         return Page();
     }
 
     //redigera/updatera produkt
-    public async Task<IActionResult> OnPostAsync(int id)
-    {
+    public async Task<IActionResult> OnPostAsync(int id) {
         var product = await _context.Product.FindAsync(id);
-        if (product == null)
-        {
+        if (product == null) {
             return NotFound();
         }
 
-        if (Product != null)
-        {
+        if (Product != null) {
             product.ProdName = Product.ProdName;
             product.ProdDescription = Product.ProdDescription;
             product.ProdPrice = Product.ProdPrice;
-            
-            if (ImageFile != null)
-            {
+
+            if (ImageFile != null) {
                 //ta bort gammal bild från wwwroot ifall den inte används längre
-                if (!string.IsNullOrEmpty(product.ProdImage))
-                {
-                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(product.ProdImage));
-                    if (System.IO.File.Exists(oldImagePath))
-                    {
+                if (!string.IsNullOrEmpty(product.ProdImage)) {
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images",
+                        Path.GetFileName(product.ProdImage));
+                    if (System.IO.File.Exists(oldImagePath)) {
                         System.IO.File.Delete(oldImagePath);
                     }
                 }
@@ -98,40 +83,34 @@ public class EditProducts : PageModel
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
 
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
+                using (var stream = new FileStream(filePath, FileMode.Create)) {
                     await ImageFile.CopyToAsync(stream);
                 }
 
                 product.ProdImage = "/images/" + fileName;
-            }
-
-            else
-            {
+            } else {
                 product.ProdImage = Product.ProdImage;
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToPage("/Admin/EditProducts");
         }
+
         return Page();
     }
 
     //ta bort produkt
-    public async Task<IActionResult> OnPostDeleteAsync(int id)
-    {
+    public async Task<IActionResult> OnPostDeleteAsync(int id) {
         var product = await _context.Product.FindAsync(id);
-        if (product == null)
-        {
+        if (product == null) {
             return NotFound();
         }
 
         //ta bort bilden från wwwroot
-        if (!string.IsNullOrEmpty(product.ProdImage))
-        {
-            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(product.ProdImage));
-            if (System.IO.File.Exists(imagePath))
-            {
+        if (!string.IsNullOrEmpty(product.ProdImage)) {
+            var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images",
+                Path.GetFileName(product.ProdImage));
+            if (System.IO.File.Exists(imagePath)) {
                 System.IO.File.Delete(imagePath);
             }
         }

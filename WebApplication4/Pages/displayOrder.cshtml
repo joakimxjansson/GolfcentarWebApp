@@ -12,55 +12,56 @@
 
 <body>
 
-    <!-- container för produkter i varukorgen -->
-    <div id="cart-container-ls">
-        <div id="header-container-ls">
-            <h1>Golfcentar</h1>
-            <h5>Din varukorg</h5>
-        </div>
-        <div class="order">
-            <h3>Orderhistorik för användare: @Model.Username</h3>
-            
-        </div>
-        <div id="cart-items-container-ls">
-            <table  class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Produkt</th>
-                        <th>Antal</th>
-                        <th>Pris</th>
-                        <th>Summa</th>
-                        <th>Ordernummer</th>
-                        <th>Orderdatum</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--  Laddar in lista med product/antal och pris-->
-                    @foreach (var item in Model.Orders)
-                    {
-                        <tr>
-                            <td>@(item.Product?.ProdName)</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.Product?.ProdPrice:-</td>
-                            <td>@item.TotalPrice:-</td>
-                            <td>@item.OrderNumber</td>
-                            <td>@item.OrderDate</td>
-                            <form method="post">
-                            <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@item.OrderNumber">Visa Kvitto</button></td>
-                            </form>
-                            </tr>
-                        
-                    }
-
-                </tbody>
-            </table>
-            <a href="/MyProfile">Tillbaka till profilen</a>
-        </div>
-        <!-- slut på container -->
-          
+<!-- container för produkter i varukorgen -->
+<div id="cart-container-ls">
+    <div id="header-container-ls">
+        <h1>Golfcentar</h1>
+        <h5>Din varukorg</h5>
     </div>
-    
-   
+    <div class="order">
+        <h3>Orderhistorik för användare: @Model.Username</h3>
+
+    </div>
+    <div id="cart-items-container-ls">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Antal</th>
+                <th>Pris</th>
+                <th>Summa</th>
+                <th>Ordernummer</th>
+                <th>Orderdatum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--  Laddar in lista med product/antal och pris-->
+            @foreach (var item in Model.Orders) {
+                <tr>
+                    <td>@(item.Product?.ProdName)</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product?.ProdPrice:-</td>
+                    <td>@item.TotalPrice:-</td>
+                    <td>@item.OrderNumber</td>
+                    <td>@item.OrderDate</td>
+                    <form method="post">
+                        <td>
+                            <button class="btn btn-primary" type="submit" asp-page-handler="Download"
+                                    asp-route-id="@item.OrderNumber">Visa Kvitto
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+        <a href="/MyProfile">Tillbaka till profilen</a>
+    </div>
+    <!-- slut på container -->
+
+</div>
+
 
 </body>
 </html>
@@ -73,7 +74,6 @@
     #header-container-ls {
         text-align: center;
     }
-
 
 
     .order-details-ls {
