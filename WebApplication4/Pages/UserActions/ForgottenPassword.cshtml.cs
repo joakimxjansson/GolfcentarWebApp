@@ -22,10 +22,10 @@ namespace WebApplication4.Pages.UserActions
         public string NewPassword { get; set; }
 
         public bool MailRecived { get; set; }
+        public bool SecondMailRecived { get; set; }
 
         public async Task OnPostMailAsync()
         {
-
             MailRecived = true;
             var user = _db.Users.FirstOrDefault(u => u.Email == EmailAddress);
             if (user is not null)
@@ -43,7 +43,8 @@ namespace WebApplication4.Pages.UserActions
         {
             _db.Users.First(u => u.UserId == id).Password = _passwordHasher.Hash(NewPassword);
             await _db.SaveChangesAsync();
-
+            MailRecived = true;
+            SecondMailRecived = true;
             return Page();
         }
     }

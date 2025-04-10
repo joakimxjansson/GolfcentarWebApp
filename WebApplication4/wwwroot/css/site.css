@@ -245,3 +245,35 @@ body {
     width: 2em;
     height: 2em;
 }
+
+/*Mail Start*/
+
+.mail-container {
+    background-color: white;
+    width: 75%;
+    margin-top: 1em;
+    padding: 1em;
+    justify-self: center;
+}
+
+.mail-sender-icon {
+    border-radius: 50%;
+    background-color: #55552b;
+    height: 2em;
+    width: 2em;
+    text-align: center;
+    line-height: 2em;
+    font-size: 1.5em;
+    color: white;
+}
+
+.mail-login-btn {
+    margin-top: 5em;
+    border-radius: 15px;
+    background-color: cornflowerblue;
+    padding: 0.2em 0.4em;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+    text-decoration: none;
+}
