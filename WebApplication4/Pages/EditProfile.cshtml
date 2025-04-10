@@ -3,8 +3,17 @@
 @{
 }
 <div class="edit_form">
-<form method="post" enctype="multipart/form-data">
-    
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div style="color:red">
+            @foreach (var error in ViewData.ModelState[string.Empty].Errors)
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+    <form method="post" enctype="multipart/form-data">
+
         <div class="edit_img">
             <h3>Redigera Profil</h3>
             @if (!string.IsNullOrEmpty(Model.User.UserImage))
@@ -35,8 +44,8 @@
 
             <a href="/MyProfile">Tillbaka till profilen</a>
         </div>
-    
-</form>
+
+    </form>
 </div>
 
 

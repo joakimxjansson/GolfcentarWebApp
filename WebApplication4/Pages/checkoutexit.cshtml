@@ -19,7 +19,15 @@
     
     <h5>Leveranstid: 15 min en kvart.</h5>
 
+
     <a class="viewOrders" asp-page="/displayOrder">Se Mina Ordrar</a> @*Lagt till knapp för att navigera till sidan för sina ordrar - Sandra*@
+
+    <div class="align-content-md-center d-flex justify-content-center">
+        <form method="post">
+            <button class="btn btn-primary" asp-route-id="@Model.OrderNumber" asp-page-handler="Download"> Visa Kvitto </button>
+        </form>
+    </div>
+
 </div>
 
 

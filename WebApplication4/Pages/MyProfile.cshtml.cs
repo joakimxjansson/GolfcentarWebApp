@@ -24,15 +24,21 @@ namespace WebApplication4.Pages
             _userService = userService;
         }
         
-        public void OnGet() {
+        public async Task<IActionResult> OnGetAsync()
+        {
             
             var id = HttpContext.Session.GetInt32("Id");
-            User = _db.Users
+            if (id == null)
+            {
+                return RedirectToPage("/Login");
+            }
+
+            User = await _db.Users
                 .Where(u => u.UserId == id.Value)
                 .Include(u => u.Follower)
-                .Include (u => u.Followee).FirstOrDefault();
-            
-                
+                .Include(u => u.Followee).FirstOrDefaultAsync();
+
+            //hämtar data från userservice      
             Username = _userService.GetUsername(id.Value);
             UserImage = _userService.GetImage(id.Value);
             Saldo = _userService.GetSaldo(id.Value);
@@ -41,7 +47,7 @@ namespace WebApplication4.Pages
             
 
             Message = "Välkommen " + Username + "!";
-
+            return Page();
         }
 
         public IActionResult OnPostEditUsers()

@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Reflection;
 
 namespace WebApplication4.Data;
 
 public class GolfContext : DbContext {
+    private readonly PasswordHasher _passwordHasher = new();
     public GolfContext(DbContextOptions<GolfContext> options) : base(options) {
 
     }
@@ -54,7 +57,123 @@ public class GolfContext : DbContext {
             }
 
         );
-        
+        modelBuilder.Entity<User>().HasData (
+            new User
+            {
+                UserId = 1, Username ="Admin", FirstName ="Nevena",
+                LastName = "Kicanovic",
+                Password =_passwordHasher.Hash("Admin123"),
+                Admin = 1, Email = "admin@test.com",
+                Saldo = 10000,
+                UserImage = "/images/DefaultImage.png"
+            },
+            new User
+            {
+                UserId = 2,
+                Username = "TigerWoods",
+                FirstName = "Tiger", LastName = "Woods",
+                Password = _passwordHasher.Hash("Woods123"), 
+                Admin = 0, 
+                Email = "woods@test.com", 
+                UserImage = "/images/DefaultImage.png",
+                Saldo = 10000
+            }
+        );
+
+        modelBuilder.Entity<Post>().HasData(
+
+            new Post
+            {
+                PostId = 1,
+                Title = "Golf är kul",
+                Content = "Första gången jag och familjen testar Golfcentars banor. Mycket trevlig upplevelse," +
+                "hela familjen hade roligt. Även Olle som inte är direkt intresserad av golf. I och för sig ville han bara" +
+                " gräva med sin spade i bunkern.. Aja godkänd sand från hans håll.",
+                UserId = 2,
+                User = null,
+                PublishDate = new DateTime(2025, 01, 25)
+            },
+            new Post {
+                PostId = 2, Title = "Måsar överallt",
+                Content = "Måsar är inte min grej. De är överallt och skriker. Jag vill bara spela golf i lugn och ro utan att" +
+                " de vanaliserar och snor mina bollar. Jag har till och med fått en mås i ansiktet. Det var inte kul. " +
+                " kanske går att träna på att slå dem med klubban? Jag ska prova nästa gång.",
+                UserId = 1,
+                User = null,
+                PublishDate = new DateTime(2025, 01, 25)
+            }
+        );
+
+        modelBuilder.Entity<Comment>().HasData(
+            new Comment
+            {
+                CommentID = 1,
+                Content = "Håller med, golf är kul!",
+                PostId = 1,
+                UserId = 1,
+                CreatedAt = new DateTime(2025, 01, 25),
+                ReviewId = null,
+                User = null,
+            },
+
+            new Comment
+            {
+                CommentID = 2,
+                Content = "Tråkigt att höra om måsarna! Men tror inte du ska öva med dem sen..",
+                PostId = 2,
+                UserId = 2,
+                CreatedAt = new DateTime(2025, 01, 25),
+                ReviewId = null,
+                User = null,
+            },
+            new Comment
+            {
+                CommentID = 3,
+                Content = "Tråkigt att höra om klubban,kom förbi shoppen så testar vi ut en ny åt dig!  ",
+                PostId = null,
+                UserId = 1,
+                CreatedAt = new DateTime(2025, 01, 25),
+                ReviewId = 2,
+                User = null,
+            },
+
+            new Comment
+            {
+                CommentID = 4,
+                Content = "Härligt!! Såg när du stod och körde med den här om dagen!",
+                PostId = null,
+                UserId = 2,
+                CreatedAt = new DateTime(2025, 01, 28),
+                ReviewId = 1,
+                User = null,
+            }
+
+        );
+
+        modelBuilder.Entity<Review>().HasData(
+            new Review
+            {
+                ReviewId = 1,
+                Content = "Bra golfklubba, rekommenderar den starkt!",
+                Product = null,
+                ProductId = 1,
+                UserId = 1,
+                Date = new DateTime(2025, 01, 25),
+                User = null
+            },
+            new Review
+            {
+                ReviewId = 2,
+                Content = "Inte så bra som jag trott. Känns inte så bra i handen.",
+                Product = null,
+                ProductId = 2,
+                UserId = 2,
+                Date = new DateTime(2025, 01, 25),
+                User = null
+            }
+
+        );
+
         modelBuilder.Entity<Follow>()                                           
             .HasKey(k => new { k.FollowerId, k.FolloweeId });
 
@@ -72,8 +191,10 @@ public class GolfContext : DbContext {
 
 
     }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        //ignorera varningar 
+        optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+    }
     
-        
-    
-
 }
