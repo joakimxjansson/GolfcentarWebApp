@@ -27,7 +27,7 @@ public class GolfContext : DbContext {
                 ProdPrice = 2599, ProdImage = "driver.jpg"
             },
             new Product {
-                ProductId = 2, ProdName = "Golfklubba J�rn", ProdDescription = "Järnklubba i världsklass",
+                ProductId = 2, ProdName = "Golfklubba Järn", ProdDescription = "Järnklubba i världsklass",
                 ProdPrice = 1999, ProdImage = "jarnklubba.jpg"
             },
             new Product {
