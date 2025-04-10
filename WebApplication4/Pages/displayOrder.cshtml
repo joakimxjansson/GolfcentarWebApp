@@ -23,7 +23,7 @@
             
         </div>
         <div id="cart-items-container-ls">
-            <table>
+            <table  class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Produkt</th>
@@ -45,7 +45,11 @@
                             <td>@item.TotalPrice:-</td>
                             <td>@item.OrderNumber</td>
                             <td>@item.OrderDate</td>
-                        </tr>
+                            <form method="post">
+                            <td><button class="btn btn-primary" type="submit" asp-page-handler="Download" asp-route-id="@item.OrderNumber">Visa Kvitto</button></td>
+                            </form>
+                            </tr>
+                        
                     }
 
                 </tbody>

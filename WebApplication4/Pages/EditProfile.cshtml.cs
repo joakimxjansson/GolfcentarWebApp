@@ -51,23 +51,51 @@ namespace WebApplication4.Pages
                 return RedirectToPage("/Login");
             }
 
+            bool usernameExists = _db.Users.Any(u => u.Username == User.Username && u.UserId != userId);
+            if (usernameExists)
+            {
+                ModelState.AddModelError(string.Empty, "Användarnamn är redan upptaget.");
+                return Page();
+            }
+
+            bool emailExists = _db.Users.Any(u => u.Email == User.Email && u.UserId != userId);
+            if (emailExists)
+            {
+                ModelState.AddModelError(string.Empty, "E-postadressen används redan.");
+                return Page();
+            }
             //ändrar & uppdaterar användarens info
             userToUpdate.FirstName = User.FirstName;
             userToUpdate.LastName = User.LastName;
-            userToUpdate.Username = User.Username; 
-            userToUpdate.Email = User.Email; 
-            
+            userToUpdate.Username = User.Username;
+            userToUpdate.Email = User.Email;
+
 
             if (UserImage != null)
             {
+                //ta bort gammal bild från wwwroot ifall den inte används längre
+                if (!string.IsNullOrEmpty(userToUpdate.UserImage) && userToUpdate.UserImage != "/images/DefaultImage.png")
+                {
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", Path.GetFileName(userToUpdate.UserImage));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(UserImage.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
-            using (var stream = new FileStream(filePath, FileMode.Create))
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await UserImage.CopyToAsync(stream);
                 }
 
                 userToUpdate.UserImage = "/images/" + fileName; //ändrar & uppdaterar bilden
+            }
+
+            else
+            {
+                userToUpdate.UserImage = userToUpdate.UserImage;
             }
 
             _db.SaveChanges();

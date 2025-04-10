@@ -289,7 +289,7 @@ header {
     border-radius: 30px;
     background-color: #bbbb77;
     box-shadow: 0 4px 10px #ebebb1;
-    margin: 10px 10px 10px 0px
+    margin: 10px 10px 10px 0px;
 }
 
 .centerd-display {
@@ -301,9 +301,6 @@ header {
 
 .news-text {
     padding: 0 2.5em;
-}
-
-p.news-text {
     font-size: 75%;
 }
 
@@ -321,6 +318,23 @@ img.news-image {
     height: auto;
     border-radius: 25%;
     padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .index-side-of {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    .news-text {
+        padding: 0 1em;
+        font-size: 85%;
+    }
+
+    ul.news-list li {
+        font-size: 85%;
+    }
 }
 
 /* Footer content nedan*/

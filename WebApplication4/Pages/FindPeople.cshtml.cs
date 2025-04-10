@@ -34,11 +34,19 @@ public class FindPeople : PageModel {
     public IActionResult OnPostSearch() {
 
         if (Search != null) {
-            
         
         var search = _context.Users.Where(u => u.Username.Contains(Search));
         Users = search;
-        return Page();
+
+            var currentUserId = HttpContext.Session.GetInt32("Id");
+
+            if (currentUserId != null)
+            {
+                Follow = _context.Follows
+                    .Where(f => f.FollowerId == currentUserId)
+                    .ToList();
+            }
+            return Page();
         }
         Users = _context.Users;
         return RedirectToPage("/FindPeople");
