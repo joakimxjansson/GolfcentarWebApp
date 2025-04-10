@@ -18,7 +18,11 @@
     <h5>Orderdatum: @Model.OrderDate</h5>
     
     <h5>Leveranstid: 15 min en kvart.</h5>
+
+    <a class="viewOrders" asp-page="/displayOrder">Se Mina Ordrar</a> @*Lagt till knapp för att navigera till sidan för sina ordrar - Sandra*@
 </div>
+
+
 
 <style>
     body {
@@ -37,6 +41,7 @@
         text-align: center;
     }
     .order-details {
+        text-align: center;
         margin-top: 50px;
     }
     .order-table {
@@ -59,5 +64,21 @@
     img {
         display: block;
         margin:0 auto;
+    }
+
+    .viewOrders { /* Stil för knapp */
+        align-items: center;
+        text-align: center;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        width: 13em;
+        height: 35px;
+        transition: 0.5s;
+        font-weight: 500;
     }
 </style>

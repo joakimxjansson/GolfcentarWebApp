@@ -1,6 +1,7 @@
 ﻿@page "{id:int}"
 @model WebApplication4.Pages.ProductDetails2Model
 
+
 @{
     ViewData["Title"] = Model.Product.ProdName;
 }
@@ -16,7 +17,16 @@
             <h2 class="proddetail_name">@Model.Product.ProdName</h2>
             <p class="proddetail_description">@Model.Product.ProdDescription</p>
             <p class="proddetail_price">Pris: @Model.Product.ProdPrice kr</p>
-            <button class="addToCart">Lägg till i kundvagn</button>
+            <form method="post" asp-page-handler="AddToCart">
+                <input type="hidden" name="id" value="@Model.Product.ProductId" />
+                <button type="submit" class="addToCart">Lägg till i kundvagn</button>
+            </form>
+            @if (Model.AddedCartItem) //visar knapp Till Checkout när man lagt produkt i kundvagn
+            {
+                <form method="get" asp-page="/Cart/Cart">
+                    <button type="submit" class="goToCheckout">Till Checkout</button>
+                </form>
+            }
             <hr/>
 
             <div class="return_container">
@@ -137,6 +147,20 @@
     }
 
     .addToCart {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        box-shadow: 2px 4px 9px #000000d4, -2px -4px 9px #e5e5cc;
+        width: 13em;
+        height: 35px;
+        transition: 0.5s;
+        font-weight: 500;
+    }
+
+    .goToCheckout {
         background-color: #28a745;
         color: white;
         border: none;

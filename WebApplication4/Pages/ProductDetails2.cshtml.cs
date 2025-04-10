@@ -4,16 +4,20 @@ using WebApplication4;
 using WebApplication4.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.Services;
 
 namespace WebApplication4.Pages
 {
     public class ProductDetails2Model : PageModel
     {
         private readonly GolfContext _db;
+        private readonly CartService _cartService;
 
-        public ProductDetails2Model(GolfContext db)
+        public ProductDetails2Model(GolfContext db, CartService cartService)
         {
             _db = db;
+            _cartService = cartService;
+
         }
 
         [BindProperty]
@@ -22,6 +26,8 @@ namespace WebApplication4.Pages
         public List<Review> Reviews { get; set; } = new(); //list för att visa reviews
 
         public int? CurrentUserId { get; set; } //för att tracka redan inloggad användare
+
+        public bool AddedCartItem { get; set; } //Om produkt lagts till i kundvagn
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Product = await _db.Product
@@ -69,6 +75,38 @@ namespace WebApplication4.Pages
             return RedirectToPage(new { id = id});
 
         }
+
+        //egen OnPostAddToCart för att lägga till i kundvagn på detaljsida utan att skickas tillbaka till template-sidan
+        public IActionResult OnPostAddToCart(int id)
+        {
+            var product = _db.Product.FirstOrDefault(p => p.ProductId == id); //kod taget fr Cart.cshtml.cs
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var cartItem = new CartItems 
+            {
+                Product = product,
+                Quantity = 1,
+                TotalPrice = (int)product.ProdPrice
+            };
+
+            _cartService.AddToCart(cartItem);
+
+            AddedCartItem = true; //produkt har lagts i kundvagn(true)
+
+
+            // Hämtar produkten igen så sidan kan laddas om rätt
+            Product = product;
+            Reviews = _db.Review
+                        .Where(r => r.Product.ProductId == id)
+                        .OrderByDescending(r => r.Date)
+                        .ToList();
+
+            return Page(); // stannar på samma sida!
+        }
+
 
         //metod för att kunna radera egna recensioner 
         public async Task<IActionResult> OnPostDeleteReviewAsync(int reviewId, int productId)

@@ -53,6 +53,7 @@ namespace WebApplication4.Pages.Cart
 
             //Redirect till DisplayProductTemplate f�r att stanna kvar p� sidan ist�llet f�r att hamna i cart
             return RedirectToPage("/DisplayProductTemplate");
+            
         }
     }
 }
