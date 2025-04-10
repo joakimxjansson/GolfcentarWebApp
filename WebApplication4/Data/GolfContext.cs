@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Reflection;
 
 namespace WebApplication4.Data;
@@ -189,6 +190,11 @@ public class GolfContext : DbContext {
             .OnDelete(DeleteBehavior.Restrict);
 
 
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        //ignorera varningar 
+        optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
     }
     
 }
