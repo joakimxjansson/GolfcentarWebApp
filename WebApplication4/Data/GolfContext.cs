@@ -13,7 +13,6 @@ public class GolfContext : DbContext {
     public DbSet<Product> Product { get; set; }
     public DbSet<Order> Order { get; set; }
     public DbSet<Post> Post { get; set; }
-    public DbSet<CartItems> CartItems { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Review> Review { get; set; }
     public DbSet<Follow> Follows { get; set; }

@@ -42,8 +42,13 @@ namespace WebApplication4.Pages {
             }
 
             if (_db.Users.Any(u => u.Username == User.Username)) {
-                Message = "Användernamn är redan i användning";
+                Message = "Användarnamn är redan i användning";
                 return Page(); //Användare finns redan
+            }
+
+            if (_db.Users.Any(u => u.Email == User.Email)) {
+                Message = "Emailadress finns redan i systemet";
+                return Page();
             }
 
             User.Password = _passwordHasher.Hash(User.Password);
