@@ -85,9 +85,12 @@ namespace WebApplication4.Pages {
 
 
             // Hämtar produkten igen så sidan kan laddas om rätt
-            Product = product;
-            Reviews = _db.Review
-                .Where(r => r.Product.ProductId == id)
+            Product = _db.Product
+                .Include(p => p.Reviews)
+                .ThenInclude(r => r.User)
+                .FirstOrDefault(p => p.ProductId == id);
+
+            Reviews = Product.Reviews
                 .OrderByDescending(r => r.Date)
                 .ToList();
 
