@@ -25,6 +25,7 @@ namespace WebApplication4.Pages {
         public bool AddedCartItem { get; set; } //Om produkt lagts till i kundvagn
 
         public async Task<IActionResult> OnGetAsync(int id) {
+          
             Product = await _db.Product
                 .Include(p => p.Reviews) //hämtar reviews relaterad till produkten
                 .ThenInclude(r => r.User) //användaren som skrev reviewen

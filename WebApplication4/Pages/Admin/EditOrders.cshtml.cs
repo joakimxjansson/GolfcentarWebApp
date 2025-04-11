@@ -77,7 +77,7 @@ public class EditOrders : PageModel {
             gfx.DrawString("Produkt(er): ", font, XBrushes.Black, new XPoint(70, 160));
             foreach (var orders in order) {
                 gfx.DrawString(
-                    orders.Product.ProdName + " Pris: " + orders.Product.ProdPrice + ":- inkl moms  (" +
+                    orders.Product.ProdName + " Antal: " + orders.Quantity + "st " + " Pris: " + orders.Product.ProdPrice + ":- inkl moms  (" +
                     orders.Product.ProdPrice / 1.25m + ":- exkl moms)", font, XBrushes.Black, new XPoint(100, y));
                 y += 20;
             }
