@@ -558,10 +558,12 @@ iframe {
     color: #44442a;
     font-weight: 600;
     background-color: #b0b07b;
-    padding: 20px;
+    padding: 50px;
     margin: 5px;
     min-width: 200px;
-    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .kundkorg-knapp {
@@ -650,6 +652,65 @@ iframe {
     width:100%;
     margin-inline:50px;
 }
+
+
+@media screen and (max-width: 768px) {
+    .kundkorg-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .kundkorg-kundkorg,
+    .kundkorg-till-kassa {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 20px;
+    }
+
+    .cartitemsRubrik {
+        font-size: 16px;
+        word-spacing: normal;
+        padding: 8px;
+    }
+
+    .cart-image {
+        width: 100px;
+    }
+
+    .ta-bort-knapp {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+
+    .kundkorg-knapp {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .kundkorg-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .kundkorg-kundkorg {
+        width: 95%;
+    }
+
+    .kundkorg-till-kassa {
+        width: 90%;
+        padding: 30px;
+        margin-top: 10px;
+    }
+}
+
 
 
 /*Kontakt Adam*/
